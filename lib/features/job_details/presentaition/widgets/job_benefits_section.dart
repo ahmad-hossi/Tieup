@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:tieup/constant/custom_icon.dart';
-import 'package:tieup/constant/font_style.dart';
+import 'package:tieup/core/constants/custom_icon.dart';
 import 'package:tieup/constants.dart';
+import 'package:tieup/core/constants/font_style.dart';
 
 class JobBenefitsSection extends StatelessWidget {
    JobBenefitsSection({Key? key}) : super(key: key);

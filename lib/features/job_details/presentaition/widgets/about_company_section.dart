@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tieup/common/widgets/cashedImage.dart';
-import 'package:tieup/common/widgets/clickable_text.dart';
-import 'package:tieup/constant/font_style.dart';
+import 'package:tieup/core/constants/font_style.dart';
+import 'package:tieup/core/widgets/cashedImage.dart';
+import 'package:tieup/core/widgets/clickable_text.dart';
 
 class AboutCompanySection extends StatelessWidget {
   const AboutCompanySection({Key? key}) : super(key: key);

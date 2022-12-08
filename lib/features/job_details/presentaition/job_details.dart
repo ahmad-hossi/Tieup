@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:tieup/common/widgets/default_button.dart';
-import 'package:tieup/constant/custom_icon.dart';
-import 'package:tieup/constant/font_style.dart';
+import 'package:tieup/core/constants/custom_icon.dart';
+import 'package:tieup/core/constants/font_style.dart';
+import 'package:tieup/core/widgets/default_button.dart';
 import 'package:tieup/features/job_details/presentaition/widgets/about_company_section.dart';
 import 'package:tieup/features/job_details/presentaition/widgets/general_section.dart';
 import 'package:tieup/features/job_details/presentaition/widgets/job_benefits_section.dart';

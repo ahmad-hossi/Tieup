@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tieup/common/widgets/company_brief.dart';
-import 'package:tieup/common/widgets/icon_title.dart';
+import 'package:tieup/core/widgets/company_brief.dart';
+import 'package:tieup/core/widgets/icon_title.dart';
 
 class GeneralSection extends StatelessWidget {
   GeneralSection({required this.generalInformation, Key? key})

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tieup/constant/font_style.dart';
+import 'package:tieup/core/constants/font_style.dart';
 import 'package:tieup/constants.dart';
 
 class SkillsSection extends StatelessWidget {
@@ -35,25 +35,23 @@ class SkillsSection extends StatelessWidget {
                 style: CustomFontStyle.titleStyle,
               ),
             ),
-            Expanded(
-              child: Wrap(
-                spacing: 4.w,
-                runSpacing: 4.w,
-                direction: Axis.horizontal,
-                children: List.generate(
-                  skills.length,
-                  (index) => Container(
-                      padding: EdgeInsets.all(8.w),
-                      decoration: BoxDecoration(
-                          border:
-                              Border.all(color: kPrimaryColor, width: 2),
-                          borderRadius: BorderRadius.circular(25.r)),
-                      child: Text(
-                        skills[index],
-                      )
-                      // child: const Center(child: Text('Team work',style: TextStyle(color: Colors.white),)),
-                      ),
-                ),
+            Wrap(
+              spacing: 4.w,
+              runSpacing: 4.w,
+              direction: Axis.horizontal,
+              children: List.generate(
+                skills.length,
+                (index) => Container(
+                    padding: EdgeInsets.all(8.w),
+                    decoration: BoxDecoration(
+                        border:
+                            Border.all(color: kPrimaryColor, width: 2),
+                        borderRadius: BorderRadius.circular(25.r)),
+                    child: Text(
+                      skills[index],
+                    )
+                    // child: const Center(child: Text('Team work',style: TextStyle(color: Colors.white),)),
+                    ),
               ),
             ),
           ],
