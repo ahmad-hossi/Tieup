@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 SizedBox(
                     width: double.infinity,
-                    height: 170,
+                    height: 182.h,
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (_, index) => const JobCard(),
@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 SizedBox(
                     width: double.infinity,
-                    height: 170,
+                    height: 182.h,
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (_, index) => const JobCard(),

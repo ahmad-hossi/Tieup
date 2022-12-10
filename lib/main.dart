@@ -8,6 +8,7 @@ import 'package:tieup/features/authentication/presentation/bloc/authentication_b
 import 'package:tieup/features/authentication/presentation/pages/login/login_screen.dart';
 import 'package:tieup/features/home/presentation/pages/screens/home_screen.dart';
 import 'package:tieup/features/loading/presentation/bloc/loading_cubit.dart';
+import 'package:tieup/features/personal_information/presentation/bloc/personal_information_bloc.dart';
 import 'package:tieup/injection_container.dart';
 import 'package:tieup/routes.dart';
 import 'injection_container.dart' as di;
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
           providers: [
             BlocProvider(create: (_) => sl<AuthenticationBloc>()),
             BlocProvider(create: (_) => sl<LoadingCubit>()),
+            BlocProvider(create: (_) => sl<PersonalInformationBloc>()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -45,9 +47,9 @@ class MyApp extends StatelessWidget {
               //useMaterial3: true,
               // fontFamily: 'Gilroy'
             ),
-            home: HomeScreen(),
-            //routes: routes,
-            //initialRoute: LoginScreen.routeName,
+            //home: HomeScreen(),
+            routes: routes,
+            initialRoute: LoginScreen.routeName,
           ),
         );
       },

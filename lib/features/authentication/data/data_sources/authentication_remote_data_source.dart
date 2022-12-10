@@ -1,6 +1,7 @@
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tieup/core/constants/api_constant.dart';
 import 'package:tieup/core/error/exceptions.dart';
-import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 abstract class AuthenticationRemoteDataSource {
@@ -9,29 +10,23 @@ abstract class AuthenticationRemoteDataSource {
 
 class AuthenticationRemoteDataSourceImpl
     extends AuthenticationRemoteDataSource {
-  final Dio _dio;
-
-  AuthenticationRemoteDataSourceImpl(this._dio);
+  http.Client client;
+  AuthenticationRemoteDataSourceImpl(this.client);
 
   @override
   Future<bool> userLogin(String email, String password) async {
-    print('hiiii');
-    await Future.delayed(Duration(milliseconds: 2500));
+    final prefs = await SharedPreferences.getInstance();
+    Uri url = Uri.parse('$kBaseUrl/user/auth/login');
+    final response = await client.post(url, body: {
+      'email': email,
+      'password': password,
+      'type': 'user',
+    });
 
-    Uri url = Uri.parse(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyANcHN2u0XIqjmDsOizFFLUNTG-UPcSHwk',
-    );
-    final response = await http.post(
-      url,
-      body: json.encode(
-        {
-          'email': email,
-          'password': password,
-          'returnSecureToken': true,
-        },
-      ),
-    );
     if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final token = responseData['data']['access_token'];
+      prefs.setString('token', token);
       print(response.body);
       return true;
     } else if (response.statusCode == 400) {

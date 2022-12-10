@@ -23,6 +23,7 @@ class SkillsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        width: double.infinity,
         color: Colors.white,
         padding: EdgeInsets.all(12.w),
         child: Column(

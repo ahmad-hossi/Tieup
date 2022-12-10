@@ -8,6 +8,7 @@ import 'package:tieup/core/widgets/or_text.dart';
 import 'package:tieup/core/widgets/social_card.dart';
 import 'package:tieup/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tieup/features/authentication/presentation/pages/login/login_form.dart';
+import 'package:tieup/features/home/presentation/pages/screens/home_screen.dart';
 import 'package:tieup/features/loading/presentation/bloc/loading_cubit.dart';
 import 'package:tieup/features/loading/presentation/pages/loading_circle.dart';
 
@@ -60,7 +61,9 @@ class LoginScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 36.h),
                           LoginForm(),
-                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                          BlocConsumer<AuthenticationBloc, AuthenticationState>(
+                            listenWhen: (prev,current)=>current is AuthenticationSuccess,
+                            listener: (_,state)=>Navigator.pushReplacementNamed(context, HomeScreen.routeName),
                             builder: (context, state) {
                               if (state is AuthenticationFailed)
                                 return Text('error');

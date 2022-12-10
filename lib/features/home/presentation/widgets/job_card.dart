@@ -33,7 +33,7 @@ class JobCard extends StatelessWidget {
                 Icon(Icons.save)
               ],
             ),
-            SizedBox(height: 8.h,),
+            //SizedBox(height: 8.h,),
             IconTitle(iconPath: CustomIcons.profile, title: 'location',description: 'Aleppo'),
             Row(
               children: [
