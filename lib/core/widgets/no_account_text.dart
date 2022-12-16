@@ -8,10 +8,12 @@ class NoAccountText extends StatelessWidget {
   const NoAccountText({
     this.text1 = '',
     required this.text2,
+    required this.onTap,
     Key? key,
   }) : super(key: key);
 
   final String text1,text2;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class NoAccountText extends StatelessWidget {
           style: TextStyle(fontSize: 16),
         ),
         GestureDetector(
-          onTap: () => Navigator.pushNamed(context, SignUpScreen.routeName),
+          onTap: onTap,
           child: Text(
             text2,
             style: TextStyle(

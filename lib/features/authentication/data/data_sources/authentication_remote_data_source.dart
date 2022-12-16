@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 
 abstract class AuthenticationRemoteDataSource {
   Future<bool> userLogin(String email, String password);
+  Future<bool> userSignUp(Map<String, dynamic > requestBody);
+
 }
 
 class AuthenticationRemoteDataSourceImpl
@@ -17,20 +19,47 @@ class AuthenticationRemoteDataSourceImpl
   Future<bool> userLogin(String email, String password) async {
     final prefs = await SharedPreferences.getInstance();
     Uri url = Uri.parse('$kBaseUrl/user/auth/login');
-    final response = await client.post(url, body: {
-      'email': email,
-      'password': password,
-      'type': 'user',
-    });
+    try{
+      final response = await client.post(url, body: {
+        'email': email,
+        'password': password,
+        'type': 'user',
+      });
 
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        final token = responseData['data']['token'];
+        prefs.setString('token', token);
+        print(response.body);
+        return true;
+      } else if (response.statusCode == 400) {
+        print(400);
+        throw UnauthorisedException();
+      }
+      return false;
+    }catch(e){
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<bool> userSignUp(Map<String, dynamic> requestBody) async{
+    final prefs = await SharedPreferences.getInstance();
+    Uri url = Uri.parse('$kBaseUrl/user/auth/signUp');
+    final response = await client.post(
+        url,
+        headers: {
+          'Accept': 'application/json',
+        },
+        body: requestBody
+    );
+    print(response.body);
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
-      final token = responseData['data']['access_token'];
+      final token = responseData['data']['token'];
       prefs.setString('token', token);
-      print(response.body);
       return true;
-    } else if (response.statusCode == 400) {
-      print(400);
+    } else if (response.statusCode == 520) {
       throw UnauthorisedException();
     } else {
       throw ServerException();

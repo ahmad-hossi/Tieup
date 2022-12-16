@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tieup/constants.dart';
+import 'package:tieup/features/add_skills/presentation/Bloc/skill_bloc.dart';
 import 'package:tieup/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tieup/features/authentication/presentation/pages/login/login_screen.dart';
+import 'package:tieup/features/experience/presentation/bloc/work_experience_bloc.dart';
 import 'package:tieup/features/home/presentation/pages/screens/home_screen.dart';
+import 'package:tieup/features/languages/presentation/bloc/languages_bloc.dart';
 import 'package:tieup/features/loading/presentation/bloc/loading_cubit.dart';
 import 'package:tieup/features/personal_information/presentation/bloc/personal_information_bloc.dart';
 import 'package:tieup/injection_container.dart';
@@ -32,6 +35,9 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (_) => sl<AuthenticationBloc>()),
             BlocProvider(create: (_) => sl<LoadingCubit>()),
             BlocProvider(create: (_) => sl<PersonalInformationBloc>()),
+            BlocProvider(create: (_) => sl<LanguagesBloc>()),
+            BlocProvider(create: (_) => sl<SkillBloc>()),
+            BlocProvider(create: (_) => sl<WorkExperienceBloc>()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -49,7 +55,7 @@ class MyApp extends StatelessWidget {
             ),
             //home: HomeScreen(),
             routes: routes,
-            initialRoute: LoginScreen.routeName,
+            initialRoute: HomeScreen.routeName,
           ),
         );
       },

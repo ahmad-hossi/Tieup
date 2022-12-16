@@ -24,4 +24,19 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       return const Left(Failure(errorType: ErrorType.serverError));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> signUpUser(Map<String, dynamic> body) async{
+    try{
+      final response = await _remoteDataSource.userSignUp(body);
+      return Right(response);
+    }
+    on UnauthorisedException {
+      print('UnauthorisedException');
+      return const Left(Failure(errorType: ErrorType.unauthorisedError));
+    }
+    on ServerException{
+      return const Left(Failure(errorType: ErrorType.serverError));
+    }
+  }
 }

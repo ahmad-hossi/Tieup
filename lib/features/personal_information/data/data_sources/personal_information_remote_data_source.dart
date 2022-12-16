@@ -23,7 +23,7 @@ class PersonalInformationRemoteDateSourceImpl
     final token = prefs.getString('token');
     final response = await client.get(
       Uri.parse(
-        '$kBaseUrl/user/auth/getProfile',
+        '$kBaseUrl/user/auth/getPersonalInformation',
       ),
       headers: {
         'Accept': 'application/json',
@@ -43,6 +43,7 @@ class PersonalInformationRemoteDateSourceImpl
 
   @override
   Future<PersonalInformationModel> updatePersonalInformation(Map<String, String> body) async{
+    print(body['phone']);
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     var headers = {

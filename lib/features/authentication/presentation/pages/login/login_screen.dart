@@ -8,13 +8,14 @@ import 'package:tieup/core/widgets/or_text.dart';
 import 'package:tieup/core/widgets/social_card.dart';
 import 'package:tieup/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tieup/features/authentication/presentation/pages/login/login_form.dart';
+import 'package:tieup/features/authentication/presentation/pages/sign_up/sign_up_screen.dart';
 import 'package:tieup/features/home/presentation/pages/screens/home_screen.dart';
 import 'package:tieup/features/loading/presentation/bloc/loading_cubit.dart';
 import 'package:tieup/features/loading/presentation/pages/loading_circle.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
   static String routeName = "/Login";
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +63,11 @@ class LoginScreen extends StatelessWidget {
                           SizedBox(height: 36.h),
                           LoginForm(),
                           BlocConsumer<AuthenticationBloc, AuthenticationState>(
-                            listenWhen: (prev,current)=>current is AuthenticationSuccess,
-                            listener: (_,state)=>Navigator.pushReplacementNamed(context, HomeScreen.routeName),
+                            listenWhen: (prev, current) =>
+                                current is AuthenticationSuccess,
+                            listener: (_, state) =>
+                                Navigator.pushReplacementNamed(
+                                    context, HomeScreen.routeName),
                             builder: (context, state) {
                               if (state is AuthenticationFailed)
                                 return Text('error');
@@ -90,8 +94,11 @@ class LoginScreen extends StatelessWidget {
                           ),
                           //SizedBox(height: 36.h),
                           Spacer(flex: 1),
-                          const NoAccountText(
-                              text1: 'New user?', text2: 'Register'),
+                          NoAccountText(
+                              text1: 'New user?',
+                              text2: 'Register',
+                              onTap: () => Navigator.pushNamed(
+                                  context, SignUpScreen.routeName)),
                         ],
                       ),
                     ),

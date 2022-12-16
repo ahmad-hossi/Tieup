@@ -49,6 +49,10 @@ dependencies:
   image_picker: ^0.8.6
   json_annotation: ^4.0.1
   shared_preferences: ^2.0.15
+  flutter_rating_bar: ^4.0.1
+  timelines: ^0.1.0
+  timeline_tile: ^2.0.0
+  percent_indicator: ^4.2.2
 
 
 

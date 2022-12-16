@@ -9,10 +9,11 @@ class DefaultButton extends StatelessWidget {
     Key? key,
     required this.text,
     required this.press,
+    this.isEnable = true,
   }) : super(key: key);
   final String text;
   final Function press;
-
+  final bool isEnable ;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,9 @@ class DefaultButton extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           primary: Colors.white,
-          backgroundColor: kPrimaryColor,
+          backgroundColor: isEnable? kPrimaryColor : Colors.grey,
         ),
-        onPressed: press as void Function(),
+        onPressed: isEnable ? press as void Function() : null,
         child: Text(
           text,
           style: TextStyle(
