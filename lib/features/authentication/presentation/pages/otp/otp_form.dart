@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tieup/core/widgets/default_button.dart';
-import 'package:tieup/features/home/presentation/pages/screens/home_screen.dart';
+import 'package:tieup/features/home/presentation/pages/home_screen.dart';
 
 
 class OtpForm extends StatefulWidget {

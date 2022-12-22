@@ -5,7 +5,16 @@ import 'package:tieup/core/constants/font_style.dart';
 
 
 class CompanyBrief extends StatelessWidget {
-  const CompanyBrief({Key? key}) : super(key: key);
+  final String imageUrl;
+  final String jobTitle;
+  final String companyName;
+  final String subDomainName;
+  const CompanyBrief({
+    required this.jobTitle,
+    required this.companyName,
+    required this.subDomainName,
+    required this.imageUrl,
+    Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,20 +23,20 @@ class CompanyBrief extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Image.asset('assets/images/google_logo.png',
+          Image.network(imageUrl,
             width: 38.w,height: 38.w,),
           SizedBox(width: 8.w,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text('Product Design',style: CustomFontStyle.titleStyle,),
+              Text(jobTitle,style: CustomFontStyle.titleStyle,),
               SizedBox(height: 4.h,),
-              Text('Google'),
+              Text(companyName),
             ],
           ),
-          //Spacer(),
-          Text('Frontend Devloper'),
+          Spacer(),
+          Text(subDomainName),
         ],
       ),
     );

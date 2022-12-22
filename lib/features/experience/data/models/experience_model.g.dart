@@ -16,9 +16,7 @@ ExperienceModel _$ExperienceModelFromJson(Map<String, dynamic> json) {
     subDomainId: json['sub_domain_id'] as int,
     subDomainName: json['subDomain'] as String,
     startDate: json['start_date'] as String,
-    endDate: json['end_date'] == null
-        ? null
-        : json['end_date'] as String,
+    endDate: json['end_date'] as String?,
   );
 }
 

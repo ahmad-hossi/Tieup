@@ -8,15 +8,8 @@ part 'personal_information_model.g.dart';
 @JsonSerializable()
 class PersonalInformationModel extends PersonalInformation {
   final int id;
-  @JsonKey(name: 'fcm_token')
-  final String? fcmToken;
   @JsonKey(name: 'full_name')
   final String fullName;
-  final String email;
-  @JsonKey(name: 'image')
-  final String? imageUrl;
-  @JsonKey(name: 'cover_image')
-  final String? coverImageUrl;
   final String? gender;
   final String phone;
   final DateTime? birthday;
@@ -28,6 +21,8 @@ class PersonalInformationModel extends PersonalInformation {
   final String? summary;
   @JsonKey(name: 'city_id')
   final int? cityId;
+  @JsonKey(name: 'city_name')
+  final String? cityName;
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
   @JsonKey(name: 'updated_at')
@@ -35,42 +30,35 @@ class PersonalInformationModel extends PersonalInformation {
 
   const PersonalInformationModel({
     required this.id,
-    this.fcmToken,
     required this.fullName,
-    required this.email,
-    this.imageUrl,
-    this.coverImageUrl,
     required this.phone,
-    required this.birthday,
-    required this.gender,
+     this.birthday,
+    this.gender,
     this.address,
     required this.openToWork,
     this.militaryService,
     this.summary,
     required this.cityId,
+    this.cityName,
     this.createdAt,
     this.updatedAt,
   }) : super(
             id: id,
             fullName: fullName,
-            birthday: birthday,
-            cityId: cityId,
-            email: email,
-            gender: gender,
-            openToWork: openToWork,
             phone: phone,
-            address: address,
-            coverImageUrl: coverImageUrl,
-            fcmToken: fcmToken,
-            imageUrl: imageUrl,
+            openToWork: openToWork,
+            cityName: cityName,
             militaryService: militaryService,
-            summary: summary);
+            summary: summary,
+            address: address,
+            gender: gender,
+            cityId: cityId,
+            birthday: birthday);
 
-
-  factory PersonalInformationModel.fromJson(Map<String,dynamic> json) =>
+  factory PersonalInformationModel.fromJson(Map<String, dynamic> json) =>
       _$PersonalInformationModelFromJson(json['data']);
 
-  Map<String,dynamic> toJson ()=>_$PersonalInformationModelToJson(this);
+  Map<String, dynamic> toJson() => _$PersonalInformationModelToJson(this);
 
   // factory PersonalInformationModel.fromJson(Map<String, dynamic> json) {
   //   return PersonalInformationModel(

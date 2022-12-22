@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tieup/constants.dart';
 import 'package:tieup/core/constants/custom_icon.dart';
 import 'package:tieup/core/constants/enums.dart';
+import 'package:tieup/features/job/presentation/pages/job_screen.dart';
 import 'package:tieup/features/profile/presentation/pages/profile_screen.dart';
+import 'package:tieup/features/training/presentation/pages/training_screen.dart';
 
 
 class CustomNavBar extends StatelessWidget {
-  CustomNavBar({Key? key, required this.menuState}) : super(key: key);
-  MenuState menuState;
+  const CustomNavBar({Key? key, required this.menuState}) : super(key: key);
+  final MenuState menuState;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 50.h,
       decoration: const BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -20,63 +24,79 @@ class CustomNavBar extends StatelessWidget {
         ],
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset(
-                  CustomIcons.home,
-                  color: kPrimaryColor,
-                ),
+              SvgPicture.asset(
+                CustomIcons.home,
+                color: kPrimaryColor,
+                height: 34.h,
               ),
               Text('Home')
             ],
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset(
+          InkWell(
+            onTap: (){
+              Navigator.pushNamed(context, JobScreen.routeName);
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  CustomIcons.home,
+                  color: kPrimaryColor,
+                  height: 34.h,
+                ),
+                Text('All Jobs')
+              ],
+            ),
+          ),
+          // Column(
+          //   mainAxisSize: MainAxisSize.min,
+          //   children: [
+          //     SvgPicture.asset(
+          //       CustomIcons.job,
+          //       color: kPrimaryColor,
+          //       height: 34.h,
+          //     ),
+          //     Text('Jobs')
+          //   ],
+          // ),
+          InkWell(
+            onTap: (){
+              Navigator.pushNamed(context, TrainingScreen.routeName);
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
                   CustomIcons.job,
                   color: kPrimaryColor,
+                  height: 34.h,
                 ),
-              ),
-              Text('Applied')
-            ],
+                const Text('All Trainings')
+              ],
+            ),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_)=>ProfileScreen()));
-                },
-                icon: SvgPicture.asset(
+          InkWell(
+            onTap: (){
+              Navigator.pushNamed(context, ProfileScreen.routeName);
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
                   CustomIcons.profile,
                   color: kPrimaryColor,
+                  height: 34.h,
                 ),
-              ),
-              Text('Profile')
-            ],
+                Text('Profile')
+              ],
+            ),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset(
-                  CustomIcons.settings,
-                  color: kPrimaryColor,
-                ),
-              ),
-              Text('Settings')
-            ],
-          ),
-
         ],
       ),
     );

@@ -21,7 +21,7 @@ class WorkExperienceRepositoryImpl implements WorkExperienceRepository {
   }
 
   @override
-  Future<Either<Failure, Experience>> addWorkExperience(
+  Future<Either<Failure, bool>> addWorkExperience(
       Map<String, dynamic> body) async {
     try {
       return Right(await remoteDataSource.addWorkExperience(body));

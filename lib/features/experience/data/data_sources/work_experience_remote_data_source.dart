@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 abstract class WorkExperienceRemoteDataSource {
   Future<List<ExperienceModel>> getWorkExperience();
-  Future<ExperienceModel> addWorkExperience(Map<String, dynamic> body);
+  Future<bool> addWorkExperience(Map<String, dynamic> body);
 }
 
 class WorkExperienceRemoteDataSourceImpl
@@ -17,7 +17,6 @@ class WorkExperienceRemoteDataSourceImpl
 
   @override
   Future<List<ExperienceModel>> getWorkExperience() async {
-
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
       final response = await client.get(
@@ -45,8 +44,7 @@ class WorkExperienceRemoteDataSourceImpl
   }
 
   @override
-  Future<ExperienceModel> addWorkExperience(Map<String, dynamic> body) async {
-    print('object');
+  Future<bool> addWorkExperience(Map<String, dynamic> body) async {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
       print(token);
@@ -61,8 +59,7 @@ class WorkExperienceRemoteDataSourceImpl
           body: body,
           );
       if (response.statusCode == 220) {
-        final responseData = json.decode(response.body)['data'];
-        return ExperienceModel.fromJson(responseData);
+        return true;
       } else if (response.statusCode == 401) {
         throw UnauthenticatedException();
       } else {

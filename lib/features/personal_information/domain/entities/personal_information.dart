@@ -2,11 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class PersonalInformation extends Equatable {
   final int id;
-  final String? fcmToken;
   final String fullName;
-  final String email;
-  final String? imageUrl;
-  final String? coverImageUrl;
   final String? gender;
   final String phone;
   final DateTime? birthday;
@@ -15,22 +11,20 @@ class PersonalInformation extends Equatable {
   final String? address;
   final String? summary;
   final int? cityId;
+  final String? cityName;
 
   const PersonalInformation(
       {required this.id,
-       this.fcmToken,
       required this.fullName,
-      required this.email,
-       this.imageUrl,
-       this.coverImageUrl,
-       this.gender,
+      this.gender,
       required this.phone,
-       this.birthday,
+      this.birthday,
       required this.openToWork,
-       this.militaryService,
-       this.address,
-       this.summary,
-       this.cityId});
+      this.militaryService,
+      this.address,
+      this.summary,
+      this.cityName,
+      this.cityId});
 
   @override
   List<Object?> get props => [id];

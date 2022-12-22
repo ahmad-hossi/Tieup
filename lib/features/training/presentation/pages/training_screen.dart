@@ -1,0 +1,108 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:tieup/core/constants/enums.dart';
+import 'package:tieup/core/constants/font_style.dart';
+import 'package:tieup/core/widgets/custom_nav_bar.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:tieup/features/training/presentation/bloc/training_bloc.dart';
+import 'package:tieup/features/training/presentation/widgets/training_card.dart';
+
+
+
+class TrainingScreen extends StatefulWidget {
+  const TrainingScreen({Key? key}) : super(key: key);
+
+  static const String routeName = '/allTraining';
+
+  @override
+  State<TrainingScreen> createState() => _TrainingScreenState();
+}
+
+class _TrainingScreenState extends State<TrainingScreen> {
+  @override
+  void initState() {
+    context.read<TrainingBloc>().add(GetALlTrainingsEvent());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'All Trainings',
+          style: CustomFontStyle.titleStyle.copyWith(fontSize: 18),
+        ),
+        foregroundColor: Colors.black,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset(
+              'assets/icons/search.svg',
+              width: 24.w,
+              height: 24.w,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset(
+              'assets/icons/filter.svg',
+              width: 24.w,
+              height: 24.w,
+            ),
+          ),
+        ],
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
+      bottomNavigationBar: CustomNavBar(
+        menuState: MenuState.settings,
+      ),
+      body: BlocConsumer<TrainingBloc, TrainingState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          if (state is TrainingLoading) {
+            return ListView.separated(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                itemBuilder: (_, index) => Shimmer.fromColors(
+                  baseColor: Colors.grey,
+                  period: Duration(milliseconds: 2000),
+                  highlightColor: Colors.white,
+                  child: Container(
+                        padding: EdgeInsets.all(8.w),
+                        margin: EdgeInsets.symmetric(horizontal: 4.w),
+                        width: 320.w,
+                        height: 150.h,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(4.r)),
+                      ),
+                ),
+                separatorBuilder: (_, index) => SizedBox(
+                      height: 8.h,
+                    ),
+                itemCount: 5);
+          } else if (state is TrainingFailed) {
+            return Text(state.errorMessage);
+          } else if (state is TrainingLoaded) {
+            return ListView.separated(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                itemBuilder: (_, index) => TrainingCard(
+                  trainingInformation: state.trainings[index],
+                ),
+                separatorBuilder: (_, index) => SizedBox(
+                      height: 8.h,
+                    ),
+                itemCount: state.trainings.length);
+          }
+          return Container();
+        },
+      ),
+    );
+  }
+}

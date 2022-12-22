@@ -9,13 +9,15 @@ import 'package:tieup/core/widgets/social_card.dart';
 import 'package:tieup/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tieup/features/authentication/presentation/pages/login/login_form.dart';
 import 'package:tieup/features/authentication/presentation/pages/sign_up/sign_up_screen.dart';
-import 'package:tieup/features/home/presentation/pages/screens/home_screen.dart';
+import 'package:tieup/features/home/presentation/pages/home_screen.dart';
 import 'package:tieup/features/loading/presentation/bloc/loading_cubit.dart';
 import 'package:tieup/features/loading/presentation/pages/loading_circle.dart';
 
 class LoginScreen extends StatelessWidget {
   static String routeName = "/Login";
   const LoginScreen({Key? key}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {

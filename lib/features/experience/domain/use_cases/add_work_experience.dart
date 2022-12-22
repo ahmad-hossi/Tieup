@@ -5,12 +5,12 @@ import 'package:tieup/core/use_cases/use_case.dart';
 import 'package:tieup/features/experience/domain/entities/experience.dart';
 import 'package:tieup/features/experience/domain/repositories/work_experience_repository.dart';
 
-class AddWorkExperience extends UseCase<Experience, WorkExperienceParams> {
+class AddWorkExperience extends UseCase<bool, WorkExperienceParams> {
   WorkExperienceRepository repository;
   AddWorkExperience(this.repository);
 
   @override
-  Future<Either<Failure, Experience>> call(WorkExperienceParams params) async {
+  Future<Either<Failure, bool>> call(WorkExperienceParams params) async {
     return await repository.addWorkExperience(params.toJson());
   }
 }

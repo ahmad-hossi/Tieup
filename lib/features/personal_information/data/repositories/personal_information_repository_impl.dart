@@ -4,6 +4,7 @@ import 'package:tieup/core/error/exceptions.dart';
 import 'package:tieup/core/error/failures.dart';
 import 'package:tieup/features/personal_information/data/data_sources/personal_information_remote_data_source.dart';
 import 'package:tieup/features/personal_information/data/models/personal_information_model.dart';
+import 'package:tieup/features/personal_information/domain/entities/personal_information.dart';
 import 'package:tieup/features/personal_information/domain/repositories/personal_information_repository.dart';
 
 class PersonalInformationRepositoryImpl
@@ -12,7 +13,7 @@ class PersonalInformationRepositoryImpl
   PersonalInformationRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<Either<Failure, PersonalInformationModel>> getPersonalInformation() async {
+  Future<Either<Failure, PersonalInformation>> getPersonalInformation() async {
     try {
       final response = await _remoteDataSource.getPersonalInformation();
       return Right(response);
@@ -25,7 +26,7 @@ class PersonalInformationRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, PersonalInformationModel>> updatePersonalInformation(
+  Future<Either<Failure, PersonalInformation>> updatePersonalInformation(
       PersonalInformationParams params) async{
     try {
       final response = await _remoteDataSource.updatePersonalInformation(params.toMap());

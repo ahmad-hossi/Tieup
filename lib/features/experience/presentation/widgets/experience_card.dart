@@ -85,7 +85,7 @@ class ExperienceCard extends StatelessWidget {
                       child: Text('Job role',
                           style: TextStyle(
                               fontWeight: FontWeight.w500))),
-                  Expanded(flex: 7, child: Text(workExperience.subDomainName ?? 'hello null')),
+                  Expanded(flex: 7, child: Text(workExperience.subDomainName)),
                 ],
               ),
               const SizedBox(
@@ -122,7 +122,7 @@ class ExperienceCard extends StatelessWidget {
             children:  [
               Text(workExperience.startDate.substring(0,7)),
               SizedBox(height: 4,),
-              Text(workExperience.endDate == 'null' ? 'present' : workExperience.endDate!.substring(0,7)),
+              Text(workExperience.endDate == null ? 'present' : workExperience.endDate!.substring(0,7)),
             ],
           ),
         ));

@@ -53,6 +53,8 @@ dependencies:
   timelines: ^0.1.0
   timeline_tile: ^2.0.0
   percent_indicator: ^4.2.2
+  badges: ^2.0.3
+  shimmer: ^2.0.0
 
 
 

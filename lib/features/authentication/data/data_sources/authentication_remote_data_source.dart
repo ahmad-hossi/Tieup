@@ -26,17 +26,20 @@ class AuthenticationRemoteDataSourceImpl
         'type': 'user',
       });
 
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
         final token = responseData['data']['token'];
         prefs.setString('token', token);
-        print(response.body);
         return true;
       } else if (response.statusCode == 400) {
         print(400);
         throw UnauthorisedException();
       }
-      return false;
+      else {
+        throw ServerException();
+      }
     }catch(e){
       throw ServerException();
     }

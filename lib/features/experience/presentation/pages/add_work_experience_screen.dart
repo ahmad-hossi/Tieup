@@ -9,7 +9,6 @@ import 'package:tieup/features/add_skills/domain/entities/sub_domain.dart';
 import 'package:tieup/features/add_skills/presentation/Bloc/skill_bloc.dart';
 import 'package:tieup/features/add_skills/presentation/widgets/add_skills_dialog.dart';
 import 'package:tieup/features/experience/presentation/bloc/work_experience_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class AddWorkExperienceScreen extends StatefulWidget {
   const AddWorkExperienceScreen({Key? key}) : super(key: key);
@@ -35,7 +34,6 @@ class _AddWorkExperienceScreenState extends State<AddWorkExperienceScreen> {
       body: BlocListener<WorkExperienceBloc, WorkExperienceState>(
         listener: (context, state) {
           if (state is WorkExperienceAddedSuccessfully) {
-            print('hi');
             setState(() {
               startDate = '';
               endDate = '';
@@ -44,15 +42,17 @@ class _AddWorkExperienceScreenState extends State<AddWorkExperienceScreen> {
               companyNameController.clear();
               descriptionController.clear();
               Navigator.of(context, rootNavigator: true).pop();
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text("Added Successfully"),
               ));
             });
+            //context.read<WorkExperienceBloc>().add(GetWorkExperienceEvent());
           } else if (state is WorkExperienceLoading) {
             showDialog(
+              useRootNavigator: true,
               barrierDismissible: false,
                 context: context,
-                builder: (_) => Dialog(
+                builder: (_) => const Dialog(
                   insetPadding: EdgeInsets.symmetric(horizontal: 100),
                       child: SizedBox(
                           width: 80,

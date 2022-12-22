@@ -10,11 +10,7 @@ PersonalInformationModel _$PersonalInformationModelFromJson(
     Map<String, dynamic> json) {
   return PersonalInformationModel(
     id: json['id'] as int,
-    fcmToken: json['fcm_token'] as String?,
     fullName: json['full_name'] as String,
-    email: json['email'] as String,
-    imageUrl: json['image'] as String?,
-    coverImageUrl: json['cover_image'] as String?,
     phone: json['phone'] as String,
     birthday: json['birthday'] == null
         ? null
@@ -25,6 +21,7 @@ PersonalInformationModel _$PersonalInformationModelFromJson(
     militaryService: json['military_service'] as String?,
     summary: json['summary'] as String?,
     cityId: json['city_id'] as int?,
+    cityName: json['city_name'] as String?,
     createdAt: json['created_at'] == null
         ? null
         : DateTime.parse(json['created_at'] as String),
@@ -38,11 +35,7 @@ Map<String, dynamic> _$PersonalInformationModelToJson(
         PersonalInformationModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'fcm_token': instance.fcmToken,
       'full_name': instance.fullName,
-      'email': instance.email,
-      'image': instance.imageUrl,
-      'cover_image': instance.coverImageUrl,
       'gender': instance.gender,
       'phone': instance.phone,
       'birthday': instance.birthday?.toIso8601String(),
@@ -51,6 +44,7 @@ Map<String, dynamic> _$PersonalInformationModelToJson(
       'address': instance.address,
       'summary': instance.summary,
       'city_id': instance.cityId,
+      'city_name': instance.cityName,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
     };

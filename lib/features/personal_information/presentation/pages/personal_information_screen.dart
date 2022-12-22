@@ -20,7 +20,7 @@ class PersonalInformationScreen extends StatefulWidget {
 }
 
 class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
-  late TextEditingController nameController;
+
 
   @override
   void initState() {
@@ -29,31 +29,31 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   }
 
   TextEditingController addressController = TextEditingController();
-  //TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController summaryController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   String birthday = '';
-  String? selectedCity;
+  int? selectedCityId;
   Gender? selectedGender;
   bool openToWork = false;
-  String fullName = '';
-  String phoneNumber = '';
 
-  DropdownButton<String> dropDown() {
-    List<DropdownMenuItem<String>> dropDownItems = [];
-    for (String city in cities) {
-      var item = DropdownMenuItem(value: city, child: Text(city));
+  DropdownButton<int> dropDown() {
+    List<DropdownMenuItem<int>> dropDownItems = [];
+    for (int i = 0 ; i < cities.length ; i++) {
+      var item = DropdownMenuItem(value: i, child: Text(cities[i]));
       dropDownItems.add(item);
     }
-    return DropdownButton<String>(
+    return DropdownButton<int>(
       isExpanded: true,
       //itemHeight: 65.0,
       // isExpanded: true ,
       // hint: Text('chose city',),
-      value: selectedCity,
+      value: selectedCityId,
       items: dropDownItems,
       onChanged: (value) {
         setState(() {
-          selectedCity = value!;
+          selectedCityId = value!;
         });
       },
     );
@@ -65,16 +65,33 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       appBar: AppBar(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
-        child: BlocBuilder<PersonalInformationBloc, PersonalInformationState>(
+        child: BlocConsumer<PersonalInformationBloc, PersonalInformationState>(
+          listener: (_,state){
+            if(state is PersonalInformationLoaded){
+              nameController.text =  state.personalInformation.fullName;
+              addressController.text = state.personalInformation.address ?? '';
+              phoneController.text = state.personalInformation.phone ;
+              nameController.text = state.personalInformation.fullName;
+              selectedCityId = state.personalInformation.cityId;
+              birthday = (state.personalInformation.birthday.toString() == 'null' ? ' ' :
+              state.personalInformation.birthday.toString());
+              if(state.personalInformation.gender != null){
+                if(state.personalInformation.gender == 'male'){
+                  selectedGender = Gender.male;
+                }else{
+                  selectedGender = Gender.female;
+                }
+              }
+              openToWork = state.personalInformation.openToWork == 1? true : false;
+              summaryController.text = state.personalInformation.summary ?? '';
+            }
+          },
           builder: (context, state) {
             if (state is PersonalInformationLoading) {
               return const CircularProgressIndicator();
             } else if (state is PersonalInformationFailed) {
               return Text(state.errorMessage);
             } else if (state is PersonalInformationLoaded) {
-              nameController = TextEditingController(
-                  text: state.personalInformation.fullName);
-              addressController.text = state.personalInformation.address ?? '';
               return Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -131,12 +148,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                             height: 8.h,
                           ),
                           TextFormField(
-                            //controller: nameController,
+                            controller: phoneController,
                             keyboardType: TextInputType.phone,
-                            initialValue: state.personalInformation.phone,
-                            onChanged: (newValue) => setState(() {
-                              phoneNumber = newValue;
-                            }),
                             //validator: (value) {},
                             decoration: const InputDecoration(
                               labelText: "phone number",
@@ -270,20 +283,17 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                                   }),
                             ],
                           ),
+                          //todo : add military service section
                           //military  service
                           SizedBox(
                             height: 8.h,
                           ),
                           TextFormField(
-                            controller: nameController,
+                            controller: summaryController,
                             keyboardType: TextInputType.text,
-                            //onSaved: (newValue) => email = newValue ?? '',
                             //validator: (value) {},
                             decoration: const InputDecoration(
                               labelText: "Summary",
-                              //hintText: "Enter your email",
-                              // If  you are using latest version of flutter then lable text and hint text shown like this
-                              // if you r using flutter less then 1.20.* then maybe this is not working properly
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.always,
                               //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
@@ -298,14 +308,26 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     child: DefaultButton(
                         text: 'Save',
                         press: () {
-                          print(fullName);
-                          print(phoneNumber);
+                          print(nameController.text);
+                          print(phoneController.text);
+                          print(birthday);
+                          print(selectedCityId);
+                          print(selectedGender.toString().substring(7));
+                          print(addressController.text);
+                          print(summaryController.text);
+                          print(openToWork);
                           context.read<PersonalInformationBloc>().add(
                                   UpdatePersonalInformationEvent(
                                       personalInformationParams:
                                           PersonalInformationParams(
                                 fullName: nameController.text,
-                                phoneNumber: phoneNumber,
+                                phoneNumber: phoneController.text,
+                                birthday: birthday,
+                                cityId: selectedCityId,
+                                gender: selectedGender?.toString().substring(7),
+                                address: addressController.text,
+                                summary: summaryController.text,
+                                //openToWork: int.parse(openToWork.toString()),
                               )));
                         }),
                   )
