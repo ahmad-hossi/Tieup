@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tieup/size_config.dart';
 
-
 const kPrimaryColor = Color(0xFF3E58CC);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
@@ -26,18 +25,20 @@ const defaultDuration = Duration(milliseconds: 250);
 const List<String> cities = [
   'Aleppo',
   'Damascus',
-  'اللاذقية',
-  'حمص',
-  'حماة',
-  'طرطوس',
-  'ادلب',
-  'دير الزور',
+  'Rif Dimashq',
+  'Hama',
+  'Homs',
+  'Idlib',
+  'Tartus',
+  'Latakia',
   'الحسكة',
   'الرقة',
   'درعا',
   'القنيطرة',
   'السويداء'
 ];
+
+const List<String> militaryService = ['finished', 'postponed', 'in service'];
 // Form Error
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -63,4 +64,18 @@ OutlineInputBorder outlineInputBorder() {
     borderRadius: BorderRadius.circular(getProportionateScreenWidth(15)),
     borderSide: BorderSide(color: kTextColor),
   );
+}
+
+Future<dynamic> buildLoadingDialog(BuildContext context) {
+  return showDialog(
+      useRootNavigator: true,
+      barrierDismissible: false,
+      context: context,
+      builder: (_) => const Dialog(
+        insetPadding: EdgeInsets.symmetric(horizontal: 100),
+        child: SizedBox(
+            width: 80,
+            height: 80,
+            child: Center(child: CircularProgressIndicator(color: kPrimaryColor,))),
+      ));
 }

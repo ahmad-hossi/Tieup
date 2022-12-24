@@ -5,7 +5,7 @@ class PersonalInformation extends Equatable {
   final String fullName;
   final String? gender;
   final String phone;
-  final DateTime? birthday;
+  final String? birthday;
   final int openToWork;
   final String? militaryService;
   final String? address;

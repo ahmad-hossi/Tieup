@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:tieup/constants.dart';
 import 'package:tieup/core/entities/work_experience_params.dart';
 import 'package:tieup/core/widgets/default_button.dart';
 import 'package:tieup/features/add_skills/domain/entities/sub_domain.dart';
@@ -48,17 +49,7 @@ class _AddWorkExperienceScreenState extends State<AddWorkExperienceScreen> {
             });
             //context.read<WorkExperienceBloc>().add(GetWorkExperienceEvent());
           } else if (state is WorkExperienceLoading) {
-            showDialog(
-              useRootNavigator: true,
-              barrierDismissible: false,
-                context: context,
-                builder: (_) => const Dialog(
-                  insetPadding: EdgeInsets.symmetric(horizontal: 100),
-                      child: SizedBox(
-                          width: 80,
-                          height: 80,
-                          child: Center(child: CircularProgressIndicator())),
-                    ));
+            buildLoadingDialog(context);
           }
         },
         child: SingleChildScrollView(
@@ -211,4 +202,6 @@ class _AddWorkExperienceScreenState extends State<AddWorkExperienceScreen> {
       ),
     );
   }
+
+
 }

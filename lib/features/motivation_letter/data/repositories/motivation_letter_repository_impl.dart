@@ -24,9 +24,16 @@ class MotivationLetterRepositoryImpl implements MotivationLetterRepository{
   }
 
   @override
-  Future<Either<Failure, String>> updateMotivationLetter(String text) {
-    // TODO: implement updateMotivationLetter
-    throw UnimplementedError();
+  Future<Either<Failure, String>> updateMotivationLetter(String text) async{
+    try {
+      final response = await _remoteDataSource.updateMotivationLetter(text);
+      return Right(response);
+    } on UnauthenticatedException {
+      print('UnauthorisedException');
+      return const Left(Failure(errorType: ErrorType.unauthenticated));
+    } on ServerException {
+      return const Left(Failure(errorType: ErrorType.serverError));
+    }
   }
 
 }

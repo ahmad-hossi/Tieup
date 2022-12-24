@@ -6,7 +6,9 @@ import 'package:tieup/features/experience/presentation/pages/experience_screen.d
 import 'package:tieup/features/home/presentation/pages/home_screen.dart';
 import 'package:tieup/features/job/presentation/pages/fav_jobs_screen.dart';
 import 'package:tieup/features/job/presentation/pages/job_screen.dart';
+import 'package:tieup/features/motivation_letter/presentation/pages/Motivation_letter_screen.dart';
 import 'package:tieup/features/personal_information/presentation/pages/personal_information_screen.dart';
+import 'package:tieup/features/portfolio/presentation/pages/portfolio_screen.dart';
 import 'package:tieup/features/profile/presentation/pages/profile_screen.dart';
 import 'package:tieup/features/training/presentation/pages/fav_Trainings_screen.dart';
 import 'package:tieup/features/training/presentation/pages/training_screen.dart';
@@ -27,4 +29,6 @@ final Map<String, WidgetBuilder> routes = {
   TrainingDetailScreen.routeName: (context) =>  TrainingDetailScreen(),
   FavJobsScreen.routeName: (context) =>  const FavJobsScreen(),
   FavTrainingsScreen.routeName: (context) =>  const FavTrainingsScreen(),
+  MotivationLetterScreen.routeName: (context) =>  const MotivationLetterScreen(),
+  PortfolioScreen.routeName: (context) =>  const PortfolioScreen(),
 };

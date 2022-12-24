@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tieup/core/constants/api_constant.dart';
@@ -43,6 +42,7 @@ class PersonalInformationRemoteDateSourceImpl
 
   @override
   Future<PersonalInformationModel> updatePersonalInformation(Map<String, String> body) async{
+    print('hello00');
     print(body);
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
@@ -50,7 +50,6 @@ class PersonalInformationRemoteDateSourceImpl
     'Accept': 'application/json',
     'Authorization': 'Bearer $token',
     };
-
     final response = await client.post(
       Uri.parse(
         '$kBaseUrl/user/auth/update/personal/information',
@@ -61,7 +60,7 @@ class PersonalInformationRemoteDateSourceImpl
     print(response.body);
     print(response.statusCode);
     if(response.statusCode == 240){
-      return PersonalInformationModel.fromJson(json.decode(response.body));
+      return await getPersonalInformation();
     }
     else if(response.statusCode == 401) {
       throw UnauthenticatedException();

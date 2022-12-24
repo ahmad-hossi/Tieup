@@ -10,7 +10,7 @@ class PersonalInformationParams {
   int? cityId;
   String? gender;
   String? birthday;
-  int? openToWork;
+  bool openToWork;
   String? militaryService;
   String? summary;
 
@@ -22,7 +22,7 @@ class PersonalInformationParams {
       this.cityId,
       this.gender,
       this.birthday,
-      this.openToWork,
+      required this.openToWork,
       this.militaryService,
       this.summary});
 
@@ -33,7 +33,7 @@ class PersonalInformationParams {
       'city_id' : cityId == null ? '' : cityId.toString() ,
       'gender' : gender == null ? '' : gender.toString(),
       'birthday' : birthday == null ? '' : birthday.toString(),
-      'open_to_work' : openToWork == null ? '0' : '1',
+      'open_to_work' : openToWork ? '1' : '0',
       'military_service' :militaryService == null ? '':militaryService.toString(),
       'address':address == null ? '' : address.toString(),
       'summary':summary == null ? '' : summary.toString(),

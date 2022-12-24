@@ -33,7 +33,9 @@ class PersonalInformationBloc
       emit(PersonalInformationLoading());
       final eitherResponse =
           await updatePersonalInformation(event.personalInformationParams);
-      print(eitherResponse);
+      if(eitherResponse.isRight()){
+        emit(PersonalInformationUpdatedSuccessfully());
+      }
       emit(eitherResponse.fold((failure) => PersonalInformationFailed(errorMessage: 'error'),
            (personalInformation) => PersonalInformationLoaded(
                personalInformation: personalInformation)));

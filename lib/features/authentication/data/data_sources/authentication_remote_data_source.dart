@@ -18,7 +18,7 @@ class AuthenticationRemoteDataSourceImpl
   @override
   Future<bool> userLogin(String email, String password) async {
     final prefs = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('$kBaseUrl/user/auth/login');
+    Uri url = Uri.parse('$kBaseUrl/api/auth/login');
     try{
       final response = await client.post(url, body: {
         'email': email,
@@ -48,7 +48,7 @@ class AuthenticationRemoteDataSourceImpl
   @override
   Future<bool> userSignUp(Map<String, dynamic> requestBody) async{
     final prefs = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('$kBaseUrl/user/auth/signUp');
+    Uri url = Uri.parse('$kBaseUrl/api/auth/signUp');
     final response = await client.post(
         url,
         headers: {

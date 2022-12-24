@@ -10,6 +10,8 @@ import 'package:tieup/features/languages/presentation/bloc/languages_bloc.dart';
 class LanguagesScreen extends StatefulWidget {
   const LanguagesScreen({Key? key}) : super(key: key);
 
+  static const routeName = '/profile/languages';
+
   @override
   State<LanguagesScreen> createState() => _LanguagesScreenScreenState();
 }

@@ -14,3 +14,5 @@ class PersonalInformationFailed extends PersonalInformationState {
    final String errorMessage;
    PersonalInformationFailed({required this.errorMessage});
 }
+
+class PersonalInformationUpdatedSuccessfully extends PersonalInformationState {}

@@ -14,6 +14,10 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:tieup/features/authentication/domain/use_cases/signUp_user.dart';
 import 'package:tieup/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:tieup/features/company/data/data_sources/company_remote_data_source.dart';
+import 'package:tieup/features/company/data/repositories/company_repository_impl.dart';
+import 'package:tieup/features/company/domain/repositories/company_repository.dart';
+import 'package:tieup/features/company/domain/use_cases/get_all_companies.dart';
 import 'package:tieup/features/course/data/data_sources/course_remote_Data_source.dart';
 import 'package:tieup/features/course/data/repositories/course_repository_impl.dart';
 import 'package:tieup/features/course/domain/repositories/course_repository.dart';
@@ -25,6 +29,7 @@ import 'package:tieup/features/experience/domain/repositories/work_experience_re
 import 'package:tieup/features/experience/domain/use_cases/add_work_experience.dart';
 import 'package:tieup/features/experience/domain/use_cases/get_work_experience.dart';
 import 'package:tieup/features/experience/presentation/bloc/work_experience_bloc.dart';
+import 'package:tieup/features/home/presentation/bloc/home_bloc.dart';
 import 'package:tieup/features/job/data/data_sources/job_remote_data_source.dart';
 import 'package:tieup/features/job/data/repositories/job_repository_impl.dart';
 import 'package:tieup/features/job/domain/repositories/job_repository.dart';
@@ -43,13 +48,24 @@ import 'package:tieup/features/languages/domain/use_cases/get_languages.dart';
 import 'package:tieup/features/languages/domain/use_cases/update_languages.dart';
 import 'package:tieup/features/languages/presentation/bloc/languages_bloc.dart';
 import 'package:tieup/features/loading/presentation/bloc/loading_cubit.dart';
+import 'package:tieup/features/motivation_letter/data/data_sources/motivation_letter_remote_data_source.dart';
+import 'package:tieup/features/motivation_letter/data/repositories/motivation_letter_repository_impl.dart';
+import 'package:tieup/features/motivation_letter/domain/repositories/motivation_letter_repository.dart';
+import 'package:tieup/features/motivation_letter/domain/use_cases/get_motivation_letter.dart';
+import 'package:tieup/features/motivation_letter/domain/use_cases/update_motivation_letter.dart';
+import 'package:tieup/features/motivation_letter/presentation/bloc/motivation_letter_bloc.dart';
 import 'package:tieup/features/personal_information/data/data_sources/personal_information_remote_data_source.dart';
 import 'package:tieup/features/personal_information/data/repositories/personal_information_repository_impl.dart';
 import 'package:tieup/features/personal_information/domain/repositories/personal_information_repository.dart';
-
 import 'package:tieup/features/personal_information/domain/use_cases/get_personal_information.dart';
 import 'package:tieup/features/personal_information/domain/use_cases/update_personal_information.dart';
 import 'package:tieup/features/personal_information/presentation/bloc/personal_information_bloc.dart';
+import 'package:tieup/features/portfolio/data/data_sources/portfolio_repository_remote_data_source.dart';
+import 'package:tieup/features/portfolio/data/repositories/portfolio_repository_impl.dart';
+import 'package:tieup/features/portfolio/domain/repositories/portfolio_repository.dart';
+import 'package:tieup/features/portfolio/domain/use_cases/get_user_portfolio.dart';
+import 'package:tieup/features/portfolio/domain/use_cases/update_user_portfolio.dart';
+import 'package:tieup/features/portfolio/presentation/bloc/portfolio_bloc.dart';
 import 'package:tieup/features/training/data/data_sources/training_remote_data_source.dart';
 import 'package:tieup/features/training/data/repositories/training_repository_impl.dart';
 import 'package:tieup/features/training/domain/repositories/training_repository.dart';
@@ -91,6 +107,15 @@ Future init() async {
           () => TrainingBloc(getTrainings: sl(),getFavTrainings: sl()));
   sl.registerFactory(
           () => TrainingDetailBloc(getTrainingDetail: sl()));
+  sl.registerFactory(
+          () => HomeBloc(getCompanies: sl()));
+  sl.registerFactory(() => MotivationLetterBloc(
+    getMotivationLetter: sl(),updateMotivationLetter: sl()
+  ));
+  sl.registerFactory(() => PortfolioBloc(
+   getUserPortfolio: sl(),
+   updateUserPortfolio: sl()
+  ));
 
   // use cases
   sl.registerLazySingleton(() => LoginUser(sl()));
@@ -111,6 +136,11 @@ Future init() async {
   sl.registerLazySingleton(() => GetTrainings(sl()));
   sl.registerLazySingleton(() => GetJobDetail(sl()));
   sl.registerLazySingleton(() => GetTrainingDetail(sl()));
+  sl.registerLazySingleton(() => GetAllCompanies(sl()));
+  sl.registerLazySingleton(() => GetMotivationLetter(sl()));
+  sl.registerLazySingleton(() => UpdateMotivationLetter(sl()));
+  sl.registerLazySingleton(() => GetUserPortfolio(sl()));
+  sl.registerLazySingleton(() => UpdateUserPortfolio(sl()));
 
   // Data sources
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -133,6 +163,12 @@ Future init() async {
           () => JobDetailRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<TrainingDetailRemoteDataSource>(
           () => TrainingDetailRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<CompanyRemoteDataSource>(
+          () => CompanyRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<MotivationLetterRemoteDataSource>(
+          () => MotivationLetterRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<PortfolioRemoteDataSource>(
+          () => PortfolioRemoteDataSourceImpl(sl()));
 
   // Repository
   sl.registerLazySingleton<AuthenticationRepository>(
@@ -148,6 +184,9 @@ Future init() async {
   sl.registerLazySingleton<TrainingRepository>(() => TrainingRepositoryImpl(sl()));
   sl.registerLazySingleton<JobDetailRepository>(() => JobDetailRepositoryImpl(sl()));
   sl.registerLazySingleton<TrainingDetailRepository>(() => TrainingDetailRepositoryImpl(sl()));
+  sl.registerLazySingleton<CompanyRepository>(() => CompanyRepositoryImpl(sl()));
+  sl.registerLazySingleton<MotivationLetterRepository>(() => MotivationLetterRepositoryImpl(sl()));
+  sl.registerLazySingleton<PortfolioRepository>(() => PortfolioRepositoryImpl(sl()));
 
   // core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));

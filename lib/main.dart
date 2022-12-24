@@ -8,12 +8,15 @@ import 'package:tieup/features/authentication/presentation/bloc/authentication_b
 import 'package:tieup/features/authentication/presentation/pages/login/login_screen.dart';
 import 'package:tieup/features/course/presentation/bloc/course_bloc.dart';
 import 'package:tieup/features/experience/presentation/bloc/work_experience_bloc.dart';
+import 'package:tieup/features/home/presentation/bloc/home_bloc.dart';
 import 'package:tieup/features/home/presentation/pages/home_screen.dart';
 import 'package:tieup/features/job/presentation/bloc/job_bloc.dart';
 import 'package:tieup/features/job_detail/presentation/bloc/job_detail_bloc.dart';
 import 'package:tieup/features/languages/presentation/bloc/languages_bloc.dart';
 import 'package:tieup/features/loading/presentation/bloc/loading_cubit.dart';
+import 'package:tieup/features/motivation_letter/presentation/bloc/motivation_letter_bloc.dart';
 import 'package:tieup/features/personal_information/presentation/bloc/personal_information_bloc.dart';
+import 'package:tieup/features/portfolio/presentation/bloc/portfolio_bloc.dart';
 import 'package:tieup/features/training/presentation/bloc/training_bloc.dart';
 import 'package:tieup/features/training_detail/presentation/bloc/training_detail_bloc.dart';
 import 'package:tieup/injection_container.dart';
@@ -47,6 +50,9 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (_) => sl<TrainingBloc>()),
             BlocProvider(create: (_) => sl<JobDetailBloc>()),
             BlocProvider(create: (_) => sl<TrainingDetailBloc>()),
+            BlocProvider(create: (_) => sl<HomeBloc>()),
+            BlocProvider(create: (_) => sl<MotivationLetterBloc>()),
+            BlocProvider(create: (_) => sl<PortfolioBloc>()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

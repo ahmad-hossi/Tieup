@@ -12,7 +12,7 @@ class PersonalInformationModel extends PersonalInformation {
   final String fullName;
   final String? gender;
   final String phone;
-  final DateTime? birthday;
+  final String? birthday;
   @JsonKey(name: 'open_to_work')
   final int openToWork;
   @JsonKey(name: 'military_service')

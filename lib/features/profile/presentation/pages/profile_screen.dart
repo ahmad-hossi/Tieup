@@ -5,7 +5,10 @@ import 'package:tieup/constants.dart';
 import 'package:tieup/features/course/presentation/pages/courses_screen.dart';
 import 'package:tieup/features/experience/presentation/pages/experience_screen.dart';
 import 'package:tieup/features/job/presentation/pages/fav_jobs_screen.dart';
+import 'package:tieup/features/languages/presentation/pages/languages_screen.dart';
+import 'package:tieup/features/motivation_letter/presentation/pages/Motivation_letter_screen.dart';
 import 'package:tieup/features/personal_information/presentation/pages/personal_information_screen.dart';
+import 'package:tieup/features/portfolio/presentation/pages/portfolio_screen.dart';
 import 'package:tieup/features/profile/presentation/widgets/profile_card.dart';
 import 'package:tieup/features/profile/presentation/widgets/profile_pic.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -52,13 +55,14 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       Container(
                         //color: Colors.red,
-                        padding: EdgeInsets.fromLTRB(10.w,0,0,8.h),
+                        padding: EdgeInsets.fromLTRB(10.w, 0, 0, 8.h),
                         height: 48.h,
                         width: double.infinity,
                         child: Center(
                           child: Text(
                             'Ahmad Hossi',
-                            style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w400),
                           ),
                         ),
                       ),
@@ -129,7 +133,9 @@ class ProfileScreen extends StatelessWidget {
                               ' Always seeking new challenges and opportunities to learn and grow.',
                               style: TextStyle(color: Colors.grey),
                             ),
-                            SizedBox(height: 8.h,)
+                            SizedBox(
+                              height: 8.h,
+                            )
                           ],
                         ),
                       ),
@@ -160,24 +166,24 @@ class ProfileScreen extends StatelessWidget {
               padding: EdgeInsets.all(8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children:  [
+                children: [
                   const Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text('Profile Strength',
-                      style: TextStyle(fontWeight: FontWeight.w500),),
+                    child: Text(
+                      'Profile Strength',
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    ),
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       LinearPercentIndicator(
-                        linearGradient: const LinearGradient(
-                            colors: [
-                              Color(0xFF8BBDFA),
-                              //Colors.lightBlueAccent,
-                             // Colors.blue,
-                              kPrimaryColor
-                            ]
-                        ),
+                        linearGradient: const LinearGradient(colors: [
+                          Color(0xFF8BBDFA),
+                          //Colors.lightBlueAccent,
+                          // Colors.blue,
+                          kPrimaryColor
+                        ]),
                         width: 300.w,
                         lineHeight: 6.0,
                         percent: 0.8,
@@ -190,80 +196,95 @@ class ProfileScreen extends StatelessWidget {
                           border: Border.all(color: Colors.grey),
                           borderRadius: BorderRadius.circular(4.r),
                         ),
-                        child: Text('80%',style: TextStyle(fontWeight: FontWeight.w500),),
+                        child: Text(
+                          '80%',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 6.w,)
+                  SizedBox(
+                    height: 6.w,
+                  )
                 ],
               ),
             ),
             SizedBox(
               height: 8.h,
             ),
-            const ProfileCard(title: 'Personal Information',
+            const ProfileCard(
+                title: 'Personal Information',
                 svgIcon: 'assets/icons/personal-information.svg',
                 routeName: PersonalInformationScreen.routeName),
             SizedBox(
               height: 8.h,
             ),
-            const ProfileCard(title: 'Portfolio',
-                svgIcon: 'assets/icons/personal-information.svg',
+            const ProfileCard(
+              title: 'Portfolio',
+              svgIcon: 'assets/icons/personal-information.svg',
+              routeName: PortfolioScreen.routeName,
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            const ProfileCard(
+              title: 'Languages',
+              svgIcon: 'assets/icons/language.svg',
+              routeName: LanguagesScreen.routeName,
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            const ProfileCard(
+              title: 'Education',
+              svgIcon: 'assets/icons/personal-information.svg',
               routeName: PersonalInformationScreen.routeName,
             ),
             SizedBox(
               height: 8.h,
             ),
-            const ProfileCard(title: 'Languages',
-                svgIcon: 'assets/icons/language.svg',
-              routeName: PersonalInformationScreen.routeName,
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
-            const ProfileCard(title: 'Education',
-                svgIcon: 'assets/icons/personal-information.svg',
-              routeName: PersonalInformationScreen.routeName,
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
-            const ProfileCard(title: 'Work Experience',
-                svgIcon: 'assets/icons/personal-information.svg',
+            const ProfileCard(
+              title: 'Work Experience',
+              svgIcon: 'assets/icons/personal-information.svg',
               routeName: ExperienceScreen.routeName,
             ),
             SizedBox(
               height: 8.h,
             ),
-            const ProfileCard(title: 'Skills',
-                svgIcon: 'assets/icons/personal-information.svg',
+            const ProfileCard(
+              title: 'Skills',
+              svgIcon: 'assets/icons/personal-information.svg',
               routeName: PersonalInformationScreen.routeName,
             ),
             SizedBox(
               height: 8.h,
             ),
-            const ProfileCard(title: 'Courses & Certificates',
+            const ProfileCard(
+              title: 'Courses & Certificates',
               svgIcon: 'assets/icons/personal-information.svg',
               routeName: CoursesScreen.routeName,
             ),
             SizedBox(
               height: 8.h,
             ),
-            const ProfileCard(title: 'Cover Letter',
-                svgIcon: 'assets/icons/personal-information.svg',
-              routeName: PersonalInformationScreen.routeName,
+            const ProfileCard(
+              title: 'Cover Letter',
+              svgIcon: 'assets/icons/personal-information.svg',
+              routeName: MotivationLetterScreen.routeName,
             ),
             SizedBox(
               height: 8.h,
             ),
-            const ProfileCard(title: 'Favourite Jobs',
+            const ProfileCard(
+              title: 'Favourite Jobs',
               svgIcon: 'assets/icons/personal-information.svg',
               routeName: FavJobsScreen.routeName,
             ),
             SizedBox(
               height: 8.h,
             ),
-            const ProfileCard(title: 'Favourite Trainings',
+            const ProfileCard(
+              title: 'Favourite Trainings',
               svgIcon: 'assets/icons/personal-information.svg',
               routeName: FavJobsScreen.routeName,
             ),
@@ -276,5 +297,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-
-

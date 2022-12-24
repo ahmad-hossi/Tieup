@@ -20,8 +20,6 @@ class PersonalInformationScreen extends StatefulWidget {
 }
 
 class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
-
-
   @override
   void initState() {
     context.read<PersonalInformationBloc>().add(GetPersonalInformationEvent());
@@ -37,18 +35,17 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   int? selectedCityId;
   Gender? selectedGender;
   bool openToWork = false;
+  String? selectedMilitaryService;
 
-  DropdownButton<int> dropDown() {
+  DropdownButton<int> citiesDropDown() {
     List<DropdownMenuItem<int>> dropDownItems = [];
-    for (int i = 0 ; i < cities.length ; i++) {
+    for (int i = 0; i < cities.length; i++) {
       var item = DropdownMenuItem(value: i, child: Text(cities[i]));
       dropDownItems.add(item);
     }
     return DropdownButton<int>(
+      alignment: Alignment.center,
       isExpanded: true,
-      //itemHeight: 65.0,
-      // isExpanded: true ,
-      // hint: Text('chose city',),
       value: selectedCityId,
       items: dropDownItems,
       onChanged: (value) {
@@ -59,72 +56,89 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     );
   }
 
+  DropdownButton<String> militaryServiceDropDown() {
+    List<DropdownMenuItem<String>> dropDownItems = [];
+    for (int i = 0; i < militaryService.length; i++) {
+      var item = DropdownMenuItem(
+          value: militaryService[i], child: Text(militaryService[i]));
+      dropDownItems.add(item);
+    }
+    return DropdownButton<String>(
+      alignment: Alignment.center,
+      isExpanded: true,
+      value: selectedMilitaryService,
+      items: dropDownItems,
+      onChanged: (value) {
+        setState(() {
+          selectedMilitaryService = value!;
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
-        child: BlocConsumer<PersonalInformationBloc, PersonalInformationState>(
-          listener: (_,state){
-            if(state is PersonalInformationLoaded){
-              nameController.text =  state.personalInformation.fullName;
-              addressController.text = state.personalInformation.address ?? '';
-              phoneController.text = state.personalInformation.phone ;
-              nameController.text = state.personalInformation.fullName;
-              selectedCityId = state.personalInformation.cityId;
-              birthday = (state.personalInformation.birthday.toString() == 'null' ? ' ' :
-              state.personalInformation.birthday.toString());
-              if(state.personalInformation.gender != null){
-                if(state.personalInformation.gender == 'male'){
-                  selectedGender = Gender.male;
-                }else{
-                  selectedGender = Gender.female;
-                }
+      appBar: AppBar(
+        title: Text('Personal information'),
+        leading: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: SvgPicture.asset(
+            'assets/icons/back.svg',
+            color: Colors.black54,
+          ),
+        ),
+      ),
+      body: BlocConsumer<PersonalInformationBloc, PersonalInformationState>(
+        listener: (_, state) {
+          if (state is PersonalInformationLoaded) {
+            nameController.text = state.personalInformation.fullName;
+            addressController.text = state.personalInformation.address ?? '';
+            phoneController.text = state.personalInformation.phone;
+            nameController.text = state.personalInformation.fullName;
+            selectedCityId = state.personalInformation.cityId! - 1;
+            birthday = (state.personalInformation.birthday.toString() == 'null'
+                ? ' '
+                : state.personalInformation.birthday.toString());
+            selectedMilitaryService = state.personalInformation.militaryService;
+            if (state.personalInformation.gender != null) {
+              if (state.personalInformation.gender == 'male') {
+                selectedGender = Gender.male;
+              } else {
+                selectedGender = Gender.female;
               }
-              openToWork = state.personalInformation.openToWork == 1? true : false;
-              summaryController.text = state.personalInformation.summary ?? '';
             }
-          },
-          builder: (context, state) {
-            if (state is PersonalInformationLoading) {
-              return const CircularProgressIndicator();
-            } else if (state is PersonalInformationFailed) {
-              return Text(state.errorMessage);
-            } else if (state is PersonalInformationLoaded) {
-              return Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
+            print(state.personalInformation.openToWork);
+            openToWork =
+                state.personalInformation.openToWork == 1 ? true : false;
+            summaryController.text = state.personalInformation.summary ?? '';
+          }
+          if (state is PersonalInformationUpdatedSuccessfully) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Updated Successfully"),
+            ));
+          }
+        },
+        builder: (context, state) {
+          if (state is PersonalInformationLoading) {
+            return Center(child: const CircularProgressIndicator());
+          } else if (state is PersonalInformationFailed) {
+            return Text(state.errorMessage);
+          } else if (state is PersonalInformationLoaded ||
+              state is PersonalInformationUpdatedSuccessfully) {
+            return Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Form(
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/icons/profile.svg',
-                                width: 40.w,
-                                height: 40.w,
-                              ),
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                              const Text('Personal information',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                          ),
                           const Text(
                             'Add all your personal information something very important',
                             textAlign: TextAlign.center,
@@ -175,7 +189,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                             height: 8.h,
                           ),
                           const Text('City'),
-                          dropDown(),
+                          citiesDropDown(),
                           SizedBox(
                             height: 8.h,
                           ),
@@ -189,7 +203,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                                   showDatePicker(
                                           context: context,
                                           initialDate: DateTime.now(),
-                                          firstDate: DateTime(2001),
+                                          firstDate: DateTime(1960),
                                           lastDate: DateTime(2050))
                                       .then((value) => setState(() {
                                             birthday = DateFormat('yyyy/MM/dd')
@@ -270,6 +284,16 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                           SizedBox(
                             height: 8.h,
                           ),
+                          if (selectedGender == Gender.male)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text('military service :'),
+                                SizedBox(
+                                    width: 120.w,
+                                    child: militaryServiceDropDown())
+                              ],
+                            ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -278,19 +302,20 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                                   value: openToWork,
                                   onChanged: (value) {
                                     setState(() {
+                                      print(value);
                                       openToWork = value!;
                                     });
                                   }),
                             ],
                           ),
-                          //todo : add military service section
-                          //military  service
                           SizedBox(
                             height: 8.h,
                           ),
                           TextFormField(
+                            minLines: 3,
+                            maxLines: 6,
                             controller: summaryController,
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.multiline,
                             //validator: (value) {},
                             decoration: const InputDecoration(
                               labelText: "Summary",
@@ -303,43 +328,46 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       )),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DefaultButton(
-                        text: 'Save',
-                        press: () {
-                          print(nameController.text);
-                          print(phoneController.text);
-                          print(birthday);
-                          print(selectedCityId);
-                          print(selectedGender.toString().substring(7));
-                          print(addressController.text);
-                          print(summaryController.text);
-                          print(openToWork);
-                          context.read<PersonalInformationBloc>().add(
-                                  UpdatePersonalInformationEvent(
-                                      personalInformationParams:
-                                          PersonalInformationParams(
-                                fullName: nameController.text,
-                                phoneNumber: phoneController.text,
-                                birthday: birthday,
-                                cityId: selectedCityId,
-                                gender: selectedGender?.toString().substring(7),
-                                address: addressController.text,
-                                summary: summaryController.text,
-                                //openToWork: int.parse(openToWork.toString()),
-                              )));
-                        }),
-                  )
-                ],
-              );
-            } else {
-              return Container(
-                color: Colors.red,
-              );
-            }
-          },
-        ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DefaultButton(
+                      text: 'Save',
+                      press: () {
+                        // print(nameController.text);
+                        // print(phoneController.text);
+                        // print(birthday);
+                        // print(selectedCityId);
+                        // print(selectedGender.toString().substring(7));
+                        // print(addressController.text);
+                        // print(summaryController.text);
+                        // print(openToWork);
+                        context.read<PersonalInformationBloc>().add(
+                                UpdatePersonalInformationEvent(
+                                    personalInformationParams:
+                                        PersonalInformationParams(
+                              fullName: nameController.text,
+                              phoneNumber: phoneController.text,
+                              birthday: birthday,
+                              cityId: selectedCityId! + 1,
+                              gender: selectedGender?.toString().substring(7),
+                              address: addressController.text,
+                              summary: summaryController.text,
+                              militaryService: selectedGender != null
+                                  ? selectedMilitaryService
+                                  : null,
+                              openToWork: openToWork,
+                            )));
+                      }),
+                )
+              ],
+            );
+          } else {
+            return Container(
+              color: Colors.red,
+            );
+          }
+        },
       ),
     );
   }

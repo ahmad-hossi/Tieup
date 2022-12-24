@@ -12,9 +12,7 @@ PersonalInformationModel _$PersonalInformationModelFromJson(
     id: json['id'] as int,
     fullName: json['full_name'] as String,
     phone: json['phone'] as String,
-    birthday: json['birthday'] == null
-        ? null
-        : DateTime.parse(json['birthday'] as String),
+    birthday: json['birthday'] as String?,
     gender: json['gender'] as String?,
     address: json['address'] as String?,
     openToWork: json['open_to_work'] as int,
@@ -38,7 +36,7 @@ Map<String, dynamic> _$PersonalInformationModelToJson(
       'full_name': instance.fullName,
       'gender': instance.gender,
       'phone': instance.phone,
-      'birthday': instance.birthday?.toIso8601String(),
+      'birthday': instance.birthday,
       'open_to_work': instance.openToWork,
       'military_service': instance.militaryService,
       'address': instance.address,
