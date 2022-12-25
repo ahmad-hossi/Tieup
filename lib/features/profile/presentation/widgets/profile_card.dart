@@ -7,12 +7,14 @@ class ProfileCard extends StatelessWidget {
     required this.svgIcon,
     required this.title,
     required this.routeName,
+    this.titleColor = Colors.black,
     Key? key,
   }) : super(key: key);
 
   final String svgIcon;
   final String title;
   final String routeName;
+  final Color titleColor;
 
 
 
@@ -31,7 +33,7 @@ class ProfileCard extends StatelessWidget {
             SvgPicture.asset(svgIcon,width: 24,),
             SizedBox(width: 12.w,),
             Text(title,
-              style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16),),
+              style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16,color: titleColor),),
             const Spacer(),
             SvgPicture.asset('assets/icons/right-arrow.svg',width: 16,),
           ],

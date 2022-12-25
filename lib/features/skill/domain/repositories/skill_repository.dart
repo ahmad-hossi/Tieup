@@ -8,4 +8,5 @@ abstract class SkillRepository {
   Future<Either<Failure, List<Domain>>> getDomains();
   Future<Either<Failure, List<SubDomain>>> getSubDomains(int id);
   Future<Either<Failure, List<Skill>>> getSkills(int id);
+  Future<Either<Failure, List<Skill>>> getUserSkills();
 }

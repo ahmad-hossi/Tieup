@@ -54,7 +54,8 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
               nameController.clear();
               fromController.clear();
             });
-            Navigator.of(context,rootNavigator: true).pop();
+            Future.delayed(Duration(milliseconds: 500),() =>
+                Navigator.of(context,rootNavigator: true).pop());
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("Added Successfully"),
             ));

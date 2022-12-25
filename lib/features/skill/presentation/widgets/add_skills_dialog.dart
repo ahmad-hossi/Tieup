@@ -7,6 +7,7 @@ import 'package:tieup/features/skill/presentation/Bloc/skill_bloc.dart';
 
 class AddSkillsDialog extends StatefulWidget {
   const AddSkillsDialog({Key? key}) : super(key: key);
+  final bool skillSection = true ;
 
   @override
   State<AddSkillsDialog> createState() => _AddSkillsDialogState();
@@ -98,6 +99,17 @@ class _AddSkillsDialogState extends State<AddSkillsDialog> {
                 },
               ),
               SizedBox(height: 16,),
+              if(widget.skillSection)
+               DropdownButton<SubDomain>(
+                  isExpanded: true,
+                  value: selectedSubDomain,
+                  items: subDomainItems(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedSubDomain = value;
+                    });
+                  },
+                ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

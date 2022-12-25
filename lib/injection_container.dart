@@ -5,6 +5,7 @@ import 'package:tieup/features/skill/domain/repositories/skill_repository.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_domains.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_skills.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_sub_domains.dart';
+import 'package:tieup/features/skill/domain/use_cases/get_user_skills.dart';
 import 'package:tieup/features/skill/presentation/Bloc/skill_bloc.dart';
 import 'package:tieup/features/authentication/data/data_sources/authentication_remote_data_source.dart';
 import 'package:tieup/features/authentication/data/repositories/authentication_repository_impl.dart';
@@ -93,7 +94,8 @@ Future init() async {
         updateLanguages: sl(),
       ));
   sl.registerFactory(
-      () => SkillBloc(getDomains: sl(), getSkills: sl(), getSubDomains: sl()));
+      () => SkillBloc(getDomains: sl(), getSkills: sl(),
+          getSubDomains: sl(),getUserSkills: sl()));
   sl.registerSingleton<LoadingCubit>(LoadingCubit());
   sl.registerFactory(
           () => WorkExperienceBloc(addWorkExperience: sl(),getWorkExperience: sl()));
@@ -142,6 +144,7 @@ Future init() async {
   sl.registerLazySingleton(() => GetUserPortfolio(sl()));
   sl.registerLazySingleton(() => UpdateUserPortfolio(sl()));
   sl.registerLazySingleton(() => AddCourse(sl()));
+  sl.registerLazySingleton(() => GetUserSkills(sl()));
 
   // Data sources
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(

@@ -22,4 +22,14 @@ class SubDomainsLoaded extends SkillState{
   SubDomainsLoaded({required this.subDomains});
 }
 
+class SkillsLoaded extends SkillState{
+  final List<Skill> skills;
+  SkillsLoaded({required this.skills});
+}
+
+class UserSkillsLoaded extends SkillState{
+  final List<Skill> skills;
+  UserSkillsLoaded({required this.skills});
+}
+
 

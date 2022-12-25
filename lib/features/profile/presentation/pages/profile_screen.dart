@@ -12,6 +12,7 @@ import 'package:tieup/features/portfolio/presentation/pages/portfolio_screen.dar
 import 'package:tieup/features/profile/presentation/widgets/profile_card.dart';
 import 'package:tieup/features/profile/presentation/widgets/profile_pic.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:tieup/features/skill/presentation/pages/skill_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -254,7 +255,7 @@ class ProfileScreen extends StatelessWidget {
             const ProfileCard(
               title: 'Skills',
               svgIcon: 'assets/icons/personal-information.svg',
-              routeName: PersonalInformationScreen.routeName,
+              routeName: SkillScreen.routeName,
             ),
             SizedBox(
               height: 8.h,
@@ -285,6 +286,15 @@ class ProfileScreen extends StatelessWidget {
             ),
             const ProfileCard(
               title: 'Favourite Trainings',
+              svgIcon: 'assets/icons/personal-information.svg',
+              routeName: FavJobsScreen.routeName,
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            const ProfileCard(
+              title: 'Generate CV',
+              titleColor: Colors.red,
               svgIcon: 'assets/icons/personal-information.svg',
               routeName: FavJobsScreen.routeName,
             ),

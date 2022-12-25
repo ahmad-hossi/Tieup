@@ -10,4 +10,11 @@ class GetSubDomainsEvent extends SkillEvent{
   GetSubDomainsEvent({required this.domainId});
 }
 
+class GetSkillsEvent extends SkillEvent{
+  final int subDomainId ;
+  GetSkillsEvent({required this.subDomainId});
+}
+
+class GetUserSkillsEvent extends SkillEvent{}
+
 

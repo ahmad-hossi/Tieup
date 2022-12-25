@@ -23,8 +23,6 @@ class SkillRepositoryImpl implements SkillRepository{
   }
 
 
-
-
   @override
   Future<Either<Failure, List<Skill>>> getSkills(int id) {
     // TODO: implement getSkills
@@ -35,6 +33,17 @@ class SkillRepositoryImpl implements SkillRepository{
   Future<Either<Failure, List<SubDomain>>> getSubDomains(int id) async{
     try{
       return  Right(await remoteDataSource.getSubDomains(id));
+    }on UnauthenticatedException{
+    return const Left(Failure(errorType: ErrorType.unauthenticated));
+    }on ServerException {
+    return const Left(Failure(errorType: ErrorType.serverError));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Skill>>> getUserSkills() async{
+    try{
+      return  Right(await remoteDataSource.getUserSkills());
     }on UnauthenticatedException{
     return const Left(Failure(errorType: ErrorType.unauthenticated));
     }on ServerException {
