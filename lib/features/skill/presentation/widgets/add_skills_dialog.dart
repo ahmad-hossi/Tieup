@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tieup/constants.dart';
-import 'package:tieup/features/add_skills/domain/entities/domain.dart';
-import 'package:tieup/features/add_skills/domain/entities/sub_domain.dart';
-import 'package:tieup/features/add_skills/presentation/Bloc/skill_bloc.dart';
+import 'package:tieup/features/skill/domain/entities/domain.dart';
+import 'package:tieup/features/skill/domain/entities/sub_domain.dart';
+import 'package:tieup/features/skill/presentation/Bloc/skill_bloc.dart';
 
 class AddSkillsDialog extends StatefulWidget {
   const AddSkillsDialog({Key? key}) : super(key: key);

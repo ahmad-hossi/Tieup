@@ -6,9 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:tieup/constants.dart';
 import 'package:tieup/core/entities/work_experience_params.dart';
 import 'package:tieup/core/widgets/default_button.dart';
-import 'package:tieup/features/add_skills/domain/entities/sub_domain.dart';
-import 'package:tieup/features/add_skills/presentation/Bloc/skill_bloc.dart';
-import 'package:tieup/features/add_skills/presentation/widgets/add_skills_dialog.dart';
+import 'package:tieup/features/skill/domain/entities/sub_domain.dart';
+import 'package:tieup/features/skill/presentation/Bloc/skill_bloc.dart';
+import 'package:tieup/features/skill/presentation/widgets/add_skills_dialog.dart';
 import 'package:tieup/features/experience/presentation/bloc/work_experience_bloc.dart';
 
 class AddWorkExperienceScreen extends StatefulWidget {

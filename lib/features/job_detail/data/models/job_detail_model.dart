@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tieup/features/add_skills/data/models/skill_model.dart';
+import 'package:tieup/features/skill/data/models/skill_model.dart';
 import 'package:tieup/features/job_detail/domain/entities/job_detail.dart';
 
 part 'job_detail_model.g.dart';

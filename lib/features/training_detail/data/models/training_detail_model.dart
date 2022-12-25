@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tieup/features/add_skills/data/models/skill_model.dart';
+import 'package:tieup/features/skill/data/models/skill_model.dart';
 import 'package:tieup/features/training_detail/domain/entities/training_detail.dart';
 
 part 'training_detail_model.g.dart';

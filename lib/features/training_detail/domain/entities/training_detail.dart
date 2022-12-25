@@ -1,4 +1,4 @@
-import 'package:tieup/features/add_skills/domain/entities/skill.dart';
+import 'package:tieup/features/skill/domain/entities/skill.dart';
 
 class TrainingDetail {
   final int id;

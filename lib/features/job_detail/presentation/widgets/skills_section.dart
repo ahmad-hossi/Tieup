@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tieup/core/constants/font_style.dart';
 import 'package:tieup/constants.dart';
-import 'package:tieup/features/add_skills/domain/entities/skill.dart';
+import 'package:tieup/features/skill/domain/entities/skill.dart';
 
 class SkillsSection extends StatelessWidget {
   SkillsSection({required this.skills,Key? key}) :

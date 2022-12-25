@@ -2,11 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:tieup/core/entities/no_params.dart';
 import 'package:tieup/core/entities/params.dart';
-import 'package:tieup/features/add_skills/domain/entities/domain.dart';
-import 'package:tieup/features/add_skills/domain/entities/sub_domain.dart';
-import 'package:tieup/features/add_skills/domain/use_cases/get_domains.dart';
-import 'package:tieup/features/add_skills/domain/use_cases/get_skills.dart';
-import 'package:tieup/features/add_skills/domain/use_cases/get_sub_domains.dart';
+import 'package:tieup/features/skill/domain/entities/domain.dart';
+import 'package:tieup/features/skill/domain/entities/sub_domain.dart';
+import 'package:tieup/features/skill/domain/use_cases/get_domains.dart';
+import 'package:tieup/features/skill/domain/use_cases/get_skills.dart';
+import 'package:tieup/features/skill/domain/use_cases/get_sub_domains.dart';
 
 part 'skill_event.dart';
 part 'skill_state.dart';
