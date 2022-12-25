@@ -1,4 +1,4 @@
-import 'package:tieup/features/add_skills/domain/entities/sub_domain.dart';
+import 'package:tieup/features/skill/domain/entities/sub_domain.dart';
 
 class SubDomainModel extends SubDomain {
   final int id;

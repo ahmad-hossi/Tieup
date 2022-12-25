@@ -4,3 +4,8 @@ part of 'course_bloc.dart';
 abstract class CourseEvent {}
 
 class GetCoursesEvent extends CourseEvent{}
+
+class AddCourseEvent extends CourseEvent{
+  final CourseParams params;
+  AddCourseEvent({required this.params});
+}

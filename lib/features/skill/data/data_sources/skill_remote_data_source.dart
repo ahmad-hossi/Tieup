@@ -3,8 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tieup/core/constants/api_constant.dart';
 import 'package:tieup/core/error/exceptions.dart';
-import 'package:tieup/features/add_skills/data/models/domain_model.dart';
-import 'package:tieup/features/add_skills/data/models/sub_domain_model.dart';
+import 'package:tieup/features/skill/data/models/domain_model.dart';
+import 'package:tieup/features/skill/data/models/sub_domain_model.dart';
 
 abstract class SkillRemoteDataSource {
   Future<List<DomainModel>> getDomains();

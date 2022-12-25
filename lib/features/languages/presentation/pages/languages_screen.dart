@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tieup/constants.dart';
 import 'package:tieup/core/widgets/default_button.dart';
 import 'package:tieup/features/languages/presentation/bloc/languages_bloc.dart';
+import 'package:tieup/features/languages/presentation/widgets/add_language_dialog.dart';
 
 class LanguagesScreen extends StatefulWidget {
   const LanguagesScreen({Key? key}) : super(key: key);
@@ -62,28 +62,6 @@ class _LanguagesScreenScreenState extends State<LanguagesScreen> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/icons/portfolio.svg',
-                                width: 40.w,
-                                height: 40.w,
-                              ),
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                              const Text('Languages',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500)),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                          ),
                           const Text(
                             'Add your jobs and links of your social medias help companies'
                             'to know more about you',
@@ -103,6 +81,8 @@ class _LanguagesScreenScreenState extends State<LanguagesScreen> {
                                 children: [
                                   Text(state.languages[index].languageName),
                                   RatingBar.builder(
+                                    updateOnDrag: false,
+                                    ignoreGestures: true,
                                     initialRating: state.languages[index].level,
                                     minRating: 0,
                                     direction: Axis.horizontal,
@@ -129,6 +109,9 @@ class _LanguagesScreenScreenState extends State<LanguagesScreen> {
                       )),
                     ),
                   ),
+                  TextButton(onPressed: (){
+                    showDialog(context: context, builder: (_)=>AddLanguagesDialog());
+                  }, child: Text('add language')),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: DefaultButton(

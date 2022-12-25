@@ -31,11 +31,12 @@ const List<String> cities = [
   'Idlib',
   'Tartus',
   'Latakia',
-  'الحسكة',
-  'الرقة',
-  'درعا',
-  'القنيطرة',
-  'السويداء'
+  'Raqqah',
+  'Quneitra',
+  'Deir ez-Zor',
+  'Hasakah',
+  'Daraa',
+  'As-Suwayda'
 ];
 
 const List<String> militaryService = ['finished', 'postponed', 'in service'];

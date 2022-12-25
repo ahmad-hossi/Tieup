@@ -95,8 +95,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
             nameController.text = state.personalInformation.fullName;
             addressController.text = state.personalInformation.address ?? '';
             phoneController.text = state.personalInformation.phone;
-            nameController.text = state.personalInformation.fullName;
-            selectedCityId = state.personalInformation.cityId! - 1;
+            selectedCityId = state.personalInformation.cityId != null ?
+            state.personalInformation.cityId! - 1 : null;
             birthday = (state.personalInformation.birthday.toString() == 'null'
                 ? ' '
                 : state.personalInformation.birthday.toString());
@@ -149,8 +149,6 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                           TextFormField(
                             controller: nameController,
                             keyboardType: TextInputType.name,
-                            //initialValue: state.personalInformation.fullName,
-                            //validator: (value) {},
                             decoration: const InputDecoration(
                               labelText: "full name",
                               floatingLabelBehavior:

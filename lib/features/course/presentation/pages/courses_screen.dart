@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tieup/constants.dart';
 import 'package:tieup/core/widgets/default_button.dart';
 import 'package:tieup/features/course/presentation/bloc/course_bloc.dart';
+import 'package:tieup/features/course/presentation/pages/add_course_screen.dart';
 import 'package:tieup/features/course/presentation/widgets/course_card.dart';
 
 class CoursesScreen extends StatefulWidget {
@@ -26,7 +27,16 @@ class _CoursesScreenState extends State<CoursesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Courses and Certificates'),
+        leading: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: SvgPicture.asset(
+            'assets/icons/back.svg',
+            color: Colors.black54,
+          ),
+        ),
+      ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -36,30 +46,6 @@ class _CoursesScreenState extends State<CoursesScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/icons/experience.svg',
-                        width: 40.w,
-                        height: 40.w,
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      const Text('Courses',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
                 const Text(
                   'Adding all your Courses will increase your chances '
                   'to get the best job',
@@ -95,7 +81,12 @@ class _CoursesScreenState extends State<CoursesScreen> {
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 28.0, vertical: 8.0),
-            child: DefaultButton(text: 'Add Course Certificate', press: () {}),
+            child: DefaultButton(
+                text: 'Add Course Certificate',
+                press: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => AddCourseScreen()));
+                }),
           )
         ],
       ),

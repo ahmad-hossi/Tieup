@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tieup/constants.dart';
-import 'package:tieup/features/add_skills/presentation/Bloc/skill_bloc.dart';
+import 'package:tieup/features/skill/presentation/Bloc/skill_bloc.dart';
 import 'package:tieup/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tieup/features/authentication/presentation/pages/login/login_screen.dart';
 import 'package:tieup/features/course/presentation/bloc/course_bloc.dart';
@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
             ),
             //home: HomeScreen(),
             routes: routes,
-            initialRoute: LoginScreen.routeName,
+            initialRoute: HomeScreen.routeName,
           ),
         );
       },

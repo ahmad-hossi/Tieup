@@ -1,6 +1,6 @@
 // ignore_for_file: annotate_overrides
 
-import 'package:tieup/features/add_skills/domain/entities/domain.dart';
+import 'package:tieup/features/skill/domain/entities/domain.dart';
 
 class DomainModel extends Domain {
   final int id;

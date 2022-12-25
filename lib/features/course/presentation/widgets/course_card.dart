@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tieup/constants.dart';
+import 'package:tieup/core/constants/api_constant.dart';
 import 'package:tieup/features/course/domain/entities/course.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+
 
 class CourseCard extends StatelessWidget {
   const CourseCard({
@@ -36,7 +38,7 @@ class CourseCard extends StatelessWidget {
                       topRight: Radius.circular(12.0),
                       topLeft: Radius.circular(12.0)),
                   child: Image.network(
-                    course.imgUrl,
+                    '$kBaseUrl/${course.imgUrl}',
                     fit: BoxFit.contain,
                   )),
               Divider(

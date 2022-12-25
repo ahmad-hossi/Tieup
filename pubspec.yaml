@@ -55,7 +55,7 @@ dependencies:
   percent_indicator: ^4.2.2
   badges: ^2.0.3
   shimmer: ^2.0.0
-  flutter_chatgpt_api: ^1.1.0
+
 
 
 

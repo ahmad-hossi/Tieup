@@ -1,11 +1,11 @@
 import 'package:http/http.dart';
-import 'package:tieup/features/add_skills/data/data_sources/skill_remote_data_source.dart';
-import 'package:tieup/features/add_skills/data/repositories/skill_repository_impl.dart';
-import 'package:tieup/features/add_skills/domain/repositories/skill_repository.dart';
-import 'package:tieup/features/add_skills/domain/use_cases/get_domains.dart';
-import 'package:tieup/features/add_skills/domain/use_cases/get_skills.dart';
-import 'package:tieup/features/add_skills/domain/use_cases/get_sub_domains.dart';
-import 'package:tieup/features/add_skills/presentation/Bloc/skill_bloc.dart';
+import 'package:tieup/features/skill/data/data_sources/skill_remote_data_source.dart';
+import 'package:tieup/features/skill/data/repositories/skill_repository_impl.dart';
+import 'package:tieup/features/skill/domain/repositories/skill_repository.dart';
+import 'package:tieup/features/skill/domain/use_cases/get_domains.dart';
+import 'package:tieup/features/skill/domain/use_cases/get_skills.dart';
+import 'package:tieup/features/skill/domain/use_cases/get_sub_domains.dart';
+import 'package:tieup/features/skill/presentation/Bloc/skill_bloc.dart';
 import 'package:tieup/features/authentication/data/data_sources/authentication_remote_data_source.dart';
 import 'package:tieup/features/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:tieup/features/authentication/domain/repositories/authentication_repositry.dart';
@@ -21,6 +21,7 @@ import 'package:tieup/features/company/domain/use_cases/get_all_companies.dart';
 import 'package:tieup/features/course/data/data_sources/course_remote_Data_source.dart';
 import 'package:tieup/features/course/data/repositories/course_repository_impl.dart';
 import 'package:tieup/features/course/domain/repositories/course_repository.dart';
+import 'package:tieup/features/course/domain/use_cases/add_course.dart';
 import 'package:tieup/features/course/domain/use_cases/get_courses.dart';
 import 'package:tieup/features/course/presentation/bloc/course_bloc.dart';
 import 'package:tieup/features/experience/data/data_sources/work_experience_remote_data_source.dart';
@@ -77,7 +78,6 @@ import 'package:tieup/features/training_detail/data/repositories/job_detail_repo
 import 'package:tieup/features/training_detail/domain/repositories/training_detail_repository.dart';
 import 'package:tieup/features/training_detail/domain/use_cases/get_training_detail.dart';
 import 'package:tieup/features/training_detail/presentation/bloc/training_detail_bloc.dart';
-
 import 'core/network/network_info.dart';
 
 final sl = GetIt.I;
@@ -98,7 +98,7 @@ Future init() async {
   sl.registerFactory(
           () => WorkExperienceBloc(addWorkExperience: sl(),getWorkExperience: sl()));
   sl.registerFactory(
-          () => CourseBloc(getCourses: sl()));
+          () => CourseBloc(getCourses: sl(),addCourse: sl()));
   sl.registerFactory(
           () => JobBloc(getJobs: sl(),getFavJobs: sl()));
   sl.registerFactory(
@@ -141,6 +141,7 @@ Future init() async {
   sl.registerLazySingleton(() => UpdateMotivationLetter(sl()));
   sl.registerLazySingleton(() => GetUserPortfolio(sl()));
   sl.registerLazySingleton(() => UpdateUserPortfolio(sl()));
+  sl.registerLazySingleton(() => AddCourse(sl()));
 
   // Data sources
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
