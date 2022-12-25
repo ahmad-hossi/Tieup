@@ -13,6 +13,7 @@ import 'package:tieup/features/profile/presentation/widgets/profile_card.dart';
 import 'package:tieup/features/profile/presentation/widgets/profile_pic.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tieup/features/skill/presentation/pages/skill_screen.dart';
+import 'package:tieup/features/cv/presentation/pages/app.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -296,7 +297,7 @@ class ProfileScreen extends StatelessWidget {
               title: 'Generate CV',
               titleColor: Colors.red,
               svgIcon: 'assets/icons/personal-information.svg',
-              routeName: FavJobsScreen.routeName,
+              routeName: ResumeScreen.routeName,
             ),
             SizedBox(
               height: 8.h,
