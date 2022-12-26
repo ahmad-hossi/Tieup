@@ -12,9 +12,12 @@ class PersonalInformation extends Equatable {
   final String? summary;
   final int? cityId;
   final String? cityName;
+  final String? imageUrl;
+  final String? coverImageUrl;
 
   const PersonalInformation(
-      {required this.id,
+      {
+      required this.id,
       required this.fullName,
       this.gender,
       required this.phone,
@@ -24,7 +27,10 @@ class PersonalInformation extends Equatable {
       this.address,
       this.summary,
       this.cityName,
-      this.cityId});
+      this.cityId,
+      this.imageUrl,
+      this.coverImageUrl
+      });
 
   @override
   List<Object?> get props => [id];

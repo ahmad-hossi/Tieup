@@ -8,11 +8,11 @@ part 'language_model.g.dart';
 @JsonSerializable()
 class LanguageModel extends Language {
   final int id;
-  @JsonKey(name: 'language_id')
+  @JsonKey(name:'language_id')
   final int languageId;
-  @JsonKey(name: 'language')
+  @JsonKey(name:'language')
   final String languageName;
-  final double level;
+  final int level;
 
   LanguageModel(
       {required this.id,

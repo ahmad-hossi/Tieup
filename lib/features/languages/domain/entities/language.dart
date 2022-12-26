@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
 class Language extends Equatable {
-  int id;
-  int languageId;
-  String languageName;
-  double level;
+  final int id;
+  final int languageId;
+  final String languageName;
+  final int level;
 
-  Language({required this.id,
+  const Language({required this.id,
     required this.languageId,
     required this.languageName,
     required this.level});

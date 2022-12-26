@@ -23,26 +23,33 @@ class PersonalInformationModel extends PersonalInformation {
   final int? cityId;
   @JsonKey(name: 'city_name')
   final String? cityName;
+  @JsonKey(name: 'image')
+  final String? imageUrl;
+  @JsonKey(name: 'cover_image')
+  final String? coverImageUrl;
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
 
-  const PersonalInformationModel({
-    required this.id,
-    required this.fullName,
-    required this.phone,
-     this.birthday,
-    this.gender,
-    this.address,
-    required this.openToWork,
-    this.militaryService,
-    this.summary,
-    required this.cityId,
-    this.cityName,
-    this.createdAt,
-    this.updatedAt,
-  }) : super(
+  const PersonalInformationModel(
+      {
+      required this.id,
+      required this.fullName,
+      required this.phone,
+      this.birthday,
+      this.gender,
+      this.address,
+      required this.openToWork,
+      this.militaryService,
+      this.summary,
+      required this.cityId,
+      this.cityName,
+      this.createdAt,
+      this.updatedAt,
+      this.imageUrl,
+      this.coverImageUrl})
+      : super(
             id: id,
             fullName: fullName,
             phone: phone,
@@ -53,7 +60,9 @@ class PersonalInformationModel extends PersonalInformation {
             address: address,
             gender: gender,
             cityId: cityId,
-            birthday: birthday);
+            birthday: birthday,
+            imageUrl: imageUrl,
+            coverImageUrl: coverImageUrl);
 
   factory PersonalInformationModel.fromJson(Map<String, dynamic> json) =>
       _$PersonalInformationModelFromJson(json['data']);

@@ -1,4 +1,9 @@
 import 'package:http/http.dart';
+import 'package:tieup/features/profile/data/data_sources/profile_remote_data_source.dart';
+import 'package:tieup/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:tieup/features/profile/domain/repositories/profile_repository.dart';
+import 'package:tieup/features/profile/domain/use_cases/get_user_profile.dart';
+import 'package:tieup/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:tieup/features/skill/data/data_sources/skill_remote_data_source.dart';
 import 'package:tieup/features/skill/data/repositories/skill_repository_impl.dart';
 import 'package:tieup/features/skill/domain/repositories/skill_repository.dart';
@@ -93,31 +98,26 @@ Future init() async {
         getLanguages: sl(),
         updateLanguages: sl(),
       ));
-  sl.registerFactory(
-      () => SkillBloc(getDomains: sl(), getSkills: sl(),
-          getSubDomains: sl(),getUserSkills: sl()));
+  sl.registerFactory(() => SkillBloc(
+      getDomains: sl(),
+      getSkills: sl(),
+      getSubDomains: sl(),
+      getUserSkills: sl()));
   sl.registerSingleton<LoadingCubit>(LoadingCubit());
+  sl.registerFactory(() =>
+      WorkExperienceBloc(addWorkExperience: sl(), getWorkExperience: sl()));
+  sl.registerFactory(() => CourseBloc(getCourses: sl(), addCourse: sl()));
+  sl.registerFactory(() => JobBloc(getJobs: sl(), getFavJobs: sl()));
+  sl.registerFactory(() => JobDetailBloc(getJobDetail: sl()));
   sl.registerFactory(
-          () => WorkExperienceBloc(addWorkExperience: sl(),getWorkExperience: sl()));
-  sl.registerFactory(
-          () => CourseBloc(getCourses: sl(),addCourse: sl()));
-  sl.registerFactory(
-          () => JobBloc(getJobs: sl(),getFavJobs: sl()));
-  sl.registerFactory(
-          () => JobDetailBloc(getJobDetail: sl()));
-  sl.registerFactory(
-          () => TrainingBloc(getTrainings: sl(),getFavTrainings: sl()));
-  sl.registerFactory(
-          () => TrainingDetailBloc(getTrainingDetail: sl()));
-  sl.registerFactory(
-          () => HomeBloc(getCompanies: sl()));
+      () => TrainingBloc(getTrainings: sl(), getFavTrainings: sl()));
+  sl.registerFactory(() => TrainingDetailBloc(getTrainingDetail: sl()));
+  sl.registerFactory(() => HomeBloc(getCompanies: sl()));
   sl.registerFactory(() => MotivationLetterBloc(
-    getMotivationLetter: sl(),updateMotivationLetter: sl()
-  ));
-  sl.registerFactory(() => PortfolioBloc(
-   getUserPortfolio: sl(),
-   updateUserPortfolio: sl()
-  ));
+      getMotivationLetter: sl(), updateMotivationLetter: sl()));
+  sl.registerFactory(
+      () => PortfolioBloc(getUserPortfolio: sl(), updateUserPortfolio: sl()));
+  sl.registerFactory(() => ProfileBloc(getUserProfile: sl()));
 
   // use cases
   sl.registerLazySingleton(() => LoginUser(sl()));
@@ -145,6 +145,7 @@ Future init() async {
   sl.registerLazySingleton(() => UpdateUserPortfolio(sl()));
   sl.registerLazySingleton(() => AddCourse(sl()));
   sl.registerLazySingleton(() => GetUserSkills(sl()));
+  sl.registerLazySingleton(() => GetUserProfile(sl()));
 
   // Data sources
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -156,23 +157,25 @@ Future init() async {
   sl.registerLazySingleton<SkillRemoteDataSource>(
       () => SkillRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<WorkExperienceRemoteDataSource>(
-          () => WorkExperienceRemoteDataSourceImpl(sl()));
+      () => WorkExperienceRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<CourseRemoteDataSource>(
-          () => CourseRemoteDataSourceImpl(sl()));
+      () => CourseRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<JobRemoteDataSource>(
-          () => JobRemoteDataSourceImpl(sl()));
+      () => JobRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<TrainingRemoteDataSource>(
-          () => TrainingRemoteDataSourceImpl(sl()));
+      () => TrainingRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<JobDetailRemoteDataSource>(
-          () => JobDetailRemoteDataSourceImpl(sl()));
+      () => JobDetailRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<TrainingDetailRemoteDataSource>(
-          () => TrainingDetailRemoteDataSourceImpl(sl()));
+      () => TrainingDetailRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<CompanyRemoteDataSource>(
-          () => CompanyRemoteDataSourceImpl(sl()));
+      () => CompanyRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<MotivationLetterRemoteDataSource>(
-          () => MotivationLetterRemoteDataSourceImpl(sl()));
+      () => MotivationLetterRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<PortfolioRemoteDataSource>(
-          () => PortfolioRemoteDataSourceImpl(sl()));
+      () => PortfolioRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<ProfileRemoteDataSource>(
+          () => ProfileRemoteDataSourceImpl(sl()));
 
   // Repository
   sl.registerLazySingleton<AuthenticationRepository>(
@@ -182,15 +185,24 @@ Future init() async {
   sl.registerLazySingleton<LanguagesRepository>(
       () => LanguagesRepositoryImpl(sl()));
   sl.registerLazySingleton<SkillRepository>(() => SkillRepositoryImpl(sl()));
-  sl.registerLazySingleton<WorkExperienceRepository>(() => WorkExperienceRepositoryImpl(sl()));
+  sl.registerLazySingleton<WorkExperienceRepository>(
+      () => WorkExperienceRepositoryImpl(sl()));
   sl.registerLazySingleton<CourseRepository>(() => CourseRepositoryImpl(sl()));
   sl.registerLazySingleton<JobRepository>(() => JobRepositoryImpl(sl()));
-  sl.registerLazySingleton<TrainingRepository>(() => TrainingRepositoryImpl(sl()));
-  sl.registerLazySingleton<JobDetailRepository>(() => JobDetailRepositoryImpl(sl()));
-  sl.registerLazySingleton<TrainingDetailRepository>(() => TrainingDetailRepositoryImpl(sl()));
-  sl.registerLazySingleton<CompanyRepository>(() => CompanyRepositoryImpl(sl()));
-  sl.registerLazySingleton<MotivationLetterRepository>(() => MotivationLetterRepositoryImpl(sl()));
-  sl.registerLazySingleton<PortfolioRepository>(() => PortfolioRepositoryImpl(sl()));
+  sl.registerLazySingleton<TrainingRepository>(
+      () => TrainingRepositoryImpl(sl()));
+  sl.registerLazySingleton<JobDetailRepository>(
+      () => JobDetailRepositoryImpl(sl()));
+  sl.registerLazySingleton<TrainingDetailRepository>(
+      () => TrainingDetailRepositoryImpl(sl()));
+  sl.registerLazySingleton<CompanyRepository>(
+      () => CompanyRepositoryImpl(sl()));
+  sl.registerLazySingleton<MotivationLetterRepository>(
+      () => MotivationLetterRepositoryImpl(sl()));
+  sl.registerLazySingleton<PortfolioRepository>(
+      () => PortfolioRepositoryImpl(sl()));
+  sl.registerLazySingleton<ProfileRepository>(
+          () => ProfileRepositoryImpl(sl()));
 
   // core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));

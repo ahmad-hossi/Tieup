@@ -83,10 +83,10 @@ class _LanguagesScreenScreenState extends State<LanguagesScreen> {
                                   RatingBar.builder(
                                     updateOnDrag: false,
                                     ignoreGestures: true,
-                                    initialRating: state.languages[index].level,
+                                    initialRating: state.languages[index].level.toDouble(),
                                     minRating: 0,
                                     direction: Axis.horizontal,
-                                    allowHalfRating: true,
+                                    allowHalfRating: false,
                                     itemCount: 5,
                                     itemPadding:
                                         EdgeInsets.symmetric(horizontal: 4.0),

@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'personal_information_model.dart';
+part of 'profile_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PersonalInformationModel _$PersonalInformationModelFromJson(
-    Map<String, dynamic> json) {
-  return PersonalInformationModel(
+ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) {
+  return ProfileModel(
     id: json['id'] as int,
     fullName: json['full_name'] as String,
     phone: json['phone'] as String,
@@ -19,20 +18,28 @@ PersonalInformationModel _$PersonalInformationModelFromJson(
     militaryService: json['military_service'] as String?,
     summary: json['summary'] as String?,
     cityId: json['city_id'] as int?,
-    cityName: json['city_name'] as String?,
-    createdAt: json['created_at'] == null
-        ? null
-        : DateTime.parse(json['created_at'] as String),
-    updatedAt: json['updated_at'] == null
-        ? null
-        : DateTime.parse(json['updated_at'] as String),
+    cityName: json['city'] as String?,
     imageUrl: json['image'] as String?,
     coverImageUrl: json['cover_image'] as String?,
+    languages: (json['Languages'] as List<dynamic>)
+        .map((e) => LanguageModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    portfolios: (json['portfolios'] as List<dynamic>)
+        .map((e) => PortfolioModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    experiences: (json['Experiances'] as List<dynamic>)
+        .map((e) => ExperienceModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    skills: (json['Skills'] as List<dynamic>)
+        .map((e) => SkillModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    courses: (json['Courses'] as List<dynamic>)
+        .map((e) => CourseModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
-Map<String, dynamic> _$PersonalInformationModelToJson(
-        PersonalInformationModel instance) =>
+Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'full_name': instance.fullName,
@@ -47,6 +54,9 @@ Map<String, dynamic> _$PersonalInformationModelToJson(
       'city_name': instance.cityName,
       'image': instance.imageUrl,
       'cover_image': instance.coverImageUrl,
-      'created_at': instance.createdAt?.toIso8601String(),
-      'updated_at': instance.updatedAt?.toIso8601String(),
+      'Languages': instance.languages,
+      'portfolios': instance.portfolios,
+      'Experiances': instance.experiences,
+      'Skills': instance.skills,
+      'Courses': instance.courses,
     };

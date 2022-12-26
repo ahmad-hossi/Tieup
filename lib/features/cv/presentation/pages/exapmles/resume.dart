@@ -22,21 +22,29 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-
-import '../data.dart';
+import 'package:tieup/features/profile/domain/entities/profile.dart';
+import 'package:tieup/features/skill/domain/entities/skill.dart';
 
 PdfColor green = PdfColor.fromInt(0XFF3E58CC);
 const PdfColor lightGreen = PdfColor.fromInt(0XFF3E58CC);
 const sep = 120.0;
 
-Future<Uint8List> generateResume2(PdfPageFormat format, CustomData data) async {
+Future<Uint8List> generateResume(PdfPageFormat format,Profile userProfile) async {
   final doc = pw.Document(title: 'My Résumé', author: 'David PHAM-VAN');
+
+  final fullName = userProfile.fullName;
+  final summary = userProfile.summary ?? '';
+  final List<Skill> skills = userProfile.skills;
+
 
   final profileImage = pw.MemoryImage(
     (await rootBundle.load('assets/pic.jpg')).buffer.asUint8List(),
   );
 
   final pageTheme = await _myPageTheme(format);
+
+
+
 
   doc.addPage(
     pw.MultiPage(
@@ -51,7 +59,7 @@ Future<Uint8List> generateResume2(PdfPageFormat format, CustomData data) async {
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
                     pw.Text(
-                      'Ahmad Alhossi',
+                      fullName,
                       textScaleFactor: 2,
                       softWrap: true,
                       style: pw.Theme.of(context)
@@ -117,6 +125,7 @@ Future<Uint8List> generateResume2(PdfPageFormat format, CustomData data) async {
         pw.SizedBox(height: 10),
         pw.Container(width: double.infinity, height: 2, color: lightGreen),
         pw.SizedBox(height: 10),
+        pw.Text(summary),
         pw.Partitions(
           children: [
             pw.Partition(
@@ -167,13 +176,9 @@ Future<Uint8List> generateResume2(PdfPageFormat format, CustomData data) async {
                             runSpacing: 8.0,
                             direction: pw.Axis.horizontal,
                             children: [
-                              _SubCategory(title: 'Flutter Framework'),
-                              _SubCategory(title: 'Bloc state management'),
-                              _SubCategory(title: 'clean architecture'),
-                              _SubCategory(title: 'C#'),
-                              _SubCategory(title: 'Java'),
-                              _SubCategory(title: 'C++'),
-                              _SubCategory(title: 'Sql server'),
+                              for(var skill in skills)...{
+                                _SubCategory(title: skill.name),
+                              }
                             ]),
                         pw.SizedBox(height: 20),
                         _Category(title: 'CERTIFICATES'),
@@ -295,7 +300,7 @@ class _Block extends pw.StatelessWidget {
                   width: 6,
                   height: 6,
                   margin: const pw.EdgeInsets.only(top: 5.5, left: 2, right: 5),
-                  decoration:  pw.BoxDecoration(
+                  decoration: pw.BoxDecoration(
                     color: green,
                     shape: pw.BoxShape.circle,
                   ),
@@ -308,7 +313,7 @@ class _Block extends pw.StatelessWidget {
                 if (icon != null) pw.Icon(icon!, color: lightGreen, size: 18),
               ]),
           pw.Container(
-            decoration:  pw.BoxDecoration(
+            decoration: pw.BoxDecoration(
                 border: pw.Border(left: pw.BorderSide(color: green, width: 2))),
             padding: const pw.EdgeInsets.only(left: 10, top: 5, bottom: 5),
             margin: const pw.EdgeInsets.only(left: 5),
@@ -340,7 +345,7 @@ class _Category extends pw.StatelessWidget {
       padding: const pw.EdgeInsets.fromLTRB(10, 4, 10, 4),
       child: pw.Text(
         title,
-        style : pw.TextStyle(color: PdfColor.fromInt(0xffffff)),
+        style: pw.TextStyle(color: PdfColor.fromInt(0xffffff)),
         textScaleFactor: 1.5,
       ),
     );

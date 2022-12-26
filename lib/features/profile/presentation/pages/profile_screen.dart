@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tieup/constants.dart';
 import 'package:tieup/features/course/presentation/pages/courses_screen.dart';
+import 'package:tieup/features/cv/presentation/pages/resume_screen.dart';
 import 'package:tieup/features/experience/presentation/pages/experience_screen.dart';
 import 'package:tieup/features/job/presentation/pages/fav_jobs_screen.dart';
 import 'package:tieup/features/languages/presentation/pages/languages_screen.dart';
@@ -13,7 +14,6 @@ import 'package:tieup/features/profile/presentation/widgets/profile_card.dart';
 import 'package:tieup/features/profile/presentation/widgets/profile_pic.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tieup/features/skill/presentation/pages/skill_screen.dart';
-import 'package:tieup/features/cv/presentation/pages/app.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);

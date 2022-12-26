@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tieup/constants.dart';
+import 'package:tieup/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:tieup/features/skill/presentation/Bloc/skill_bloc.dart';
 import 'package:tieup/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tieup/features/authentication/presentation/pages/login/login_screen.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (_) => sl<HomeBloc>()),
             BlocProvider(create: (_) => sl<MotivationLetterBloc>()),
             BlocProvider(create: (_) => sl<PortfolioBloc>()),
+            BlocProvider(create: (_) => sl<ProfileBloc>()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -77,7 +79,7 @@ class MyApp extends StatelessWidget {
             ),
             //home: HomeScreen(),
             routes: routes,
-            initialRoute: HomeScreen.routeName,
+            initialRoute: LoginScreen.routeName,
           ),
         );
       },
