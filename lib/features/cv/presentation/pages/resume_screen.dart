@@ -57,8 +57,8 @@ class _ResumeScreenState extends State<ResumeScreen> {
           if (state is ProfileLoaded) {
             return PdfPreview(
               maxPageWidth: 700,
-              build: (format) async{
-                await Future.delayed(Duration(seconds: 1));
+              build: (format) {
+                //await Future.delayed(Duration(seconds: 20));
                 return generateResume2(format,state.userProfile);
               },
               onShared: _showSharedToast,

@@ -24,8 +24,7 @@ class SkillBloc extends Bloc<SkillEvent, SkillState> {
       {required this.getDomains,
       required this.getSubDomains,
       required this.getSkills,
-      required this.getUserSkills
-      })
+      required this.getUserSkills})
       : super(SkillInitial()) {
     on<GetDomainsEvent>((event, emit) async {
       emit(SkillLoading());
@@ -34,20 +33,24 @@ class SkillBloc extends Bloc<SkillEvent, SkillState> {
           (domains) => DomainsLoaded(domains: domains)));
     });
 
-    on<GetSubDomainsEvent>((event, emit) async{
+    on<GetSubDomainsEvent>((event, emit) async {
       final eitherResponse = await getSubDomains(Params(id: event.domainId));
       emit(eitherResponse.fold((failure) => SkillFailure(errorMessage: 'error'),
-              (subDomains) => SubDomainsLoaded(subDomains: subDomains)));
+          (subDomains) => SubDomainsLoaded(subDomains: subDomains)));
     });
 
-    on<GetUserSkillsEvent>((event, emit)async {
+    on<GetSkillsEvent>((event, emit) async {
+      final eitherResponse = await getSkills(Params(id: event.subDomainId));
+      print(eitherResponse);
+      emit(eitherResponse.fold((failure) => SkillFailure(errorMessage: 'error'),
+          (skills) => SkillsLoaded(skills: skills)));
+    });
+
+    on<GetUserSkillsEvent>((event, emit) async {
       emit(SkillLoading());
       final eitherResponse = await getUserSkills(NoParams());
       emit(eitherResponse.fold((failure) => SkillFailure(errorMessage: 'error'),
-              (skills) => UserSkillsLoaded(skills: skills)));
+          (skills) => UserSkillsLoaded(skills: skills)));
     });
-
-
-
   }
 }

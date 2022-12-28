@@ -17,7 +17,6 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
-
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -49,7 +48,7 @@ Future<Uint8List> generateResume2(
     Portfolio(type: 'Telegram', url: '@Ahmad_Hossi'),
     Portfolio(type: 'Facebook', url: 'fb.com/ahmad.hessi.96'),
   ];
-  final List<Experience> experience = userProfile.experiences;
+  final List<Experience> experience =[];//d userProfile.experiences;
   final List<Course> courses = userProfile.courses;
 
   final profileImage = pw.MemoryImage(
@@ -76,7 +75,7 @@ Future<Uint8List> generateResume2(
                 width: pageTheme.pageFormat.availableWidth / 2.6,
                 child:
                 pw.Container(
-                  padding: pw.EdgeInsets.symmetric(horizontal: 16),
+                  padding: const pw.EdgeInsets.symmetric(horizontal: 16),
                   //color: PdfColors.amber,
                   child: pw.Column(
                     mainAxisSize: pw.MainAxisSize.max,
@@ -116,7 +115,7 @@ Future<Uint8List> generateResume2(
                             color: PdfColors.white),
                       ),
                       pw.Container(
-                          padding: pw.EdgeInsets.symmetric(vertical: 4),
+                          padding: const pw.EdgeInsets.symmetric(vertical: 4),
                           width: double.infinity,
                           height: 2,
                           color: PdfColors.white),

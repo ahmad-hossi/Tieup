@@ -45,11 +45,83 @@ Future<Uint8List> generateResume(PdfPageFormat format,Profile userProfile) async
 
 
 
-
   doc.addPage(
     pw.MultiPage(
       pageTheme: pageTheme,
       build: (pw.Context context) => [
+       for(int i = 0 ; i < 5; i++)  pw.Row(
+           crossAxisAlignment: pw.CrossAxisAlignment.start,
+           mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
+           children: [
+             pw.Column(
+                 mainAxisSize: pw.MainAxisSize.max,
+                 crossAxisAlignment: pw.CrossAxisAlignment.start,
+                 children: [
+                   pw.Text(
+                     fullName,
+                     textScaleFactor: 2,
+                     softWrap: true,
+                     style: pw.Theme.of(context)
+                         .defaultTextStyle
+                         .copyWith(fontWeight: pw.FontWeight.bold),
+                   ),
+                   pw.SizedBox(height: 4.0),
+                   pw.Text(
+                     'Mobile app developer',
+                     style: pw.TextStyle(fontSize: 16),
+                     textAlign: pw.TextAlign.left,
+                   ),
+                   pw.SizedBox(height: 4.0),
+                   pw.SizedBox(
+                     width: 160,
+                     child: pw.Text(
+                       'Lorem ipsum dolor sit amet,'
+                           ' consectetur adipiscing elit.',
+                       softWrap: true,
+                       style: pw.TextStyle(fontSize: 14),
+                     ),
+                   )
+                 ]),
+             pw.SizedBox(
+               width: 120,
+               height: 120,
+               child: pw.Stack(
+                   fit: pw.StackFit.expand,
+                   alignment: pw.Alignment.center,
+                   children: [
+                     pw.ClipOval(
+                       child: pw.Container(
+                         width: 130,
+                         height: 130,
+                         color: lightGreen,
+                       ),
+                     ),
+                     pw.ClipOval(
+                         child: pw.Image(profileImage,
+                             width: 110,
+                             height: 110,
+                             alignment: pw.Alignment.center)),
+                   ]),
+             ),
+             pw.Column(
+                 mainAxisSize: pw.MainAxisSize.max,
+                 crossAxisAlignment: pw.CrossAxisAlignment.end,
+                 mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
+                 children: [
+                   _buildLink('ahmad.hessi.96@gmail.com'),
+                   pw.Padding(
+                     padding: pw.EdgeInsets.symmetric(vertical: 4.0),
+                     child: pw.Text('+963950011344'),
+                   ),
+                   pw.Padding(
+                     padding: pw.EdgeInsets.symmetric(vertical: 4.0),
+                     child: pw.Text('Aleppo , Syria'),
+                   ),
+                   _buildLink('linkedin.com/in/ahmad-hossi'),
+                   _buildLink('github.com/ahmad-hossi'),
+                 ]),
+           ]),
+        pw.SizedBox(height: 10),
         pw.Row(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
@@ -77,7 +149,7 @@ Future<Uint8List> generateResume(PdfPageFormat format,Profile userProfile) async
                       width: 160,
                       child: pw.Text(
                         'Lorem ipsum dolor sit amet,'
-                        ' consectetur adipiscing elit.',
+                            ' consectetur adipiscing elit.',
                         softWrap: true,
                         style: pw.TextStyle(fontSize: 14),
                       ),

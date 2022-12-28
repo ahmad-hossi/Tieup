@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tieup/features/authentication/presentation/pages/login/login_screen.dart';
 import 'package:tieup/features/authentication/presentation/pages/sign_up/sign_up_screen.dart';
+import 'package:tieup/features/company/presentation/pages/profile.dart';
 import 'package:tieup/features/course/presentation/pages/courses_screen.dart';
 import 'package:tieup/features/cv/presentation/pages/resume_screen.dart';
+import 'package:tieup/features/education/presentation/pages/eduaction_screen.dart';
 import 'package:tieup/features/experience/presentation/pages/experience_screen.dart';
 import 'package:tieup/features/home/presentation/pages/home_screen.dart';
 import 'package:tieup/features/job/presentation/pages/fav_jobs_screen.dart';
@@ -37,4 +39,6 @@ final Map<String, WidgetBuilder> routes = {
   LanguagesScreen.routeName: (context) =>  const LanguagesScreen(),
   SkillScreen.routeName: (context) =>  const SkillScreen(),
   ResumeScreen.routeName: (context) =>  const ResumeScreen(),
+  CompanyProfile.routeName: (context) =>  const CompanyProfile(companyName: ''),
+  EducationScreen.routeName: (context) =>  const EducationScreen(),
 };

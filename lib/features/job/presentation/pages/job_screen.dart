@@ -5,9 +5,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tieup/core/constants/enums.dart';
 import 'package:tieup/core/constants/font_style.dart';
 import 'package:tieup/core/widgets/custom_nav_bar.dart';
+import 'package:tieup/core/widgets/jobs_loading.dart';
 import 'package:tieup/features/job/presentation/bloc/job_bloc.dart';
 import 'package:tieup/features/job/presentation/widgets/job_card.dart';
-import 'package:shimmer/shimmer.dart';
+
 
 
 
@@ -26,6 +27,7 @@ class _JobScreenState extends State<JobScreen> {
     context.read<JobBloc>().add(GetALlJobsEvent());
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,27 +68,7 @@ class _JobScreenState extends State<JobScreen> {
         },
         builder: (context, state) {
           if (state is JobLoading) {
-            return ListView.separated(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                itemBuilder: (_, index) => Shimmer.fromColors(
-                  baseColor: Colors.grey,
-                  period: Duration(milliseconds: 2000),
-                  highlightColor: Colors.white,
-                  child: Container(
-                        padding: EdgeInsets.all(8.w),
-                        margin: EdgeInsets.symmetric(horizontal: 4.w),
-                        width: 320.w,
-                        height: 150.h,
-                        decoration: BoxDecoration(
-                            color: Colors.grey,
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(4.r)),
-                      ),
-                ),
-                separatorBuilder: (_, index) => SizedBox(
-                      height: 8.h,
-                    ),
-                itemCount: 5);
+            return const JobsLoading();
           } else if (state is JobFailed) {
             return Text(state.errorMessage);
           } else if (state is JobLoaded) {
@@ -106,3 +88,5 @@ class _JobScreenState extends State<JobScreen> {
     );
   }
 }
+
+

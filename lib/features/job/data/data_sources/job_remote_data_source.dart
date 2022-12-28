@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 abstract class JobRemoteDataSource{
   Future<List<JobModel>> getJobs();
+  Future<List<JobModel>> getCompanyJobs(int companyId);
   Future<List<JobModel>> getFavJobs();
 }
 
@@ -49,6 +50,30 @@ class JobRemoteDataSourceImpl implements JobRemoteDataSource{
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token',
+      },
+    );
+    print(response.body);
+    if (response.statusCode == 210) {
+      final responseData = json.decode(response.body)['data'];
+      return (responseData as List<dynamic>)
+          .map((jobModel) => JobModel.fromJson(
+          jobModel as Map<String, dynamic>))
+          .toList();
+    } else if (response.statusCode == 401) {
+      throw UnauthenticatedException();
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<JobModel>> getCompanyJobs(int companyId) async{
+    final response = await client.get(
+      Uri.parse(
+        '$kBaseUrl/job/all/$companyId',
+      ),
+      headers: {
+        'Accept': 'application/json',
       },
     );
     print(response.body);

@@ -7,8 +7,9 @@ import 'package:tieup/core/constants/api_constant.dart';
 import 'package:tieup/core/widgets/custom_nav_bar.dart';
 import 'package:tieup/core/widgets/no_account_text.dart';
 import 'package:tieup/core/constants/enums.dart';
+import 'package:tieup/features/company/presentation/bloc/company_bloc.dart';
+import 'package:tieup/features/company/presentation/pages/profile.dart';
 import 'package:tieup/features/home/presentation/bloc/home_bloc.dart';
-import 'package:tieup/features/job/presentation/widgets/job_card.dart';
 import 'package:badges/badges.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,7 +22,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
     context.read<HomeBloc>().add(GetAllCompaniesEvent());
@@ -180,45 +180,59 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   BlocBuilder<HomeBloc, HomeState>(
                     builder: (context, state) {
-                      if(state is HomeCompanyLoading){
-
-                      }else if(state is HomeCompanyFailed){
-
-                      }else if (state is HomeCompanyLoaded){
+                      if (state is HomeCompanyLoading) {
+                      } else if (state is HomeCompanyFailed) {
+                      } else if (state is HomeCompanyLoaded) {
                         return Container(
                             padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 8.h),
                             width: double.infinity,
-                            height: 168,
                             child: GridView.builder(
+                              shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 4,
                                 crossAxisSpacing: 12.w,
                                 mainAxisSpacing: 12.h,
                                 childAspectRatio: 1,
                               ),
-                              itemBuilder: (_, index) => Container(
-                                padding: EdgeInsets.all(4.w),
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(4.r)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Image.network(
-                                      '$kBaseUrl/${state.companies[index].imageUrl}',
-                                      width: 44.w,
-                                    ),
-                                    Text(state.companies[index].name)
-                                  ],
+                              itemBuilder: (_, index) => InkWell(
+                                onTap: () {
+                                  context.read<CompanyBloc>().add(
+                                      GetCompanyDetailEvent(
+                                          companyId:
+                                              state.companies[index].id));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => CompanyProfile(
+                                              companyName: state
+                                                  .companies[index].name)));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(4.w),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(4.r)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Image.network(
+                                        '$kBaseUrl/${state.companies[index].imageUrl}',
+                                        width: 44.w,
+                                      ),
+                                      Text(state.companies[index].name)
+                                    ],
+                                  ),
                                 ),
                               ),
                               itemCount: state.companies.length,
                             ));
-                      }return Container();
+                      }
+                      return Container();
                     },
                   ),
                 ],

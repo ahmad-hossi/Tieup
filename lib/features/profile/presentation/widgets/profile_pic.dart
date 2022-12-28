@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tieup/constants.dart';
+import 'package:tieup/core/constants/api_constant.dart';
 
 class ProfilePic extends StatefulWidget {
-  const ProfilePic({Key? key}) : super(key: key);
+  const ProfilePic({required this.imageUrl,Key? key}) : super(key: key);
 
+
+  final String imageUrl;
 
   @override
   State<ProfilePic> createState() => _ProfilePicState();
@@ -66,8 +69,8 @@ class _ProfilePicState extends State<ProfilePic> with SingleTickerProviderStateM
         child: Padding(
           padding: const EdgeInsets.all(0.0),
           child:ClipOval(
-            child: Image.asset(
-              'assets/images/profile_image.jpg',
+            child: Image.network(
+              '$kBaseUrl/${widget.imageUrl}',
               width: 80,
               height: 80,
               fit: BoxFit.cover,

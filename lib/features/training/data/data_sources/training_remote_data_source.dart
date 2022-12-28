@@ -7,6 +7,7 @@ import 'package:tieup/features/training/data/models/training_model.dart';
 
 abstract class TrainingRemoteDataSource{
   Future<List<TrainingModel>> getTrainings();
+  Future<List<TrainingModel>> getCompanyTrainings(int companyId);
   Future<List<TrainingModel>> getFavTrainings();
 }
 
@@ -49,6 +50,30 @@ class TrainingRemoteDataSourceImpl implements TrainingRemoteDataSource{
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token',
+      },
+    );
+    print(response.body);
+    if (response.statusCode == 210) {
+      final responseData = json.decode(response.body)['data'];
+      return (responseData as List<dynamic>)
+          .map((trainingModel) => TrainingModel.fromJson(
+          trainingModel as Map<String, dynamic>))
+          .toList();
+    } else if (response.statusCode == 401) {
+      throw UnauthenticatedException();
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<TrainingModel>> getCompanyTrainings(int companyId) async{
+    final response = await client.get(
+      Uri.parse(
+        '$kBaseUrl/training/all/$companyId',
+      ),
+      headers: {
+        'Accept': 'application/json',
       },
     );
     print(response.body);

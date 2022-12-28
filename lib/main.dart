@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tieup/constants.dart';
+import 'package:tieup/features/company/presentation/bloc/company_bloc.dart';
+import 'package:tieup/features/education/presentation/bloc/education_bloc.dart';
 import 'package:tieup/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:tieup/features/skill/presentation/Bloc/skill_bloc.dart';
 import 'package:tieup/features/authentication/presentation/bloc/authentication_bloc.dart';
@@ -55,6 +57,8 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (_) => sl<MotivationLetterBloc>()),
             BlocProvider(create: (_) => sl<PortfolioBloc>()),
             BlocProvider(create: (_) => sl<ProfileBloc>()),
+            BlocProvider(create: (_) => sl<CompanyBloc>()),
+            BlocProvider(create: (_) => sl<EducationBloc>()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

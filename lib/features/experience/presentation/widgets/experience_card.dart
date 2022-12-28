@@ -125,6 +125,7 @@ class ExperienceCard extends StatelessWidget {
               Text(workExperience.endDate == null ? 'present' : workExperience.endDate!.substring(0,7)),
             ],
           ),
-        ));
+        )
+    );
   }
 }

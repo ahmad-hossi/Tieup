@@ -11,7 +11,7 @@ LanguageModel _$LanguageModelFromJson(Map<String, dynamic> json) {
     id: json['id'] as int,
     languageId: json['language_id'] as int,
     languageName: json['language'] as String,
-    level: (json['level'] as num).toInt(),
+    level: json['level'] as int,
   );
 }
 

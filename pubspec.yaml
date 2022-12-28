@@ -60,6 +60,8 @@ dependencies:
   printing: ^5.3.0
   url_launcher: ^6.1.7
   pdf: ^3.8.4
+  expandable: ^5.0.1
+  map_launcher: ^2.4.0
 
 
 

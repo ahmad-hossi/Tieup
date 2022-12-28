@@ -4,5 +4,6 @@ import 'package:tieup/features/job/domain/entities/job.dart';
 
 abstract class JobRepository{
   Future<Either<Failure,List<Job>>> getJobs();
+  Future<Either<Failure,List<Job>>> getCompanyJobs(int companyId);
   Future<Either<Failure,List<Job>>> getFavJobs();
 }

@@ -31,4 +31,15 @@ class TrainingRepositoryImpl implements TrainingRepository{
     }
   }
 
+  @override
+  Future<Either<Failure, List<Training>>> getCompanyTrainings(int companyId) async{
+    try {
+      return Right(await remoteDataSource.getCompanyTrainings(companyId));
+    } on UnauthenticatedException {
+    return const Left(Failure(errorType: ErrorType.unauthenticated));
+    } on ServerException {
+    return const Left(Failure(errorType: ErrorType.serverError));
+    }
+  }
+
 }

@@ -1,4 +1,13 @@
 import 'package:http/http.dart';
+import 'package:tieup/features/company/domain/use_cases/get_compnay_detail.dart';
+import 'package:tieup/features/company/presentation/bloc/company_bloc.dart';
+import 'package:tieup/features/education/data/data_sources/education_remote_data_source.dart';
+import 'package:tieup/features/education/data/repositories/education_repository_impl.dart';
+import 'package:tieup/features/education/domain/repositories/education_repository.dart';
+import 'package:tieup/features/education/domain/use_cases/add_user_education.dart';
+import 'package:tieup/features/education/domain/use_cases/get_user_education.dart';
+import 'package:tieup/features/education/presentation/bloc/education_bloc.dart';
+import 'package:tieup/features/job/domain/use_cases/get_company_jobs.dart';
 import 'package:tieup/features/profile/data/data_sources/profile_remote_data_source.dart';
 import 'package:tieup/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:tieup/features/profile/domain/repositories/profile_repository.dart';
@@ -76,6 +85,7 @@ import 'package:tieup/features/portfolio/presentation/bloc/portfolio_bloc.dart';
 import 'package:tieup/features/training/data/data_sources/training_remote_data_source.dart';
 import 'package:tieup/features/training/data/repositories/training_repository_impl.dart';
 import 'package:tieup/features/training/domain/repositories/training_repository.dart';
+import 'package:tieup/features/training/domain/use_cases/get_company_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_fav_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_trainings.dart';
 import 'package:tieup/features/training/presentation/bloc/training_bloc.dart';
@@ -107,10 +117,10 @@ Future init() async {
   sl.registerFactory(() =>
       WorkExperienceBloc(addWorkExperience: sl(), getWorkExperience: sl()));
   sl.registerFactory(() => CourseBloc(getCourses: sl(), addCourse: sl()));
-  sl.registerFactory(() => JobBloc(getJobs: sl(), getFavJobs: sl()));
+  sl.registerFactory(() => JobBloc(getJobs: sl(), getFavJobs: sl(),getCompanyJobs: sl()));
   sl.registerFactory(() => JobDetailBloc(getJobDetail: sl()));
   sl.registerFactory(
-      () => TrainingBloc(getTrainings: sl(), getFavTrainings: sl()));
+      () => TrainingBloc(getTrainings: sl(), getFavTrainings: sl(),getCompanyTrainings: sl()));
   sl.registerFactory(() => TrainingDetailBloc(getTrainingDetail: sl()));
   sl.registerFactory(() => HomeBloc(getCompanies: sl()));
   sl.registerFactory(() => MotivationLetterBloc(
@@ -118,6 +128,10 @@ Future init() async {
   sl.registerFactory(
       () => PortfolioBloc(getUserPortfolio: sl(), updateUserPortfolio: sl()));
   sl.registerFactory(() => ProfileBloc(getUserProfile: sl()));
+  sl.registerFactory(() => CompanyBloc(getCompanyDetail: sl()));
+  sl.registerFactory(() => EducationBloc(getUserEducation: sl(),addUserEducation: sl()));
+
+
 
   // use cases
   sl.registerLazySingleton(() => LoginUser(sl()));
@@ -146,6 +160,11 @@ Future init() async {
   sl.registerLazySingleton(() => AddCourse(sl()));
   sl.registerLazySingleton(() => GetUserSkills(sl()));
   sl.registerLazySingleton(() => GetUserProfile(sl()));
+  sl.registerLazySingleton(() => GetCompanyJobs(sl()));
+  sl.registerLazySingleton(() => GetCompanyTrainings(sl()));
+  sl.registerLazySingleton(() => GetCompanyDetail(sl()));
+  sl.registerLazySingleton(() => GetUserEducation(sl()));
+  sl.registerLazySingleton(() => AddUserEducation(sl()));
 
   // Data sources
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -176,6 +195,9 @@ Future init() async {
       () => PortfolioRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<ProfileRemoteDataSource>(
           () => ProfileRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<EducationRemoteDataSource>(
+          () => EducationRemoteDataSourceImpl(sl()));
+
 
   // Repository
   sl.registerLazySingleton<AuthenticationRepository>(
@@ -203,6 +225,8 @@ Future init() async {
       () => PortfolioRepositoryImpl(sl()));
   sl.registerLazySingleton<ProfileRepository>(
           () => ProfileRepositoryImpl(sl()));
+  sl.registerLazySingleton<EducationRepository>(
+          () => EducationRepositoryImpl(sl()));
 
   // core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));

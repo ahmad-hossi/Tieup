@@ -31,4 +31,15 @@ class JobRepositoryImpl implements JobRepository{
     }
   }
 
+  @override
+  Future<Either<Failure, List<Job>>> getCompanyJobs(int companyId) async{
+    try {
+      return Right(await remoteDataSource.getCompanyJobs(companyId)); 
+    } on UnauthenticatedException {
+      return const Left(Failure(errorType: ErrorType.unauthenticated));
+    } on ServerException {
+      return const Left(Failure(errorType: ErrorType.serverError));
+    }
+  }
+
 }

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tieup/constants.dart';
 import 'package:tieup/features/course/presentation/pages/courses_screen.dart';
 import 'package:tieup/features/cv/presentation/pages/resume_screen.dart';
+import 'package:tieup/features/education/presentation/pages/eduaction_screen.dart';
 import 'package:tieup/features/experience/presentation/pages/experience_screen.dart';
 import 'package:tieup/features/job/presentation/pages/fav_jobs_screen.dart';
 import 'package:tieup/features/languages/presentation/pages/languages_screen.dart';
@@ -147,7 +148,7 @@ class ProfileScreen extends StatelessWidget {
                 Positioned(
                   left: 20.w,
                   top: 68.h,
-                  child: ProfilePic(),
+                  child: ProfilePic(imageUrl: ''),
                 ),
                 Positioned(
                   top: 142.h,
@@ -240,7 +241,7 @@ class ProfileScreen extends StatelessWidget {
             const ProfileCard(
               title: 'Education',
               svgIcon: 'assets/icons/personal-information.svg',
-              routeName: PersonalInformationScreen.routeName,
+              routeName: EducationScreen.routeName,
             ),
             SizedBox(
               height: 8.h,

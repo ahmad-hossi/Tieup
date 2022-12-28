@@ -140,7 +140,7 @@ class SkillRemoteDataSourceImpl implements SkillRemoteDataSource {
         throw UnauthenticatedException();
       } else {
         throw ServerException();
-      }
+     }
     } catch (e) {
       throw ServerException();
     }

@@ -51,7 +51,7 @@ Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
       'address': instance.address,
       'summary': instance.summary,
       'city_id': instance.cityId,
-      'city_name': instance.cityName,
+      'city': instance.cityName,
       'image': instance.imageUrl,
       'cover_image': instance.coverImageUrl,
       'Languages': instance.languages,

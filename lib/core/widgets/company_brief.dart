@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tieup/core/constants/api_constant.dart';
 import 'package:tieup/core/constants/font_style.dart';
 
 
@@ -23,7 +24,7 @@ class CompanyBrief extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Image.network(imageUrl,
+          Image.network('$kBaseUrl/$imageUrl',
             width: 38.w,height: 38.w,),
           SizedBox(width: 8.w,),
           Column(
@@ -35,7 +36,7 @@ class CompanyBrief extends StatelessWidget {
               Text(companyName),
             ],
           ),
-          Spacer(),
+         // Spacer(),
           Text(subDomainName),
         ],
       ),
