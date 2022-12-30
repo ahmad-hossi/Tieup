@@ -17,7 +17,6 @@ class LanguagesScreen extends StatefulWidget {
 }
 
 class _LanguagesScreenScreenState extends State<LanguagesScreen> {
-
   @override
   void initState() {
     context.read<LanguagesBloc>().add(GetLanguagesEvent());
@@ -34,23 +33,32 @@ class _LanguagesScreenScreenState extends State<LanguagesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Text('Languages'),),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
-        child: BlocBuilder<LanguagesBloc, LanguagesState>(
+        child: BlocConsumer<LanguagesBloc, LanguagesState>(
+          listener: (context, state) {
+            if (state is LanguageAddedSuccessfully) {
+              context.read<LanguagesBloc>().add(GetLanguagesEvent());
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('added successfully'),
+                ),
+              );
+            } else if (state is LanguageAddedFailed) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('something went error'),
+                ),
+              );
+            }
+          },
           builder: (context, state) {
             if (state is LanguagesLoading) {
               return const CircularProgressIndicator();
             } else if (state is LanguagesFailed) {
               return Text(state.errorMessage);
             } else if (state is LanguagesLoaded) {
-              // englishInitialRate =
-              //     state.languages.indexWhere((e) => e.languageId == 1) == -1 ? 0 :
-              //     state.[].level;
-              // arabicInitialRate =
-              //     state.languages.firstWhere((e) => e.languageId == 2).level;
-              // frenchInitialRate =
-              //     state.languages.firstWhere((e) => e.languageId == 3).level;
               return Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -83,7 +91,8 @@ class _LanguagesScreenScreenState extends State<LanguagesScreen> {
                                   RatingBar.builder(
                                     updateOnDrag: false,
                                     ignoreGestures: true,
-                                    initialRating: state.languages[index].level.toDouble(),
+                                    initialRating:
+                                        state.languages[index].level.toDouble(),
                                     minRating: 0,
                                     direction: Axis.horizontal,
                                     allowHalfRating: false,
@@ -109,17 +118,16 @@ class _LanguagesScreenScreenState extends State<LanguagesScreen> {
                       )),
                     ),
                   ),
-                  TextButton(onPressed: (){
-                    showDialog(context: context, builder: (_)=>AddLanguagesDialog());
-                  }, child: Text('add language')),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: DefaultButton(
-                        text: 'Save',
-                        press: () {},
-                        isEnable: ((englishInitialRate != englishRate) ||
-                            (arabicInitialRate != arabicRate) ||
-                            (frenchInitialRate != frenchRate))),
+                      text: 'Add',
+                      press: () {
+                        showDialog(
+                            context: context,
+                            builder: (_) => AddLanguagesDialog());
+                      },
+                    ),
                   ),
                 ],
               );

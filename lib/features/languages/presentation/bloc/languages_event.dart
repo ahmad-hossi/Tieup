@@ -5,6 +5,11 @@ abstract class LanguagesEvent {}
 
 class GetLanguagesEvent extends LanguagesEvent{}
 
+class AddLanguageEvent extends LanguagesEvent{
+  final LanguagesParams params;
+  AddLanguageEvent({required this.params});
+}
+
 
 
 

@@ -1,5 +1,3 @@
-
-
 import 'package:dartz/dartz.dart';
 import 'package:tieup/core/error/exceptions.dart';
 import 'package:tieup/core/error/failures.dart';
@@ -25,10 +23,19 @@ class LanguagesRepositoryImpl implements LanguagesRepository{
   }
 
   @override
-  Future<Either<Failure, List<Language>>> updateLanguages(Map<String, dynamic> body) {
-    // TODO: implement updateLanguages
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> addLanguage(Map<String, dynamic> body) async{
+    try {
+      final response = await _remoteDataSource.addLanguage(body);
+      return Right(response);
+    } on UnauthenticatedException {
+      print('UnauthorisedException');
+      return const Left(Failure(errorType: ErrorType.unauthenticated));
+    } on ServerException {
+      return const Left(Failure(errorType: ErrorType.serverError));
+    }
   }
+
+
 
 
 }

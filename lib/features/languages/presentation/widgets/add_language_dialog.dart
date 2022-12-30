@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tieup/constants.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:tieup/core/entities/languages_params.dart';
+import 'package:tieup/features/languages/presentation/bloc/languages_bloc.dart';
 
 class AddLanguagesDialog extends StatefulWidget {
   const AddLanguagesDialog({Key? key}) : super(key: key);
@@ -14,7 +17,7 @@ class _AddLanguagesDialogState extends State<AddLanguagesDialog> {
   List<String> languages = ['Arabic','English','French','German','Turkish'];
 
   int selectedLanguageId = 0;
-  int selectedRating = 1;
+  int selectedRating = 2;
 
   List<DropdownMenuItem<int>> domainItems() {
     List<DropdownMenuItem<int>> dropDownItems = [];
@@ -66,7 +69,7 @@ class _AddLanguagesDialogState extends State<AddLanguagesDialog> {
                 RatingBar.builder(
                   itemSize: 34.w,
                   initialRating: 2,
-                  minRating: 0,
+                  minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: false,
                   itemCount: 5,
@@ -78,9 +81,9 @@ class _AddLanguagesDialogState extends State<AddLanguagesDialog> {
                   ),
                   onRatingUpdate: (rating) {
                     setState(() {
-                      rating = rating;
+                      selectedRating = rating.toInt();
                     });
-                    print(rating);
+                    print(selectedRating);
                   },
                 ),
               ],
@@ -101,7 +104,12 @@ class _AddLanguagesDialogState extends State<AddLanguagesDialog> {
                 SizedBox(width: 16,),
                 TextButton(
                   onPressed: () {
-                    Navigator.pop(context,selectedLanguageId);
+                    context.read<LanguagesBloc>().add(AddLanguageEvent(
+                     params: LanguagesParams(
+                       languageId: (selectedLanguageId+1).toString(),
+                       level: selectedRating.toString(),
+                     )));
+                    Navigator.pop(context);
                   },
                   child: Text('Add'),
                   style: TextButton.styleFrom(

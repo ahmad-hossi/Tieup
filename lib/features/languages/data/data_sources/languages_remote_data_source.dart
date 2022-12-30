@@ -7,7 +7,7 @@ import 'package:tieup/features/languages/data/models/language_model.dart';
 
 abstract class LanguagesRemoteDataSource {
   Future<List<LanguageModel>> getLanguages();
-  Future<List<LanguageModel>> updateLanguages(Map<String, dynamic> body);
+  Future<bool> addLanguage(Map<String, dynamic> body);
 }
 
 class LanguagesRemoteDataSourceImpl implements LanguagesRemoteDataSource {
@@ -42,8 +42,28 @@ class LanguagesRemoteDataSourceImpl implements LanguagesRemoteDataSource {
   }
 
   @override
-  Future<List<LanguageModel>> updateLanguages(Map<String, dynamic> body) {
-    // TODO: implement updateLanguages
-    throw UnimplementedError();
+  Future<bool> addLanguage(Map<String, dynamic> body)async{
+    print('hi');
+    print(body);
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await client.post(
+      Uri.parse(
+        '$kBaseUrl/user/LanguageUser/createOrUpdate',
+      ),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: body
+    );
+    print(response.body);
+    if (response.statusCode == 220) {
+      return true;
+    } else if (response.statusCode == 401) {
+      throw UnauthenticatedException();
+    } else {
+      throw ServerException();
+    }
   }
 }

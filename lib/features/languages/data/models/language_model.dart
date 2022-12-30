@@ -10,7 +10,7 @@ class LanguageModel extends Language {
   final int id;
   @JsonKey(name:'language_id')
   final int languageId;
-  @JsonKey(name:'language')
+  @JsonKey(name:'language_name')
   final String languageName;
   final int level;
 

@@ -1,6 +1,6 @@
 class LanguagesParams {
-  int languageId;
-  double level;
+  String languageId;
+  String level;
 
   LanguagesParams({required this.languageId, required this.level});
 

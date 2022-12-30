@@ -61,7 +61,7 @@ import 'package:tieup/features/languages/data/data_sources/languages_remote_data
 import 'package:tieup/features/languages/data/repositories/languages_repository_impl.dart';
 import 'package:tieup/features/languages/domain/repositories/langauges_repository.dart';
 import 'package:tieup/features/languages/domain/use_cases/get_languages.dart';
-import 'package:tieup/features/languages/domain/use_cases/update_languages.dart';
+import 'package:tieup/features/languages/domain/use_cases/add_language.dart';
 import 'package:tieup/features/languages/presentation/bloc/languages_bloc.dart';
 import 'package:tieup/features/loading/presentation/bloc/loading_cubit.dart';
 import 'package:tieup/features/motivation_letter/data/data_sources/motivation_letter_remote_data_source.dart';
@@ -106,7 +106,7 @@ Future init() async {
       getPersonalInformation: sl(), updatePersonalInformation: sl()));
   sl.registerFactory(() => LanguagesBloc(
         getLanguages: sl(),
-        updateLanguages: sl(),
+        addLanguage: sl(),
       ));
   sl.registerFactory(() => SkillBloc(
       getDomains: sl(),
@@ -139,7 +139,7 @@ Future init() async {
   sl.registerLazySingleton(() => GetPersonalInformation(sl()));
   sl.registerLazySingleton(() => UpdatePersonalInformation(sl()));
   sl.registerLazySingleton(() => GetLanguages(sl()));
-  sl.registerLazySingleton(() => UpdateLanguages(sl()));
+  sl.registerLazySingleton(() => AddLanguage(sl()));
   sl.registerLazySingleton(() => GetDomains(sl()));
   sl.registerLazySingleton(() => GetSubDomains(sl()));
   sl.registerLazySingleton(() => GetSkills(sl()));

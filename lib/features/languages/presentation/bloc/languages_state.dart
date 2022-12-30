@@ -16,3 +16,10 @@ class LanguagesFailed extends LanguagesState {
   final String errorMessage;
   LanguagesFailed({required this.errorMessage});
 }
+
+class LanguageAddedSuccessfully extends LanguagesState {}
+
+class LanguageAddedFailed extends LanguagesState {
+  final String errorMessage;
+  LanguageAddedFailed(this.errorMessage);
+}
