@@ -13,6 +13,7 @@ class JobDetail {
   final int maxAge;
   final String description;
   final String requirement;
+  final String benefits;
   final String gender;
   final String? militaryService;
   final int vacanciesNum;
@@ -23,6 +24,8 @@ class JobDetail {
   final String companyName;
   final String companyProfileImage;
   final String companyDescription;
+  final bool isFavorite;
+  final bool isApply;
   final List<Skill> skills;
 
   JobDetail(
@@ -38,7 +41,8 @@ class JobDetail {
       required this.maxAge,
       required this.description,
       required this.requirement,
-      required this.gender,
+        required this.benefits,
+        required this.gender,
        this.militaryService,
       required this.vacanciesNum,
       required this.cityName,
@@ -48,5 +52,7 @@ class JobDetail {
       required this.companyName,
       required this.companyDescription,
       required this.companyProfileImage,
+        required this.isFavorite,
+        required this.isApply,
       required this.skills});
 }

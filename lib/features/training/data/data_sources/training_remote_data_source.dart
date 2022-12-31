@@ -9,6 +9,7 @@ abstract class TrainingRemoteDataSource{
   Future<List<TrainingModel>> getTrainings();
   Future<List<TrainingModel>> getCompanyTrainings(int companyId);
   Future<List<TrainingModel>> getFavTrainings();
+  Future<List<TrainingModel>> getAppliedTrainings();
 }
 
 class TrainingRemoteDataSourceImpl implements TrainingRemoteDataSource{
@@ -74,6 +75,33 @@ class TrainingRemoteDataSourceImpl implements TrainingRemoteDataSource{
       ),
       headers: {
         'Accept': 'application/json',
+      },
+    );
+    print(response.body);
+    if (response.statusCode == 210) {
+      final responseData = json.decode(response.body)['data'];
+      return (responseData as List<dynamic>)
+          .map((trainingModel) => TrainingModel.fromJson(
+          trainingModel as Map<String, dynamic>))
+          .toList();
+    } else if (response.statusCode == 401) {
+      throw UnauthenticatedException();
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<TrainingModel>> getAppliedTrainings() async{
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await client.get(
+      Uri.parse(
+        '$kBaseUrl/user/application/trainings/get',
+      ),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
       },
     );
     print(response.body);

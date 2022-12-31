@@ -11,3 +11,5 @@ class GetCompanyJobsEvent extends JobEvent{
 }
 
 class GetFavJobsEvent extends JobEvent{}
+
+class GetAppliedJobsEvent extends JobEvent{}

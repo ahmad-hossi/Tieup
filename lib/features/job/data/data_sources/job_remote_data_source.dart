@@ -9,6 +9,7 @@ abstract class JobRemoteDataSource{
   Future<List<JobModel>> getJobs();
   Future<List<JobModel>> getCompanyJobs(int companyId);
   Future<List<JobModel>> getFavJobs();
+  Future<List<JobModel>> getAppliedJobs();
 }
 
 class JobRemoteDataSourceImpl implements JobRemoteDataSource{
@@ -74,6 +75,33 @@ class JobRemoteDataSourceImpl implements JobRemoteDataSource{
       ),
       headers: {
         'Accept': 'application/json',
+      },
+    );
+    print(response.body);
+    if (response.statusCode == 210) {
+      final responseData = json.decode(response.body)['data'];
+      return (responseData as List<dynamic>)
+          .map((jobModel) => JobModel.fromJson(
+          jobModel as Map<String, dynamic>))
+          .toList();
+    } else if (response.statusCode == 401) {
+      throw UnauthenticatedException();
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<JobModel>> getAppliedJobs() async{
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await client.get(
+      Uri.parse(
+        '$kBaseUrl/user/application/jobs/get',
+      ),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
       },
     );
     print(response.body);

@@ -28,6 +28,7 @@ class JobDetailModel extends JobDetail {
   final String description;
   @JsonKey(name: 'requirment')
   final String requirement;
+  final String benefits;
   final String gender;
   @JsonKey(name: 'military_service')
   final String? militaryService;
@@ -47,6 +48,10 @@ class JobDetailModel extends JobDetail {
   final String companyDescription;
   @JsonKey(name: 'company_profile_image')
   final String companyProfileImage;
+  @JsonKey(name: 'is_favorite')
+  final bool isFavorite;
+  @JsonKey(name: 'is_application')
+  final bool isApply;
   @override
   final List<SkillModel> skills;
   JobDetailModel(
@@ -62,8 +67,9 @@ class JobDetailModel extends JobDetail {
       required this.maxAge,
       required this.description,
       required this.requirement,
+      required this.benefits,
       required this.gender,
-       this.militaryService,
+      this.militaryService,
       required this.vacanciesNum,
       required this.cityName,
       required this.subDomainId,
@@ -72,31 +78,37 @@ class JobDetailModel extends JobDetail {
       required this.companyDescription,
       required this.companyName,
       required this.companyProfileImage,
+      required this.isFavorite,
+      required this.isApply,
       required this.skills})
       : super(
-            id: id,
-            cityName: cityName,
-            companyName: companyName,
-            subDomainName: subDomainName,
-            jobTitle: jobTitle,
-            jobStyle: jobStyle,
-            jobType: jobType,
-            militaryService: militaryService,
-            gender: gender,
-            skills: skills,
-            minYearsRequirement: minYearsRequirement,
-            maxYearsRequirement: maxYearsRequirement,
-            lowSalary: lowSalary,
-            highSalary: highSalary,
-            subDomainId: subDomainId,
-            description: description,
-            maxAge: maxAge,
-            minAge: minAge,
-            requirement: requirement,
-            vacanciesNum: vacanciesNum,
-            companyId: companyId,
-            companyDescription: companyDescription,
-            companyProfileImage: companyProfileImage);
+          id: id,
+          cityName: cityName,
+          companyName: companyName,
+          subDomainName: subDomainName,
+          jobTitle: jobTitle,
+          jobStyle: jobStyle,
+          jobType: jobType,
+          militaryService: militaryService,
+          gender: gender,
+          skills: skills,
+          minYearsRequirement: minYearsRequirement,
+          maxYearsRequirement: maxYearsRequirement,
+          lowSalary: lowSalary,
+          highSalary: highSalary,
+          subDomainId: subDomainId,
+          description: description,
+          maxAge: maxAge,
+          minAge: minAge,
+          requirement: requirement,
+          vacanciesNum: vacanciesNum,
+          companyId: companyId,
+          companyDescription: companyDescription,
+          companyProfileImage: companyProfileImage,
+          isApply: isApply,
+          isFavorite: isFavorite,
+          benefits: benefits,
+        );
 
   factory JobDetailModel.fomJson(Map<String, dynamic> json) =>
       _$JobDetailModelFromJson(json);

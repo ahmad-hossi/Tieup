@@ -25,7 +25,7 @@ Map<String, dynamic> _$EducationModelToJson(EducationModel instance) =>
       'id': instance.id,
       'education_type_id': instance.educationTypeId,
       'field_of_study': instance.fieldOfStudy,
-      'from' : instance.from,
+      'from': instance.from,
       'start_date': instance.startDate,
       'end_date': instance.endDate,
       'grade': instance.grade,

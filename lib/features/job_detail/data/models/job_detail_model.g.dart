@@ -20,6 +20,7 @@ JobDetailModel _$JobDetailModelFromJson(Map<String, dynamic> json) {
     maxAge: json['max_age'] as int,
     description: json['description'] as String,
     requirement: json['requirment'] as String,
+    benefits: json['benefits'] as String,
     gender: json['gender'] as String,
     militaryService: json['military_service'] as String?,
     vacanciesNum: json['vacancies_num'] as int,
@@ -30,6 +31,8 @@ JobDetailModel _$JobDetailModelFromJson(Map<String, dynamic> json) {
     companyDescription: json['company_discription'] as String,
     companyName: json['company_name'] as String,
     companyProfileImage: json['company_profile_image'] as String,
+    isFavorite: json['is_favorite'] as bool,
+    isApply: json['is_application'] as bool,
     skills: (json['skills'] as List<dynamic>)
         .map((e) => SkillModel.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -50,6 +53,7 @@ Map<String, dynamic> _$JobDetailModelToJson(JobDetailModel instance) =>
       'max_age': instance.maxAge,
       'description': instance.description,
       'requirment': instance.requirement,
+      'benefits': instance.benefits,
       'gender': instance.gender,
       'military_service': instance.militaryService,
       'vacancies_num': instance.vacanciesNum,
@@ -60,5 +64,7 @@ Map<String, dynamic> _$JobDetailModelToJson(JobDetailModel instance) =>
       'company_name': instance.companyName,
       'company_discription': instance.companyDescription,
       'company_profile_image': instance.companyProfileImage,
+      'is_favorite': instance.isFavorite,
+      'is_application': instance.isApply,
       'skills': instance.skills,
     };

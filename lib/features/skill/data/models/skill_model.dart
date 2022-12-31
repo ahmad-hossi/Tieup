@@ -9,7 +9,7 @@ class SkillModel extends Skill {
       : super(id: id, name: name,level: level);
 
   factory SkillModel.fromJson(Map<String, dynamic> json) => SkillModel(
-      name: json['name'], id: json['skill_id'], level: json['level']);
+      name: json['skill_name'], id: json['skill_id'], level: json['level']);
 
   Map<String, dynamic> toJson() => {
         'skill_id': id,

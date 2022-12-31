@@ -27,6 +27,8 @@ class JobModel extends Job {
   final String companyImgUrl;
   @JsonKey(name: 'posted')
   final String postedDate;
+  @JsonKey(name: 'application_date')
+  final String? applicationDate;
   JobModel(
       {required this.id,
       required this.jobTitle,
@@ -39,7 +41,8 @@ class JobModel extends Job {
       required this.companyId,
       required this.companyName,
       required this.companyImgUrl,
-      required this.postedDate})
+      required this.postedDate,
+      this.applicationDate})
       : super(
           id: id,
           jobTitle: jobTitle,

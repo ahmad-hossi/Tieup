@@ -27,6 +27,8 @@ TrainingDetailModel _$TrainingDetailModelFromJson(Map<String, dynamic> json) {
     companyName: json['company_name'] as String,
     companyDescription: json['company_discription'] as String,
     companyProfileImage: json['company_profile_image'] as String,
+    isApplied: json['is_application'] as bool,
+    isFavorite: json['is_favorite'] as bool,
     skills: (json['skills'] as List<dynamic>)
         .map((e) => SkillModel.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -55,5 +57,7 @@ Map<String, dynamic> _$TrainingDetailModelToJson(
       'company_name': instance.companyName,
       'company_discription': instance.companyDescription,
       'company_profile_image': instance.companyProfileImage,
+      'is_favorite': instance.isFavorite,
+      'is_application': instance.isApplied,
       'skills': instance.skills,
     };

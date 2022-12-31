@@ -19,6 +19,6 @@ Map<String, dynamic> _$LanguageModelToJson(LanguageModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'language_id': instance.languageId,
-      'language': instance.languageName,
+      'language_name': instance.languageName,
       'level': instance.level,
     };

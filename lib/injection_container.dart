@@ -1,4 +1,9 @@
 import 'package:http/http.dart';
+import 'package:tieup/features/application/data/data_sources/apply_remote_data_source.dart';
+import 'package:tieup/features/application/data/repositories/apply_repository_impl.dart';
+import 'package:tieup/features/application/domain/repositories/apply_repository.dart';
+import 'package:tieup/features/application/domain/use_cases/apply.dart';
+import 'package:tieup/features/application/presentation/manager/apply_bloc.dart';
 import 'package:tieup/features/company/domain/use_cases/get_compnay_detail.dart';
 import 'package:tieup/features/company/presentation/bloc/company_bloc.dart';
 import 'package:tieup/features/education/data/data_sources/education_remote_data_source.dart';
@@ -7,6 +12,12 @@ import 'package:tieup/features/education/domain/repositories/education_repositor
 import 'package:tieup/features/education/domain/use_cases/add_user_education.dart';
 import 'package:tieup/features/education/domain/use_cases/get_user_education.dart';
 import 'package:tieup/features/education/presentation/bloc/education_bloc.dart';
+import 'package:tieup/features/favorite/data/data_sources/favorite_remote_data_source.dart';
+import 'package:tieup/features/favorite/data/repositories/favorite_repository_impl.dart';
+import 'package:tieup/features/favorite/domain/repositories/favorite_repository.dart';
+import 'package:tieup/features/favorite/domain/use_cases/add_to_fav.dart';
+import 'package:tieup/features/favorite/presentation/manager/favorite_bloc.dart';
+import 'package:tieup/features/job/domain/use_cases/get_applied_jobs.dart';
 import 'package:tieup/features/job/domain/use_cases/get_company_jobs.dart';
 import 'package:tieup/features/profile/data/data_sources/profile_remote_data_source.dart';
 import 'package:tieup/features/profile/data/repositories/profile_repository_impl.dart';
@@ -85,6 +96,7 @@ import 'package:tieup/features/portfolio/presentation/bloc/portfolio_bloc.dart';
 import 'package:tieup/features/training/data/data_sources/training_remote_data_source.dart';
 import 'package:tieup/features/training/data/repositories/training_repository_impl.dart';
 import 'package:tieup/features/training/domain/repositories/training_repository.dart';
+import 'package:tieup/features/training/domain/use_cases/get_applied_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_company_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_fav_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_trainings.dart';
@@ -117,10 +129,17 @@ Future init() async {
   sl.registerFactory(() =>
       WorkExperienceBloc(addWorkExperience: sl(), getWorkExperience: sl()));
   sl.registerFactory(() => CourseBloc(getCourses: sl(), addCourse: sl()));
-  sl.registerFactory(() => JobBloc(getJobs: sl(), getFavJobs: sl(),getCompanyJobs: sl()));
+  sl.registerFactory(() => JobBloc(
+      getJobs: sl(),
+      getFavJobs: sl(),
+      getCompanyJobs: sl(),
+      getAppliedJobs: sl()));
   sl.registerFactory(() => JobDetailBloc(getJobDetail: sl()));
-  sl.registerFactory(
-      () => TrainingBloc(getTrainings: sl(), getFavTrainings: sl(),getCompanyTrainings: sl()));
+  sl.registerFactory(() => TrainingBloc(
+      getTrainings: sl(),
+      getFavTrainings: sl(),
+      getCompanyTrainings: sl(),
+      getAppliedTrainings: sl()));
   sl.registerFactory(() => TrainingDetailBloc(getTrainingDetail: sl()));
   sl.registerFactory(() => HomeBloc(getCompanies: sl()));
   sl.registerFactory(() => MotivationLetterBloc(
@@ -129,9 +148,10 @@ Future init() async {
       () => PortfolioBloc(getUserPortfolio: sl(), updateUserPortfolio: sl()));
   sl.registerFactory(() => ProfileBloc(getUserProfile: sl()));
   sl.registerFactory(() => CompanyBloc(getCompanyDetail: sl()));
-  sl.registerFactory(() => EducationBloc(getUserEducation: sl(),addUserEducation: sl()));
-
-
+  sl.registerFactory(
+      () => EducationBloc(getUserEducation: sl(), addUserEducation: sl()));
+  sl.registerFactory(() => FavoriteBloc(addToFavorite: sl()));
+  sl.registerFactory(() => ApplyBloc(apply: sl()));
 
   // use cases
   sl.registerLazySingleton(() => LoginUser(sl()));
@@ -165,6 +185,10 @@ Future init() async {
   sl.registerLazySingleton(() => GetCompanyDetail(sl()));
   sl.registerLazySingleton(() => GetUserEducation(sl()));
   sl.registerLazySingleton(() => AddUserEducation(sl()));
+  sl.registerLazySingleton(() => AddToFav(sl()));
+  sl.registerLazySingleton(() => Apply(sl()));
+  sl.registerLazySingleton(() => GetAppliedJobs(sl()));
+  sl.registerLazySingleton(() => GetAppliedTrainings(sl()));
 
   // Data sources
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -194,10 +218,13 @@ Future init() async {
   sl.registerLazySingleton<PortfolioRemoteDataSource>(
       () => PortfolioRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<ProfileRemoteDataSource>(
-          () => ProfileRemoteDataSourceImpl(sl()));
+      () => ProfileRemoteDataSourceImpl(sl()));
   sl.registerLazySingleton<EducationRemoteDataSource>(
-          () => EducationRemoteDataSourceImpl(sl()));
-
+      () => EducationRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<FavoriteRemoteDataSource>(
+      () => FavoriteRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<ApplyRemoteDataSource>(
+      () => ApplyRemoteDataSourceImpl(sl()));
 
   // Repository
   sl.registerLazySingleton<AuthenticationRepository>(
@@ -224,9 +251,12 @@ Future init() async {
   sl.registerLazySingleton<PortfolioRepository>(
       () => PortfolioRepositoryImpl(sl()));
   sl.registerLazySingleton<ProfileRepository>(
-          () => ProfileRepositoryImpl(sl()));
+      () => ProfileRepositoryImpl(sl()));
   sl.registerLazySingleton<EducationRepository>(
-          () => EducationRepositoryImpl(sl()));
+      () => EducationRepositoryImpl(sl()));
+  sl.registerLazySingleton<FavoriteRepository>(
+      () => FavoriteRepositoryImpl(sl()));
+  sl.registerLazySingleton<ApplyRepository>(() => ApplyRepositoryImpl(sl()));
 
   // core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));

@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:tieup/core/entities/no_params.dart';
 import 'package:tieup/core/entities/params.dart';
 import 'package:tieup/features/training/domain/entities/training.dart';
+import 'package:tieup/features/training/domain/use_cases/get_applied_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_company_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_fav_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_trainings.dart';
@@ -17,8 +18,9 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
   GetTrainings getTrainings;
   GetFavTrainings getFavTrainings;
   GetCompanyTrainings getCompanyTrainings;
+  GetAppliedTrainings getAppliedTrainings;
 
-  TrainingBloc({required this.getTrainings,
+  TrainingBloc({required this.getTrainings,required this.getAppliedTrainings,
     required this.getCompanyTrainings,required this.getFavTrainings})
       : super(TrainingInitial()) {
     on<GetALlTrainingsEvent>((event, emit) async {
@@ -43,6 +45,14 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
       emit(eitherResponse.fold(
           (failure) => TrainingFailed(errorMessage: 'errorMessage'),
           (trainings) => TrainingLoaded(trainings: trainings)));
+    });
+
+    on<GetAppliedTrainingsEvent>((event, emit) async {
+      emit(TrainingLoading());
+      final eitherResponse = await getAppliedTrainings(NoParams());
+      emit(eitherResponse.fold(
+              (failure) => TrainingFailed(errorMessage: 'errorMessage'),
+              (trainings) => TrainingLoaded(trainings: trainings)));
     });
   }
 }

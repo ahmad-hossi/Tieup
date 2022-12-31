@@ -177,7 +177,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                       color: Colors.white,
                       padding: EdgeInsets.all(16.0),
                       child: Text(
-                        'All Jobs From Microsoft',
+                        'All Jobs From ${companyState.companyDetail.name}',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500),
                       )),
@@ -234,7 +234,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                       color: Colors.white,
                       padding: EdgeInsets.all(16.0),
                       child: Text(
-                        'All Trainings From Microsoft',
+                        'All Trainings From ${companyState.companyDetail.name}',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500),
                       )),

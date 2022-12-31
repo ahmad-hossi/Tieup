@@ -20,6 +20,7 @@ JobModel _$JobModelFromJson(Map<String, dynamic> json) {
     companyName: json['company_name'] as String,
     companyImgUrl: json['company_profile_image'] as String,
     postedDate: json['posted'] as String,
+    applicationDate: json['application_date'] as String?,
   );
 }
 
@@ -36,4 +37,5 @@ Map<String, dynamic> _$JobModelToJson(JobModel instance) => <String, dynamic>{
       'company_name': instance.companyName,
       'company_profile_image': instance.companyImgUrl,
       'posted': instance.postedDate,
+      'application_date': instance.applicationDate,
     };

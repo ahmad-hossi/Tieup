@@ -40,6 +40,10 @@ class TrainingDetailModel extends TrainingDetail {
   final String companyDescription;
   @JsonKey(name: 'company_profile_image')
   final String companyProfileImage;
+  @JsonKey(name: 'is_favorite')
+  final bool isFavorite;
+  @JsonKey(name: 'is_application')
+  final bool isApplied;
   final List<SkillModel> skills;
   TrainingDetailModel(
       {required this.id,
@@ -61,6 +65,8 @@ class TrainingDetailModel extends TrainingDetail {
       required this.companyName,
       required this.companyDescription,
       required this.companyProfileImage,
+        required this.isApplied,
+        required this.isFavorite,
       required this.skills})
       : super(
             id: id,
@@ -82,6 +88,8 @@ class TrainingDetailModel extends TrainingDetail {
             endDate: endDate,
             latitude: latitude,
             longitude: longitude,
+            isFavorite: isFavorite,
+            isApplied: isApplied,
             registrationDate: registrationDate);
 
   factory TrainingDetailModel.fomJson(Map<String, dynamic> json) =>

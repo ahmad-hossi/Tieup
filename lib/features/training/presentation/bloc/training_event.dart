@@ -11,3 +11,5 @@ class GetCompanyTrainingsEvent extends TrainingEvent{
 }
 
 class GetFavTrainingsEvent extends TrainingEvent{}
+
+class GetAppliedTrainingsEvent extends TrainingEvent{}

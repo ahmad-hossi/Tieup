@@ -6,6 +6,7 @@ import 'package:tieup/features/course/presentation/pages/courses_screen.dart';
 import 'package:tieup/features/cv/presentation/pages/resume_screen.dart';
 import 'package:tieup/features/education/presentation/pages/eduaction_screen.dart';
 import 'package:tieup/features/experience/presentation/pages/experience_screen.dart';
+import 'package:tieup/features/job/presentation/pages/applied_jobs_screen.dart';
 import 'package:tieup/features/job/presentation/pages/fav_jobs_screen.dart';
 import 'package:tieup/features/languages/presentation/pages/languages_screen.dart';
 import 'package:tieup/features/motivation_letter/presentation/pages/Motivation_letter_screen.dart';
@@ -15,6 +16,7 @@ import 'package:tieup/features/profile/presentation/widgets/profile_card.dart';
 import 'package:tieup/features/profile/presentation/widgets/profile_pic.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tieup/features/skill/presentation/pages/skill_screen.dart';
+import 'package:tieup/features/training/presentation/pages/applied_trainings_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -290,6 +292,22 @@ class ProfileScreen extends StatelessWidget {
               title: 'Favourite Trainings',
               svgIcon: 'assets/icons/personal-information.svg',
               routeName: FavJobsScreen.routeName,
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            const ProfileCard(
+              title: 'Applied Jobs',
+              svgIcon: 'assets/icons/personal-information.svg',
+              routeName: AppliedJobsScreen.routeName,
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            const ProfileCard(
+              title: 'Applied Trainings',
+              svgIcon: 'assets/icons/personal-information.svg',
+              routeName: AppliedTrainingsScreen.routeName,
             ),
             SizedBox(
               height: 8.h,

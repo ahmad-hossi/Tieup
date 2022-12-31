@@ -7,6 +7,7 @@ import 'package:tieup/features/cv/presentation/pages/resume_screen.dart';
 import 'package:tieup/features/education/presentation/pages/eduaction_screen.dart';
 import 'package:tieup/features/experience/presentation/pages/experience_screen.dart';
 import 'package:tieup/features/home/presentation/pages/home_screen.dart';
+import 'package:tieup/features/job/presentation/pages/applied_jobs_screen.dart';
 import 'package:tieup/features/job/presentation/pages/fav_jobs_screen.dart';
 import 'package:tieup/features/job/presentation/pages/job_screen.dart';
 import 'package:tieup/features/languages/presentation/pages/languages_screen.dart';
@@ -15,6 +16,7 @@ import 'package:tieup/features/personal_information/presentation/pages/personal_
 import 'package:tieup/features/portfolio/presentation/pages/portfolio_screen.dart';
 import 'package:tieup/features/profile/presentation/pages/profile_screen.dart';
 import 'package:tieup/features/skill/presentation/pages/skill_screen.dart';
+import 'package:tieup/features/training/presentation/pages/applied_trainings_screen.dart';
 import 'package:tieup/features/training/presentation/pages/fav_Trainings_screen.dart';
 import 'package:tieup/features/training/presentation/pages/training_screen.dart';
 import 'package:tieup/features/training_detail/presentation/pages/training_details.dart';
@@ -41,4 +43,6 @@ final Map<String, WidgetBuilder> routes = {
   ResumeScreen.routeName: (context) =>  const ResumeScreen(),
   CompanyProfile.routeName: (context) =>  const CompanyProfile(companyName: ''),
   EducationScreen.routeName: (context) =>  const EducationScreen(),
+  AppliedJobsScreen.routeName: (context) =>  const AppliedJobsScreen(),
+  AppliedTrainingsScreen.routeName: (context) =>  const AppliedTrainingsScreen(),
 };
