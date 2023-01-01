@@ -24,7 +24,7 @@ class CompanyBrief extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Image.network('$kBaseUrl/$imageUrl',color: Colors.red,
+          Image.network('$kBaseUrl/$imageUrl',
             width: 46.w,height: 46.w,),
           SizedBox(width: 8.w,),
           Column(
@@ -36,8 +36,8 @@ class CompanyBrief extends StatelessWidget {
               Text(companyName),
             ],
           ),
-         SizedBox(width: 32,),
-          Text(subDomainName),
+         SizedBox(width: 6,),
+         Text(subDomainName.trim()),
         ],
       ),
     );

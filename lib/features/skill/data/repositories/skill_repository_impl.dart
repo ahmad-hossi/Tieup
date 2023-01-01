@@ -56,5 +56,16 @@ class SkillRepositoryImpl implements SkillRepository{
     }
   }
 
+  @override
+  Future<Either<Failure, List<Skill>>> addUserSkills(List<Skill> skills)async {
+    try{
+      return  Right(await remoteDataSource.addUserSkills(skills));
+    }on UnauthenticatedException{
+    return const Left(Failure(errorType: ErrorType.unauthenticated));
+    }on ServerException {
+    return const Left(Failure(errorType: ErrorType.serverError));
+    }
+  }
+
 
 }

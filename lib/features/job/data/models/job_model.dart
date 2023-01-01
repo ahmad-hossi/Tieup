@@ -29,6 +29,7 @@ class JobModel extends Job {
   final String postedDate;
   @JsonKey(name: 'application_date')
   final String? applicationDate;
+  final String? status;
   JobModel(
       {required this.id,
       required this.jobTitle,
@@ -42,21 +43,23 @@ class JobModel extends Job {
       required this.companyName,
       required this.companyImgUrl,
       required this.postedDate,
+      this.status,
       this.applicationDate})
       : super(
-          id: id,
-          jobTitle: jobTitle,
-          companyName: companyName,
-          subDomain: subDomain,
-          cityName: cityName,
-          companyId: companyId,
-          companyImgUrl: companyImgUrl,
-          highSalary: highSalary,
-          lowSalary: lowSalary,
-          maxYearsRequirement: maxYearsRequirement,
-          minYearsRequirement: minYearsRequirement,
-          postedDate: postedDate,
-        );
+            id: id,
+            jobTitle: jobTitle,
+            companyName: companyName,
+            subDomain: subDomain,
+            cityName: cityName,
+            companyId: companyId,
+            companyImgUrl: companyImgUrl,
+            highSalary: highSalary,
+            lowSalary: lowSalary,
+            maxYearsRequirement: maxYearsRequirement,
+            minYearsRequirement: minYearsRequirement,
+            postedDate: postedDate,
+            status: status,
+            applicationDate: applicationDate);
 
   factory JobModel.fromJson(Map<String, dynamic> json) =>
       _$JobModelFromJson(json);

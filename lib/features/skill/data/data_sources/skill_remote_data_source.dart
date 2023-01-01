@@ -6,12 +6,14 @@ import 'package:tieup/core/error/exceptions.dart';
 import 'package:tieup/features/skill/data/models/domain_model.dart';
 import 'package:tieup/features/skill/data/models/skill_model.dart';
 import 'package:tieup/features/skill/data/models/sub_domain_model.dart';
+import 'package:tieup/features/skill/domain/entities/skill.dart';
 
 abstract class SkillRemoteDataSource {
   Future<List<DomainModel>> getDomains();
   Future<List<SubDomainModel>> getSubDomains(int domainId);
   Future<List<SkillModel>> getSkills(int subDomainId);
   Future<List<SkillModel>> getUserSkills();
+  Future<List<Skill>> addUserSkills(List<Skill> skills);
 }
 
 class SkillRemoteDataSourceImpl implements SkillRemoteDataSource {
@@ -51,7 +53,7 @@ class SkillRemoteDataSourceImpl implements SkillRemoteDataSource {
   }
 
   @override
-  Future<List<SubDomainModel>> getSubDomains(int domainId)async {
+  Future<List<SubDomainModel>> getSubDomains(int domainId) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
@@ -70,7 +72,7 @@ class SkillRemoteDataSourceImpl implements SkillRemoteDataSource {
         final responseData = json.decode(response.body)['data'];
         return (responseData as List<dynamic>)
             .map((subDomainItem) =>
-            SubDomainModel.fromJSon(subDomainItem as Map<String, dynamic>))
+                SubDomainModel.fromJSon(subDomainItem as Map<String, dynamic>))
             .toList();
       } else if (response.statusCode == 401) {
         throw UnauthenticatedException();
@@ -83,7 +85,7 @@ class SkillRemoteDataSourceImpl implements SkillRemoteDataSource {
   }
 
   @override
-  Future<List<SkillModel>> getUserSkills() async{
+  Future<List<SkillModel>> getUserSkills() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
@@ -101,8 +103,7 @@ class SkillRemoteDataSourceImpl implements SkillRemoteDataSource {
       if (response.statusCode == 210) {
         final responseData = json.decode(response.body)['data'];
         return (responseData as List<dynamic>)
-            .map((skill) =>
-            SkillModel.fromJson(skill as Map<String, dynamic>))
+            .map((skill) => SkillModel.fromJson(skill as Map<String, dynamic>))
             .toList();
       } else if (response.statusCode == 401) {
         throw UnauthenticatedException();
@@ -115,7 +116,7 @@ class SkillRemoteDataSourceImpl implements SkillRemoteDataSource {
   }
 
   @override
-  Future<List<SkillModel>> getSkills(int subDomainId)async {
+  Future<List<SkillModel>> getSkills(int subDomainId) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
@@ -133,16 +134,51 @@ class SkillRemoteDataSourceImpl implements SkillRemoteDataSource {
       if (response.statusCode == 210) {
         final responseData = json.decode(response.body)['data'];
         return (responseData as List<dynamic>)
-            .map((skill) =>
-             SkillModel.fromJson(skill as Map<String, dynamic>))
+            .map((skill) => SkillModel.fromJson(skill as Map<String, dynamic>))
             .toList();
       } else if (response.statusCode == 401) {
         throw UnauthenticatedException();
       } else {
         throw ServerException();
-     }
+      }
     } catch (e) {
       throw ServerException();
     }
+  }
+
+  @override
+  Future<List<Skill>> addUserSkills(List<Skill> skills) async {
+    // try {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await client.post(
+      Uri.parse(
+        '$kBaseUrl/skill/SharedSkill/createOrUpdate',
+      ),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: json.encode({
+        "skillable_type": "user",
+        "skillable_id": 1,
+        "skills": [
+          for (var e in skills) {"skill_id": e.id, "level": 4},
+        ]
+      }),
+    );
+    print(response.body);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      return await getUserSkills();
+    } else if (response.statusCode == 401) {
+      throw UnauthenticatedException();
+    } else {
+      throw ServerException();
+    }
+    // } catch (e) {
+    //   throw ServerException();
+    // }
   }
 }

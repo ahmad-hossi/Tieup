@@ -24,17 +24,21 @@ class _AddEducationScreenState extends State<AddEducationScreen> {
   TextEditingController fromController = TextEditingController();
   TextEditingController gradeController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   List<String> educationType = [
     'High School',
+    'Bachelor Degree',
+    'Diploma',
     'Master',
-    'PHD'
+    'PHD',
+    'Training Course'
   ];
 
   List<DropdownMenuItem<int>> domainItems() {
     List<DropdownMenuItem<int>> dropDownItems = [];
-    for (int i= 0; i < educationType.length ; i++) {
-      var item =
-      DropdownMenuItem(value: i, child: Text(educationType[i]));
+    for (int i = 0; i < educationType.length; i++) {
+      var item = DropdownMenuItem(value: i, child: Text(educationType[i]));
       dropDownItems.add(item);
     }
     return dropDownItems;
@@ -47,12 +51,16 @@ class _AddEducationScreenState extends State<AddEducationScreen> {
   int? selectedEducationType;
   String startDate = '';
   String endDate = '';
+  DateTime? start;
+  DateTime? end;
+
+  List<String> errors = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Course'),
+        title: const Text('Add Education Certificate'),
         leading: Padding(
           padding: const EdgeInsets.all(14.0),
           child: SvgPicture.asset(
@@ -73,7 +81,7 @@ class _AddEducationScreenState extends State<AddEducationScreen> {
               fromController.clear();
               imageFile = null;
             });
-            Navigator.of(context,rootNavigator: true).pop();
+            Navigator.of(context, rootNavigator: true).pop();
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text("Added Successfully"),
             ));
@@ -86,184 +94,240 @@ class _AddEducationScreenState extends State<AddEducationScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 320,
-                  height: 180,
-                  child: GestureDetector(
-                    onTap: () async {
-                      var pickedImage =
-                      await _picker.pickImage(source: ImageSource.gallery);
-                      if (pickedImage != null) {
-                        setState(() {
-                          imageFile = File(pickedImage.path);
-                        });
-                      }
-                    },
-                    child: Container(
-                      //margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
-                      padding: const EdgeInsets.all(4.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: kPrimaryColor, width: 2),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: ClipRRect(
-                        borderRadius:
-                        const BorderRadius.all(Radius.circular(12.0)),
-                        child: (imageFile != null)
-                            ? Image.file(imageFile!)
-                            : Image.asset('assets/images/place_holder.png'),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                Container(
-                  child: Row(
-                    children: [
-                      const Text('Academy qualification'),
-                      Spacer(),
-                      DropdownButton<int>(
-                        isExpanded: false,
-                        value: selectedEducationType,
-                        items: domainItems(),
-                        onChanged: (value) {
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 320,
+                    height: 180,
+                    child: GestureDetector(
+                      onTap: () async {
+                        var pickedImage = await _picker.pickImage(
+                            source: ImageSource.gallery);
+                        if (pickedImage != null) {
                           setState(() {
-                            selectedEducationType = value;
+                            imageFile = File(pickedImage.path);
                           });
-                        },
+                        }
+                      },
+                      child: Container(
+                        //margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+                        padding: const EdgeInsets.all(4.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: kPrimaryColor, width: 2),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12.0)),
+                          child: (imageFile != null)
+                              ? Image.file(imageFile!)
+                              : Image.asset('assets/images/place_holder.png'),
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-                TextFormField(
-                  controller: fieldOfStudyController,
-                  keyboardType: TextInputType.name,
-                  //initialValue: state.personalInformation.fullName,
-                  //validator: (value) {},
-                  decoration: const InputDecoration(
-                    labelText: "Field of study",
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
-                  ),
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                TextFormField(
-                  autofocus: false,
-                  controller: fromController,
-                  keyboardType: TextInputType.name,
-                  //initialValue: state.personalInformation.fullName,
-                  //validator: (value) {},
-                  decoration: const InputDecoration(
-                    labelText: "From",
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    //suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Mail.svg"),
-                  ),
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Grade :',
-                      style:
-                      TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
                     ),
-                    SizedBox(
-                      width: 80,
-                      child: TextFormField(
-                        autofocus: false,
-                        controller: gradeController,
-                        keyboardType: TextInputType.number,
-                        //initialValue: state.personalInformation.fullName,
-                        //validator: (value) {},
-                        decoration: const InputDecoration(
-                          fillColor: Colors.white,
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Container(
+                    child: Row(
+                      children: [
+                        const Text('Academy qualification'),
+                        Spacer(),
+                        DropdownButton<int>(
+                          isExpanded: false,
+                          value: selectedEducationType,
+                          items: domainItems(),
+                          onChanged: (value) {
+                            setState(() {
+                              selectedEducationType = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  TextFormField(
+                    controller: fieldOfStudyController,
+                    keyboardType: TextInputType.name,
+                    //initialValue: state.personalInformation.fullName,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'this field is required';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: "Field of study",
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  TextFormField(
+                    autofocus: false,
+                    controller: fromController,
+                    keyboardType: TextInputType.name,
+                    //initialValue: state.personalInformation.fullName,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'this field is required';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: "From",
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      //suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Mail.svg"),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Grade :',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400, fontSize: 16),
+                      ),
+                      SizedBox(
+                        width: 80,
+                        child: TextFormField(
+                          autofocus: false,
+                          controller: gradeController,
+                          keyboardType: TextInputType.number,
+                          //initialValue: state.personalInformation.fullName,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'this field is required';
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            fillColor: Colors.white,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
                             ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
                             ),
                           ),
                         ),
-                    ),),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Start date'),
-                    Text(startDate),
-                    OutlinedButton(
-                      onPressed: () {
-                        showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2001),
-                            lastDate: DateTime(2050))
-                            .then((value) => setState(() {
-                          startDate =
-                              DateFormat('yyyy/MM/dd').format(value!);
-                        }));
-                      },
-                      child: const Text('Select date'),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Start date'),
+                      Text(startDate),
+                      OutlinedButton(
+                        onPressed: () {
+                          showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1950),
+                                  lastDate: DateTime.now())
+                              .then((value) => setState(() {
+                                    start = value;
+                                    startDate =
+                                        DateFormat('yyyy/MM/dd').format(value!);
+                                  }));
+                        },
+                        child: const Text('Select date'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('End Date'),
+                      Text(endDate),
+                      OutlinedButton(
+                        onPressed: () {
+                          showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1950),
+                                  lastDate: DateTime.now())
+                              .then((value) => setState(() {
+                                    end = value;
+                                    endDate =
+                                        DateFormat('yyyy/MM/dd').format(value!);
+                                  }));
+                        },
+                        child: const Text('Select date'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  SizedBox(
+                    height: 64,
+                    child: ListView.builder(
+                      itemBuilder: (_, index) => Text(
+                        errors[index],
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      itemCount: errors.length,
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('End Date'),
-                    Text(endDate),
-                    OutlinedButton(
-                      onPressed: () {
-                        showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2001),
-                            lastDate: DateTime(2050))
-                            .then((value) => setState(() {
-                          endDate =
-                              DateFormat('yyyy/MM/dd').format(value!);
-                        }));
-                      },
-                      child: const Text('Select date'),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                DefaultButton(
-                  press: () {
-                    context.read<EducationBloc>().add(AddUserEducationEvent(
-                        params: EducationParams(
-                            fieldOfStudy: fieldOfStudyController.text,
-                            educationTypeId: selectedEducationType! + 1 ,
-                            grade: gradeController.text,
-                            from: fromController.text,
-                            startDate: startDate,
-                            endDate: endDate,
-                            imageFile: imageFile)));
-                  },
-                  text: 'Add',
-                )
-              ],
+                  ),
+                  DefaultButton(
+                    press: () {
+                      errors.clear();
+                      if (selectedEducationType == null) {
+                        errors.add("please select one of qualification");
+                      }
+                      if(gradeController.text.isNotEmpty)
+                      {
+                        if (int.parse(gradeController.text) > 100) {
+                          errors.add("grade shouldn't be greater than 100");
+                        }
+                      }
+                      if (start == null) {
+                        errors.add("start date can't be empty");
+                      }
+                      if (start != null &&
+                          end != null &&
+                          (start?.difference(end!))! >
+                              const Duration(days: 1)) {
+                        errors.add("start can't be before end");
+                      }
+                      setState(() {});
+                      if (errors.isNotEmpty) {
+                        return;
+                      }
+                      if (_formKey.currentState!.validate()) {
+                        context.read<EducationBloc>().add(AddUserEducationEvent(
+                            params: EducationParams(
+                                fieldOfStudy: fieldOfStudyController.text,
+                                educationTypeId: selectedEducationType! + 1,
+                                grade: gradeController.text,
+                                from: fromController.text,
+                                startDate: startDate,
+                                endDate: endDate,
+                                imageFile: imageFile)));
+                      }
+                    },
+                    text: 'Add',
+                  )
+                ],
+              ),
             ),
           ),
         ),

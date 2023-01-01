@@ -27,40 +27,35 @@ class _PersonalInformationScreenState extends State<PortfolioScreen> {
   fillInformation(List<Portfolio> userPortfolio) {
     facebookController.text = userPortfolio
         .firstWhere((e) => e.type == 'facebook',
-            orElse: () =>
-                PortfolioModel(type: '', url: 'facebook.com/'))
+            orElse: () => PortfolioModel(type: '', url: 'facebook.com/'))
         .url;
     whatsappController.text = userPortfolio
         .firstWhere((e) => e.type == 'WhatsApp',
-            orElse: () =>
-                PortfolioModel(type: '', url: 'whatsApp.com/'))
+            orElse: () => PortfolioModel(type: '', url: 'whatsApp.com/'))
         .url;
     githubController.text = userPortfolio
         .firstWhere((e) => e.type == 'github',
-            orElse: () => PortfolioModel( type: '', url: 'github.com/'))
+            orElse: () => PortfolioModel(type: '', url: 'github.com/'))
         .url;
     linkedinController.text = userPortfolio
         .firstWhere((e) => e.type == 'linkedin',
-            orElse: () =>
-                PortfolioModel( type: '', url: 'linkedin.com/in/'))
+            orElse: () => PortfolioModel(type: '', url: 'linkedin.com/in/'))
         .url;
     behanceController.text = userPortfolio
         .firstWhere((e) => e.type == 'Behance',
-            orElse: () => PortfolioModel( type: '', url: 'behance.com/'))
+            orElse: () => PortfolioModel(type: '', url: 'behance.com/'))
         .url;
     instagramController.text = userPortfolio
         .firstWhere((e) => e.type == 'Instagram',
-            orElse: () =>
-                PortfolioModel( type: '', url: 'instagram.com/'))
+            orElse: () => PortfolioModel(type: '', url: 'instagram.com/'))
         .url;
     twitterController.text = userPortfolio
         .firstWhere((e) => e.type == 'Twitter',
-            orElse: () => PortfolioModel( type: '', url: 'twitter.com/'))
+            orElse: () => PortfolioModel(type: '', url: 'twitter.com/'))
         .url;
     telegramController.text = userPortfolio
         .firstWhere((e) => e.type == 'Telegram',
-            orElse: () =>
-                PortfolioModel(type: '', url: 'telegram.org/'))
+            orElse: () => PortfolioModel(type: '', url: 'telegram.org/'))
         .url;
   }
 
@@ -93,6 +88,7 @@ class _PersonalInformationScreenState extends State<PortfolioScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         title: const Text('Portfolio'),
         leading: Padding(
           padding: const EdgeInsets.all(14.0),
@@ -121,6 +117,8 @@ class _PersonalInformationScreenState extends State<PortfolioScreen> {
                 } else if (state is PortfolioLoaded) {
                   fillInformation(state.userPortfolio);
                   Navigator.of(context, rootNavigator: true).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('updated successfully')));
                 }
               },
               child: Expanded(
@@ -129,6 +127,9 @@ class _PersonalInformationScreenState extends State<PortfolioScreen> {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: 8.h,
+                      ),
                       const Text(
                         'Add your jobs and links of your social medias help companies'
                         'to know more about you',
@@ -257,8 +258,8 @@ class _PersonalInformationScreenState extends State<PortfolioScreen> {
                 text: enableEditing ? 'Save' : 'Edit',
                 press: () {
                   if (enableEditing) {
-                    context.read<PortfolioBloc>().add(
-                        UpdateUserPortfolioEvent(userPortfolio: getPortfolioInformation()));
+                    context.read<PortfolioBloc>().add(UpdateUserPortfolioEvent(
+                        userPortfolio: getPortfolioInformation()));
                   }
                   setState(() {
                     enableEditing = !enableEditing;
@@ -273,58 +274,39 @@ class _PersonalInformationScreenState extends State<PortfolioScreen> {
   }
 
   List<Map<String, dynamic>> getPortfolioInformation() {
-    List<Map<String,dynamic>>  requestBody = [];
-      if(facebookController.text.isNotEmpty)
-        {
-          requestBody.add({
-            'type' : 'facebook',
-            'url' : facebookController.text.toString()
-          });
-        }
-    if(whatsappController.text.isNotEmpty)
-    {
-      requestBody.add({
-        'type' : 'WhatsApp',
-        'url' : whatsappController.text.toString()
-      });
-    } if(githubController.text.isNotEmpty)
-    {
-      requestBody.add({
-        'type' : 'github',
-        'url' : githubController.text.toString()
-      });
-    } if(linkedinController.text.isNotEmpty)
-    {
-      requestBody.add({
-        'type' : 'linkedin',
-        'url' : linkedinController.text.toString()
-      });
-    } if(behanceController.text.isNotEmpty)
-    {
-      requestBody.add({
-        'type' : 'Behance',
-        'url' : behanceController.text.toString()
-      });
-    } if(instagramController.text.isNotEmpty)
-    {
-      requestBody.add({
-        'type' : 'Instagram',
-        'url' : instagramController.text.toString()
-      });
-    } if(twitterController.text.isNotEmpty)
-    {
-      requestBody.add({
-        'type' : 'Twitter',
-        'url' : twitterController.text.toString()
-      });
+    List<Map<String, dynamic>> requestBody = [];
+    if (facebookController.text.isNotEmpty) {
+      requestBody
+          .add({'type': 'facebook', 'url': facebookController.text.toString()});
     }
-    // if(telegramController.text.isNotEmpty)
-    // {
-    //   requestBody.add({
-    //     'type' : 'Telegram',
-    //     'url' : telegramController.text.toString()
-    //   });
-    // }
-   return requestBody;
+    if (whatsappController.text.isNotEmpty) {
+      requestBody
+          .add({'type': 'WhatsApp', 'url': whatsappController.text.toString()});
+    }
+    if (githubController.text.isNotEmpty) {
+      requestBody
+          .add({'type': 'github', 'url': githubController.text.toString()});
+    }
+    if (linkedinController.text.isNotEmpty) {
+      requestBody
+          .add({'type': 'linkedin', 'url': linkedinController.text.toString()});
+    }
+    if (behanceController.text.isNotEmpty) {
+      requestBody
+          .add({'type': 'Behance', 'url': behanceController.text.toString()});
+    }
+    if (instagramController.text.isNotEmpty) {
+      requestBody.add(
+          {'type': 'Instagram', 'url': instagramController.text.toString()});
+    }
+    if (twitterController.text.isNotEmpty) {
+      requestBody
+          .add({'type': 'Twitter', 'url': twitterController.text.toString()});
+    }
+    if (telegramController.text.isNotEmpty) {
+      requestBody
+          .add({'type': 'Telegram', 'url': telegramController.text.toString()});
+    }
+    return requestBody;
   }
 }

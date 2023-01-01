@@ -6,6 +6,7 @@ import 'package:tieup/constants.dart';
 import 'package:tieup/core/widgets/default_button.dart';
 import 'package:tieup/features/languages/presentation/bloc/languages_bloc.dart';
 import 'package:tieup/features/languages/presentation/widgets/add_language_dialog.dart';
+import 'package:flutter_svg/svg.dart';
 
 class LanguagesScreen extends StatefulWidget {
   const LanguagesScreen({Key? key}) : super(key: key);
@@ -33,9 +34,16 @@ class _LanguagesScreenScreenState extends State<LanguagesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Languages'),),
+      appBar: AppBar(title: const Text('Languages'),elevation: 1,
+        leading: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: SvgPicture.asset(
+            'assets/icons/back.svg',
+            color: Colors.black54,
+          ),
+        ),),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
         child: BlocConsumer<LanguagesBloc, LanguagesState>(
           listener: (context, state) {
             if (state is LanguageAddedSuccessfully) {
@@ -71,8 +79,8 @@ class _LanguagesScreenScreenState extends State<LanguagesScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Add your jobs and links of your social medias help companies'
-                            'to know more about you',
+                            'Add your languages help companies'
+                            ' to know more about you',
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(
@@ -81,8 +89,11 @@ class _LanguagesScreenScreenState extends State<LanguagesScreen> {
                           ...List.generate(
                             state.languages.length,
                             (index) => Container(
+                              margin: EdgeInsets.all(8),
+                              padding: EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                  border: Border.all(color: kPrimaryColor)),
+                                 borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: kPrimaryColor,width: 2)),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -99,7 +110,7 @@ class _LanguagesScreenScreenState extends State<LanguagesScreen> {
                                     itemCount: 5,
                                     itemPadding:
                                         EdgeInsets.symmetric(horizontal: 4.0),
-                                    itemBuilder: (context, _) => Icon(
+                                    itemBuilder: (context, _) => const Icon(
                                       Icons.star,
                                       color: Colors.amber,
                                     ),

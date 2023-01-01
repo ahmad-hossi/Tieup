@@ -7,6 +7,7 @@ import 'package:tieup/features/skill/domain/entities/skill.dart';
 class Profile {
   final int id;
   final String fullName;
+  final String email;
   final String? gender;
   final String phone;
   final String? birthday;
@@ -27,6 +28,7 @@ class Profile {
   Profile(
       { required this.id,
         required this.fullName,
+        required this.email,
         this.gender,
         required this.phone,
         this.birthday,

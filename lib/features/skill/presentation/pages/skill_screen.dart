@@ -32,6 +32,7 @@ class _SkillScreenState extends State<SkillScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         title: const Text('My Skills'),
         leading: Padding(
           padding: const EdgeInsets.all(14.0),
@@ -53,7 +54,7 @@ class _SkillScreenState extends State<SkillScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'Adding all your work experience will increase your chances '
+                    'Adding all your Skills will increase your chances '
                     'to get the best job',
                     textAlign: TextAlign.center,
                     textScaleFactor: 1.1,
@@ -62,89 +63,97 @@ class _SkillScreenState extends State<SkillScreen> {
                   BlocConsumer<SkillBloc, SkillState>(
                     listener: (context, state) {
                       if (state is UserSkillsLoaded) {
-                        userSkills = state.skills;
+                        userSkills.addAll(state.skills);
+                        setState(() {});
                       }
                     },
                     builder: (context, state) {
-                      if (state is UserSkillsLoaded) {
-                        return Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(16.w),
-                            child: Wrap(
-                                spacing: 4.w,
-                                runSpacing: 4.w,
-                                direction: Axis.horizontal,
-                                children: [
-                                  ...List.generate(
-                                    state.skills.length,
-                                    (index) => Container(
-                                        padding: EdgeInsets.all(8.w),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: enableEditing
-                                                    ? Colors.red
-                                                    : kPrimaryColor,
-                                                width: 2),
-                                            borderRadius:
-                                                BorderRadius.circular(25.r)),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              state.skills[index].name,
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                            ...List.generate(
-                                              state.skills[index].level ?? 0,
-                                              (index) => Icon(
-                                                Icons.star,
-                                                size: 24,
-                                                color: kPrimaryColor,
-                                              ),
-                                            ),
-                                            //Text('4'),
-                                          ],
-                                        )),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      context
-                                          .read<SkillBloc>()
-                                          .add(GetDomainsEvent());
-                                      showDialog(
-                                          context: context,
-                                          builder: (_) => AddSkillsDialog(
-                                                skillSection: true,
-                                              )).then((value) => null);
-                                    },
-                                    child: Container(
-                                        padding: EdgeInsets.all(8.w),
-                                        decoration: BoxDecoration(
-                                            color: kPrimaryColor,
-                                            border: Border.all(
-                                                color: kPrimaryColor, width: 2),
-                                            borderRadius:
-                                                BorderRadius.circular(25.r)),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            const Text(
-                                              'Add more',
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ),
-                                            Text(
-                                              ' +',
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ),
-                                          ],
-                                        )),
-                                  ),
-                                ]));
+                      if(state is SkillLoading){
+                        return const Center(child: CircularProgressIndicator());
                       }
+                      return Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(16.w),
+                          child: Wrap(
+                              spacing: 4.w,
+                              runSpacing: 4.w,
+                              direction: Axis.horizontal,
+                              children: [
+                                ...List.generate(
+                                  userSkills.length,
+                                  (index) => Container(
+                                      padding: EdgeInsets.all(8.w),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: enableEditing
+                                                  ? Colors.red
+                                                  : kPrimaryColor,
+                                              width: 2),
+                                          borderRadius:
+                                              BorderRadius.circular(25.r)),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            userSkills[index].name,
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                          // ...List.generate(
+                                          //   state.skills[index].level ?? 0,
+                                          //   (index) => Icon(
+                                          //     Icons.star,
+                                          //     size: 24,
+                                          //     color: kPrimaryColor,
+                                          //   ),
+                                          // ),
+                                          //Text('4'),
+                                        ],
+                                      )),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    context
+                                        .read<SkillBloc>()
+                                        .add(GetDomainsEvent());
+                                    showDialog(
+                                        context: context,
+                                        builder: (_) => AddSkillsDialog(
+                                              skillSection: true,
+                                            )).then((value) {
+                                              context
+                                        .read<SkillBloc>()
+                                        .add(
+                                            AddUserSkillsEvent(skills: value));
+                                            });
+                                  },
+                                  child: Container(
+                                      padding: EdgeInsets.all(8.w),
+                                      decoration: BoxDecoration(
+                                          color: kPrimaryColor,
+                                          border: Border.all(
+                                              color: kPrimaryColor, width: 2),
+                                          borderRadius:
+                                              BorderRadius.circular(25.r)),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Text(
+                                            'Add more',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white),
+                                          ),
+                                          Text(
+                                            ' +',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      )),
+                                ),
+                              ]));
+
                       return Container();
                     },
                   ),

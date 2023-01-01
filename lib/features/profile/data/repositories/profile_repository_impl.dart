@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:tieup/core/error/exceptions.dart';
 import 'package:tieup/core/error/failures.dart';
@@ -13,6 +15,18 @@ class ProfileRepositoryImpl implements ProfileRepository{
   Future<Either<Failure, Profile>> getUserProfile() async{
     try {
       final response = await remoteDataSource.getUserProfile();
+      return Right(response);
+    } on UnauthenticatedException {
+      return const Left(Failure(errorType: ErrorType.unauthenticated));
+    } on ServerException {
+      return const Left(Failure(errorType: ErrorType.serverError));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateCompanyImage(File imageFile, String type, int userId) async{
+    try {
+      final response = await remoteDataSource.updateUserImage(imageFile,type,userId);
       return Right(response);
     } on UnauthenticatedException {
       return const Left(Failure(errorType: ErrorType.unauthenticated));

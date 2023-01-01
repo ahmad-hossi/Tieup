@@ -17,9 +17,9 @@ class GetSkillsEvent extends SkillEvent{
 
 class GetUserSkillsEvent extends SkillEvent{}
 
-// class AddUserSkillsEvent extends SkillEvent{
-//   final List<Skill> skills;
-//
-// }
+class AddUserSkillsEvent extends SkillEvent{
+  final List<Skill> skills;
+  AddUserSkillsEvent({required this.skills});
+}
 
 

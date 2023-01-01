@@ -28,7 +28,15 @@ class _EducationScreenState extends State<EducationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         title: const Text('Education Certificates'),
+        leading: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: SvgPicture.asset(
+            'assets/icons/back.svg',
+            color: Colors.black54,
+          ),
+        ),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
@@ -41,7 +49,7 @@ class _EducationScreenState extends State<EducationScreen> {
               children: [
                 const Text(
                   'Adding all your work experience will increase your chances '
-                      'to get the best job',
+                  'to get the best job',
                   textAlign: TextAlign.center,
                   textScaleFactor: 1.1,
                   style: TextStyle(height: 1.5, color: kPrimaryColor),
@@ -51,20 +59,23 @@ class _EducationScreenState extends State<EducationScreen> {
                 ),
                 BlocBuilder<EducationBloc, EducationState>(
                   builder: (context, state) {
-                    if(state is EducationLoading){
+                    if (state is EducationLoading) {
                       return Center(child: CircularProgressIndicator());
-                    }else if(state is EducationFailed){
+                    } else if (state is EducationFailed) {
                       return Text(state.errorMessage);
-                    }else if (state is EducationLoaded){
+                    } else if (state is EducationLoaded) {
                       return Expanded(
                         child: ListView.builder(
-                          itemBuilder: (_, index) =>  EducationCard(
-                           education : state.userEducation[index],
+                          itemBuilder: (_, index) => EducationCard(
+                            education: state.userEducation[index],
                           ),
                           itemCount: state.userEducation.length,
                         ),
                       );
-                    }else return Container(color: Colors.red,);
+                    } else
+                      return Container(
+                        color: Colors.red,
+                      );
                   },
                 )
               ],
@@ -72,7 +83,7 @@ class _EducationScreenState extends State<EducationScreen> {
           ),
           Padding(
             padding:
-            const EdgeInsets.symmetric(horizontal: 28.0, vertical: 8.0),
+                const EdgeInsets.symmetric(horizontal: 28.0, vertical: 8.0),
             child: DefaultButton(
                 text: 'Add Certificate',
                 press: () {

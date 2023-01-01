@@ -27,7 +27,14 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Text('Experience'),elevation: 1,
+        leading: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: SvgPicture.asset(
+            'assets/icons/back.svg',
+            color: Colors.black54,
+          ),
+        ),),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -37,27 +44,6 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/icons/experience.svg',
-                        width: 40.w,
-                        height: 40.w,
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      const Text('Work Experience',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
                 SizedBox(
                   height: 8.h,
                 ),

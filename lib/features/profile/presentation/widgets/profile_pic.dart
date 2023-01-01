@@ -1,36 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:tieup/constants.dart';
 import 'package:tieup/core/constants/api_constant.dart';
 
 class ProfilePic extends StatefulWidget {
-  const ProfilePic({required this.imageUrl,Key? key}) : super(key: key);
+  const ProfilePic(
+      {required this.imageUrl, required this.isOpenToWork, Key? key})
+      : super(key: key);
 
-
-  final String imageUrl;
+  final String? imageUrl;
+  final int isOpenToWork;
 
   @override
   State<ProfilePic> createState() => _ProfilePicState();
 }
 
-class _ProfilePicState extends State<ProfilePic> with SingleTickerProviderStateMixin{
-
+class _ProfilePicState extends State<ProfilePic>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation _animation;
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync:this,
-        duration: const Duration(seconds: 2));
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _animationController.repeat(reverse: true);
-    _animation =  Tween(begin: 4.0,end: 6.0).
-    animate(_animationController)..addListener((){
-      setState(() {
+    _animation = Tween(begin: 4.0, end: 6.0).animate(_animationController)
+      ..addListener(() {
+        setState(() {});
       });
-    });
     super.initState();
   }
-
 
   @override
   void dispose() {
@@ -57,24 +55,30 @@ class _ProfilePicState extends State<ProfilePic> with SingleTickerProviderStateM
       height: 100,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.green,
+          color: widget.isOpenToWork == 1 ? Colors.green : Colors.red,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-                color: Colors.green,
-                blurRadius: _animation.value ,
-                spreadRadius: _animation.value-2 ,)
+              color: widget.isOpenToWork == 1 ? Colors.green : Colors.red,
+              blurRadius: _animation.value,
+              spreadRadius: _animation.value - 2,
+            )
           ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(0.0),
-          child:ClipOval(
-            child: Image.network(
-              '$kBaseUrl/${widget.imageUrl}',
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
-            ),
+          child: ClipOval(
+            child: widget.imageUrl != null
+                ? Image.network(
+                    '$kBaseUrl/${widget.imageUrl}',
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.cover,
+                  )
+                : Image.asset(
+                    'assets/images/place_holder.png',
+                    fit: BoxFit.cover,
+                  ),
           ),
         ),
       ),

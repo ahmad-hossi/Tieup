@@ -80,6 +80,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         title: Text('Personal information'),
         leading: Padding(
           padding: const EdgeInsets.all(14.0),
@@ -139,6 +140,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          SizedBox(
+                            height: 8.h,
+                          ),
                           const Text(
                             'Add all your personal information something very important',
                             textAlign: TextAlign.center,

@@ -11,7 +11,7 @@ abstract class JobDetailRemoteDataSource {
 }
 
 class JobDetailRemoteDataSourceImpl implements JobDetailRemoteDataSource{
-  http.Client client;
+  http.Client client = http.Client();
   JobDetailRemoteDataSourceImpl(this.client);
 
 

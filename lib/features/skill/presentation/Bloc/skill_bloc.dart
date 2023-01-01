@@ -5,6 +5,7 @@ import 'package:tieup/core/entities/params.dart';
 import 'package:tieup/features/skill/domain/entities/domain.dart';
 import 'package:tieup/features/skill/domain/entities/skill.dart';
 import 'package:tieup/features/skill/domain/entities/sub_domain.dart';
+import 'package:tieup/features/skill/domain/use_cases/add_user_skills.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_domains.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_skills.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_sub_domains.dart';
@@ -19,11 +20,13 @@ class SkillBloc extends Bloc<SkillEvent, SkillState> {
   GetSubDomains getSubDomains;
   GetSkills getSkills;
   GetUserSkills getUserSkills;
+  AddUserSkills addUserSkills;
 
   SkillBloc(
       {required this.getDomains,
       required this.getSubDomains,
       required this.getSkills,
+        required this.addUserSkills,
       required this.getUserSkills})
       : super(SkillInitial()) {
     on<GetDomainsEvent>((event, emit) async {
@@ -51,6 +54,13 @@ class SkillBloc extends Bloc<SkillEvent, SkillState> {
       final eitherResponse = await getUserSkills(NoParams());
       emit(eitherResponse.fold((failure) => SkillFailure(errorMessage: 'error'),
           (skills) => UserSkillsLoaded(skills: skills)));
+    });
+
+    on<AddUserSkillsEvent>((event, emit) async {
+      emit(SkillLoading());
+      final eitherResponse = await addUserSkills(event.skills);
+      emit(eitherResponse.fold((failure) => SkillFailure(errorMessage: 'error'),
+              (skills) => UserSkillsLoaded(skills: skills)));
     });
   }
 }

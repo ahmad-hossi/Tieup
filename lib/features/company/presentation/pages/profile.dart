@@ -164,6 +164,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                         left: 20.w,
                         top: 68.h,
                         child: ProfilePic(
+                            isOpenToWork: 0,
                             imageUrl: companyState.companyDetail.profileImage!),
                       ),
                     ],

@@ -17,3 +17,6 @@ class ProfileFailed extends ProfileState {
   ProfileFailed({required this.errorMessage});
 }
 
+class ProfileUpdatedSuccessfully extends ProfileState{}
+
+class ImageUpdatedFailed extends ProfileState{}

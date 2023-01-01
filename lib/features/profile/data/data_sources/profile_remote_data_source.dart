@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tieup/core/constants/api_constant.dart';
 import 'package:tieup/core/error/exceptions.dart';
@@ -8,6 +10,7 @@ import 'package:http/http.dart' as http;
 
 abstract class ProfileRemoteDataSource{
   Future<ProfileModel> getUserProfile();
+  Future<bool> updateUserImage(File imageFile, String type,int userId);
 }
 
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource{
@@ -42,6 +45,39 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource{
      // }
 
 
+  }
+
+  @override
+  Future<bool> updateUserImage(File imageFile, String type, int userId) async{
+    print('hello again');
+    final prefs = await SharedPreferences.getInstance();
+   // try{
+      final token = prefs.getString('token');
+      String url = '$kBaseUrl/api/photo/upload';
+      var dio = Dio();
+      Options options = Options(
+          followRedirects: false,
+          validateStatus: (status) { return status! < 500; }
+      );
+      FormData formData = FormData.fromMap({
+        "file": await MultipartFile.fromFile(imageFile.path),
+        "type": type,
+        "id" : userId.toString()
+      });
+      options.headers = { "Authorization" : "Bearer $token" , "Accept":"application/json"} ;
+      var response = await dio.post(url, data: formData,options: options );
+      print(response.data);
+      print(response.statusCode);
+      if(response.statusCode == 220){
+        print('image true');
+        return true;
+      }
+      else {
+        throw ServerException();
+      }
+    // }catch(e){
+    //   throw ServerException();
+    // }
   }
 
 }

@@ -13,7 +13,7 @@ class ProfileModel extends Profile {
   final int id;
   @JsonKey(name: 'full_name')
   final String fullName;
-  //final String email;
+  final String email;
   final String? gender;
   final String phone;
   final String? birthday;
@@ -45,6 +45,7 @@ class ProfileModel extends Profile {
       {required this.id,
       required this.fullName,
       required this.phone,
+      required this.email,
       this.birthday,
       this.gender,
       this.address,
@@ -78,6 +79,7 @@ class ProfileModel extends Profile {
             courses: courses,
             experiences: experiences,
             languages: languages,
+            email : email,
             portfolios: portfolios);
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>

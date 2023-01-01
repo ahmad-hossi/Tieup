@@ -23,10 +23,12 @@ import 'package:tieup/features/profile/data/data_sources/profile_remote_data_sou
 import 'package:tieup/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:tieup/features/profile/domain/repositories/profile_repository.dart';
 import 'package:tieup/features/profile/domain/use_cases/get_user_profile.dart';
+import 'package:tieup/features/profile/domain/use_cases/update_user_image.dart';
 import 'package:tieup/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:tieup/features/skill/data/data_sources/skill_remote_data_source.dart';
 import 'package:tieup/features/skill/data/repositories/skill_repository_impl.dart';
 import 'package:tieup/features/skill/domain/repositories/skill_repository.dart';
+import 'package:tieup/features/skill/domain/use_cases/add_user_skills.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_domains.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_skills.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_sub_domains.dart';
@@ -121,6 +123,7 @@ Future init() async {
         addLanguage: sl(),
       ));
   sl.registerFactory(() => SkillBloc(
+    addUserSkills: sl(),
       getDomains: sl(),
       getSkills: sl(),
       getSubDomains: sl(),
@@ -146,7 +149,7 @@ Future init() async {
       getMotivationLetter: sl(), updateMotivationLetter: sl()));
   sl.registerFactory(
       () => PortfolioBloc(getUserPortfolio: sl(), updateUserPortfolio: sl()));
-  sl.registerFactory(() => ProfileBloc(getUserProfile: sl()));
+  sl.registerFactory(() => ProfileBloc(getUserProfile: sl(),updateUserImage: sl()));
   sl.registerFactory(() => CompanyBloc(getCompanyDetail: sl()));
   sl.registerFactory(
       () => EducationBloc(getUserEducation: sl(), addUserEducation: sl()));
@@ -189,6 +192,8 @@ Future init() async {
   sl.registerLazySingleton(() => Apply(sl()));
   sl.registerLazySingleton(() => GetAppliedJobs(sl()));
   sl.registerLazySingleton(() => GetAppliedTrainings(sl()));
+  sl.registerLazySingleton(() => UpdateUserImage(sl()));
+  sl.registerLazySingleton(() => AddUserSkills(sl()));
 
   // Data sources
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(

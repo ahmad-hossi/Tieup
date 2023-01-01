@@ -31,7 +31,14 @@ class _AddWorkExperienceScreenState extends State<AddWorkExperienceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Text('Add work experience'),elevation: 1,
+        leading: Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: SvgPicture.asset(
+            'assets/icons/back.svg',
+            color: Colors.black54,
+          ),
+        ),),
       body: BlocListener<WorkExperienceBloc, WorkExperienceState>(
         listener: (context, state) {
           if (state is WorkExperienceAddedSuccessfully) {
@@ -57,27 +64,6 @@ class _AddWorkExperienceScreenState extends State<AddWorkExperienceScreen> {
             padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/icons/experience.svg',
-                        width: 40.w,
-                        height: 40.w,
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      const Text('Work Experience',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w500)),
-                    ],
-                  ),
-                ),
                 TextFormField(
                   controller: jobTitleController,
                   keyboardType: TextInputType.name,

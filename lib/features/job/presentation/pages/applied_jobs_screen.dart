@@ -94,6 +94,7 @@ class _AppliedJobsScreenState extends State<AppliedJobsScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                 itemBuilder: (_, index) => JobCard(
                   jobInformation: state.jobs[index],
+                  isAppliedCard: true,
                 ),
                 separatorBuilder: (_, index) => SizedBox(
                   height: 8.h,
