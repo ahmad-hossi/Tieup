@@ -75,7 +75,6 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       },
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
