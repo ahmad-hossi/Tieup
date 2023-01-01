@@ -177,7 +177,6 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                         ],
                       ),
                     ),
-                    //GeneralSection(generalInformation: generalInformation),
                     SizedBox(
                       height: 8.h,
                     ),
@@ -203,11 +202,16 @@ class _JobDetailScreenState extends State<JobDetailScreen> {
                     SizedBox(
                       height: 8.h,
                     ),
-                    JobBenefitsSection(),
+                    JobDescriptionSection(
+                      title: 'Benefits & Perks',
+                      textList: jobDetailState.jobDetail.benefits.split('*'),
+                    ),
+                    //JobBenefitsSection(),
                     SizedBox(
                       height: 8.h,
                     ),
                     AboutCompanySection(
+                      companyId: jobDetailState.jobDetail.companyId,
                       companyName: jobDetailState.jobDetail.companyName,
                       companyDesc: jobDetailState.jobDetail.companyDescription,
                       companyImageUrl:

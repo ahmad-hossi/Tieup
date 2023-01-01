@@ -17,12 +17,12 @@ class TrainingDetailModel extends TrainingDetail {
   @JsonKey(name: 'registration_date')
   final String registrationDate;
   final double cost;
-  @JsonKey(name: 'location')
+  @JsonKey(name: 'address')
   final String address;
   final double longitude;
   final double latitude;
   final String description;
-  @JsonKey(name: 'requirment')
+  @JsonKey(name: 'requirement')
   final String requirement;
   @JsonKey(name: 'vacancies_num')
   final int vacanciesNum;

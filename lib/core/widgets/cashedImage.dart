@@ -24,7 +24,7 @@ class CashedImage extends StatelessWidget {
         ),
       ),
       placeholder: (context, url) => CircularProgressIndicator(),
-      errorWidget: (context, url, error) => Icon(Icons.error),
+      errorWidget: (context, url, error) => Image.asset('assets/images/place_holder.png'),
     );
   }
 }

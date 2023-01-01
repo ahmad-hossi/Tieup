@@ -24,19 +24,19 @@ class CompanyBrief extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Image.network('$kBaseUrl/$imageUrl',
-            width: 38.w,height: 38.w,),
+          Image.network('$kBaseUrl/$imageUrl',color: Colors.red,
+            width: 46.w,height: 46.w,),
           SizedBox(width: 8.w,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(jobTitle,style: CustomFontStyle.titleStyle,),
-              SizedBox(height: 4.h,),
+              SizedBox(height: 12.h,),
               Text(companyName),
             ],
           ),
-         // Spacer(),
+         SizedBox(width: 32,),
           Text(subDomainName),
         ],
       ),

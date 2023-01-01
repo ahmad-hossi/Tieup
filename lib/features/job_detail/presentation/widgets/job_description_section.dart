@@ -31,6 +31,7 @@ class JobDescriptionSection extends StatelessWidget {
               (index) => Text(
                     '\u2022 ' ' ${textList[index].trim()} ',
                     softWrap: true,
+                style: TextStyle(fontSize: 16),
                   )),
         ],
       ),
