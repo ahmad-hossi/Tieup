@@ -46,9 +46,9 @@ class TrainingCard extends StatelessWidget {
             ),
             IconTitle(iconPath: 'assets/icons/location.svg',
                 title: 'location',description: '${trainingInformation.cityName} (on-site)'),
-            IconTitle(iconPath: 'assets/icons/location.svg',
+            IconTitle(iconPath: 'assets/icons/dollar.svg',
                 title: 'cost',description: formatCurrency.format(trainingInformation.cost)),
-            IconTitle(iconPath: 'assets/icons/location.svg',
+            IconTitle(iconPath: 'assets/icons/date.svg',
                 title: 'start date',
                 description: trainingInformation.startDate
                     ),

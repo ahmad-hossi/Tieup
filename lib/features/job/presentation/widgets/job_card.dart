@@ -57,12 +57,12 @@ class JobCard extends StatelessWidget {
                 title: 'location',
                 description: '${jobInformation.cityName} (on-site)'),
             IconTitle(
-                iconPath: 'assets/icons/location.svg',
+                iconPath: 'assets/icons/experience.svg',
                 title: 'experience',
                 description:
                     '${jobInformation.minYearsRequirement} - ${jobInformation.maxYearsRequirement} years'),
             IconTitle(
-                iconPath: 'assets/icons/location.svg',
+                iconPath: 'assets/icons/salary.svg',
                 title: 'Salary',
                 description:
                     '${formatCurrency.format(jobInformation.lowSalary)} '

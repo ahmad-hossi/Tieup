@@ -302,14 +302,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const ProfileCard(
                       title: 'Personal Information',
-                      svgIcon: 'assets/icons/personal-information.svg',
+                      svgIcon: 'assets/icons/personalinfo.svg',
                       routeName: PersonalInformationScreen.routeName),
                   SizedBox(
                     height: 8.h,
                   ),
                   const ProfileCard(
                     title: 'Portfolio',
-                    svgIcon: 'assets/icons/personal-information.svg',
+                    svgIcon: 'assets/icons/portfolio.svg',
                     routeName: PortfolioScreen.routeName,
                   ),
                   SizedBox(
@@ -325,7 +325,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const ProfileCard(
                     title: 'Education',
-                    svgIcon: 'assets/icons/personal-information.svg',
+                    svgIcon: 'assets/icons/education.svg',
                     routeName: EducationScreen.routeName,
                   ),
                   SizedBox(
@@ -333,7 +333,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const ProfileCard(
                     title: 'Work Experience',
-                    svgIcon: 'assets/icons/personal-information.svg',
+                    svgIcon: 'assets/icons/experience.svg',
                     routeName: ExperienceScreen.routeName,
                   ),
                   SizedBox(
@@ -341,7 +341,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const ProfileCard(
                     title: 'Skills',
-                    svgIcon: 'assets/icons/personal-information.svg',
+                    svgIcon: 'assets/icons/skills.svg',
                     routeName: SkillScreen.routeName,
                   ),
                   SizedBox(
@@ -349,7 +349,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const ProfileCard(
                     title: 'Courses & Certificates',
-                    svgIcon: 'assets/icons/personal-information.svg',
+                    svgIcon: 'assets/icons/certificate.svg',
                     routeName: CoursesScreen.routeName,
                   ),
                   SizedBox(
@@ -357,7 +357,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const ProfileCard(
                     title: 'Cover Letter',
-                    svgIcon: 'assets/icons/personal-information.svg',
+                    svgIcon: 'assets/icons/letter.svg',
                     routeName: MotivationLetterScreen.routeName,
                   ),
                   SizedBox(
@@ -365,7 +365,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const ProfileCard(
                     title: 'Favourite Jobs',
-                    svgIcon: 'assets/icons/personal-information.svg',
+                    svgIcon: 'assets/icons/favourite.svg',
                     routeName: FavJobsScreen.routeName,
                   ),
                   SizedBox(
@@ -373,7 +373,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const ProfileCard(
                     title: 'Favourite Trainings',
-                    svgIcon: 'assets/icons/personal-information.svg',
+                    svgIcon: 'assets/icons/favourite.svg',
                     routeName: FavJobsScreen.routeName,
                   ),
                   SizedBox(
@@ -381,7 +381,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const ProfileCard(
                     title: 'Applied Jobs',
-                    svgIcon: 'assets/icons/personal-information.svg',
+                    svgIcon: 'assets/icons/jobs.svg',
                     routeName: AppliedJobsScreen.routeName,
                   ),
                   SizedBox(
@@ -389,7 +389,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const ProfileCard(
                     title: 'Applied Trainings',
-                    svgIcon: 'assets/icons/personal-information.svg',
+                    svgIcon: 'assets/icons/training.svg',
                     routeName: AppliedTrainingsScreen.routeName,
                   ),
                   SizedBox(
@@ -398,7 +398,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const ProfileCard(
                     title: 'Generate CV',
                     titleColor: Colors.red,
-                    svgIcon: 'assets/icons/personal-information.svg',
+                    svgIcon: 'assets/icons/cv.svg',
                     routeName: ResumeScreen.routeName,
                   ),
                   SizedBox(
