@@ -32,6 +32,7 @@ import 'package:tieup/features/skill/domain/use_cases/add_user_skills.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_domains.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_skills.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_sub_domains.dart';
+import 'package:tieup/features/skill/domain/use_cases/get_suggested_skills.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_user_skills.dart';
 import 'package:tieup/features/skill/presentation/Bloc/skill_bloc.dart';
 import 'package:tieup/features/authentication/data/data_sources/authentication_remote_data_source.dart';
@@ -124,6 +125,7 @@ Future init() async {
       ));
   sl.registerFactory(() => SkillBloc(
     addUserSkills: sl(),
+      getSuggestedSkills: sl(),
       getDomains: sl(),
       getSkills: sl(),
       getSubDomains: sl(),
@@ -194,6 +196,7 @@ Future init() async {
   sl.registerLazySingleton(() => GetAppliedTrainings(sl()));
   sl.registerLazySingleton(() => UpdateUserImage(sl()));
   sl.registerLazySingleton(() => AddUserSkills(sl()));
+  sl.registerLazySingleton(() => GetSuggestedSkills(sl()));
 
   // Data sources
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(

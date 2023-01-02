@@ -14,6 +14,7 @@ abstract class SkillRemoteDataSource {
   Future<List<SkillModel>> getSkills(int subDomainId);
   Future<List<SkillModel>> getUserSkills();
   Future<List<Skill>> addUserSkills(List<Skill> skills);
+  Future<List<String>> getSuggestedSkills();
 }
 
 class SkillRemoteDataSourceImpl implements SkillRemoteDataSource {
@@ -180,5 +181,35 @@ class SkillRemoteDataSourceImpl implements SkillRemoteDataSource {
     // } catch (e) {
     //   throw ServerException();
     // }
+  }
+
+  @override
+  Future<List<String>> getSuggestedSkills() async {
+    final List<Skill> skills = await getUserSkills();
+    String skillParams = '';
+    for (var e in skills) {
+      skillParams += "skills=${e.name}&";
+    }
+    print(skillParams);
+    final response = await client.get(
+      Uri.parse(
+        'https://api.affinda.com/v2/resume_search/suggestion_skill?$skillParams',
+      ),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 5397ddec4fa4ea6277ca51df2ab4d7ffe329d5ae',
+      },
+    );
+    print(response.body);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final responseData = jsonDecode(response.body);
+      return (responseData as List<dynamic>).map((e) => e.toString()).toList();
+    } else if (response.statusCode == 401) {
+      throw UnauthenticatedException();
+    } else {
+      throw ServerException();
+    }
   }
 }

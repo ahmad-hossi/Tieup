@@ -10,4 +10,5 @@ abstract class SkillRepository {
   Future<Either<Failure, List<Skill>>> getSkills(int id);
   Future<Either<Failure, List<Skill>>> getUserSkills();
   Future<Either<Failure, List<Skill>>> addUserSkills(List<Skill> skills);
+  Future<Either<Failure,List<String>>> getSuggestedSkills();
 }

@@ -9,6 +9,7 @@ import 'package:tieup/features/skill/domain/use_cases/add_user_skills.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_domains.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_skills.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_sub_domains.dart';
+import 'package:tieup/features/skill/domain/use_cases/get_suggested_skills.dart';
 import 'package:tieup/features/skill/domain/use_cases/get_user_skills.dart';
 import 'package:tieup/features/skill/presentation/Bloc/skill_bloc.dart';
 
@@ -21,11 +22,13 @@ class SkillBloc extends Bloc<SkillEvent, SkillState> {
   GetSkills getSkills;
   GetUserSkills getUserSkills;
   AddUserSkills addUserSkills;
+  GetSuggestedSkills getSuggestedSkills;
 
   SkillBloc(
       {required this.getDomains,
       required this.getSubDomains,
       required this.getSkills,
+        required this.getSuggestedSkills,
         required this.addUserSkills,
       required this.getUserSkills})
       : super(SkillInitial()) {
@@ -62,5 +65,13 @@ class SkillBloc extends Bloc<SkillEvent, SkillState> {
       emit(eitherResponse.fold((failure) => SkillFailure(errorMessage: 'error'),
               (skills) => UserSkillsLoaded(skills: skills)));
     });
+
+    on<GetSuggestedSkillsEvent>((event, emit) async{
+      final eitherResponse = await getSuggestedSkills(NoParams());
+      print(eitherResponse);
+      emit(eitherResponse.fold((failure) => SkillFailure(errorMessage: 'error'),
+              (skills) => SuggestedSkillsLoaded(skills: skills)));
+    });
+
   }
 }

@@ -68,7 +68,7 @@ class _SkillScreenState extends State<SkillScreen> {
                       }
                     },
                     builder: (context, state) {
-                      if(state is SkillLoading){
+                      if (state is SkillLoading) {
                         return const Center(child: CircularProgressIndicator());
                       }
                       return Container(
@@ -120,11 +120,9 @@ class _SkillScreenState extends State<SkillScreen> {
                                         builder: (_) => AddSkillsDialog(
                                               skillSection: true,
                                             )).then((value) {
-                                              context
-                                        .read<SkillBloc>()
-                                        .add(
-                                            AddUserSkillsEvent(skills: value));
-                                            });
+                                      context.read<SkillBloc>().add(
+                                          AddUserSkillsEvent(skills: value));
+                                    });
                                   },
                                   child: Container(
                                       padding: EdgeInsets.all(8.w),
@@ -157,7 +155,61 @@ class _SkillScreenState extends State<SkillScreen> {
                       return Container();
                     },
                   ),
-                  Spacer(),
+                  BlocBuilder<SkillBloc, SkillState>(
+                    builder: (context, state) {
+                      if(state is SuggestedSkillsLoaded){
+                        return Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(16.w),
+                            child: Wrap(
+                                spacing: 4.w,
+                                runSpacing: 4.w,
+                                direction: Axis.horizontal,
+                                children: [
+                                  ...List.generate(
+                                    state.skills.length,
+                                        (index) => Container(
+                                        padding: EdgeInsets.all(8.w),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.green,
+                                                width: 2),
+                                            borderRadius:
+                                            BorderRadius.circular(25.r)),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              state.skills[index],
+                                              style: TextStyle(fontSize: 16),
+                                            ),
+                                            // ...List.generate(
+                                            //   state.skills[index].level ?? 0,
+                                            //   (index) => Icon(
+                                            //     Icons.star,
+                                            //     size: 24,
+                                            //     color: kPrimaryColor,
+                                            //   ),
+                                            // ),
+                                            //Text('4'),
+                                          ],
+                                        )),
+                                  ),
+                                ]));
+                      }
+                      return Container();
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 28.0, vertical: 8.0),
+                    child: DefaultButton(
+                      text: 'suggestion',
+                      press: () {
+                        context.read<SkillBloc>().add(GetSuggestedSkillsEvent());
+                      },
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 28.0, vertical: 8.0),

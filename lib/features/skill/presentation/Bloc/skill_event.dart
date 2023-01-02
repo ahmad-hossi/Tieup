@@ -22,4 +22,4 @@ class AddUserSkillsEvent extends SkillEvent{
   AddUserSkillsEvent({required this.skills});
 }
 
-
+class GetSuggestedSkillsEvent extends SkillEvent{}

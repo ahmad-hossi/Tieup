@@ -7,10 +7,8 @@ import 'package:tieup/core/constants/font_style.dart';
 import 'package:tieup/core/widgets/custom_nav_bar.dart';
 import 'package:tieup/core/widgets/jobs_loading.dart';
 import 'package:tieup/features/job/presentation/bloc/job_bloc.dart';
+import 'package:tieup/features/job/presentation/pages/filter_screen.dart';
 import 'package:tieup/features/job/presentation/widgets/job_card.dart';
-
-
-
 
 class JobScreen extends StatefulWidget {
   const JobScreen({Key? key}) : super(key: key);
@@ -27,7 +25,6 @@ class _JobScreenState extends State<JobScreen> {
     context.read<JobBloc>().add(GetALlJobsEvent());
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +45,10 @@ class _JobScreenState extends State<JobScreen> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => const FilterScreen()));
+            },
             icon: SvgPicture.asset(
               'assets/icons/filter.svg',
               width: 24.w,
@@ -75,8 +75,8 @@ class _JobScreenState extends State<JobScreen> {
             return ListView.separated(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                 itemBuilder: (_, index) => JobCard(
-                  jobInformation: state.jobs[index],
-                ),
+                      jobInformation: state.jobs[index],
+                    ),
                 separatorBuilder: (_, index) => SizedBox(
                       height: 8.h,
                     ),
@@ -88,5 +88,3 @@ class _JobScreenState extends State<JobScreen> {
     );
   }
 }
-
-

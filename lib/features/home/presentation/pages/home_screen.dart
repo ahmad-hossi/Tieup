@@ -50,22 +50,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 34.w,
                       height: 34.h,
                     )),
-                IconButton(
-                    onPressed: () {},
-                    icon: Badge(
-                      badgeContent: Text(
-                        '3',
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      padding: EdgeInsets.all(4),
-                      position: BadgePosition(bottom: 16, start: 14),
-                      child: SvgPicture.asset(
-                        'assets/icons/notification.svg',
-                        color: Color(0xff364965),
-                        width: 34.w,
-                        height: 34.h,
-                      ),
-                    )),
+                // IconButton(
+                //     onPressed: () {},
+                //     icon: Badge(
+                //       badgeContent: Text(
+                //         '3',
+                //         style: TextStyle(color: Colors.white, fontSize: 12),
+                //       ),
+                //       padding: EdgeInsets.all(4),
+                //       position: BadgePosition(bottom: 16, start: 14),
+                //       child: SvgPicture.asset(
+                //         'assets/icons/notification.svg',
+                //         color: Color(0xff364965),
+                //         width: 34.w,
+                //         height: 34.h,
+                //       ),
+                //     )),
               ],
               centerTitle: true,
               title: Image.asset(

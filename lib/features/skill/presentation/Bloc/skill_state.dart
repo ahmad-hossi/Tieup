@@ -33,3 +33,8 @@ class UserSkillsLoaded extends SkillState{
 }
 
 
+class SuggestedSkillsLoaded extends SkillState{
+  final List<String> skills;
+  SuggestedSkillsLoaded({required this.skills});
+}
+
