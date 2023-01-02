@@ -33,7 +33,7 @@ class CustomNavBar extends StatelessWidget {
               SvgPicture.asset(
                 CustomIcons.home,
                 color: kPrimaryColor,
-                height: 34.h,
+                height: 30.h,
               ),
               Text('Home')
             ],
@@ -46,9 +46,9 @@ class CustomNavBar extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SvgPicture.asset(
-                  CustomIcons.home,
+                  CustomIcons.job,
                   color: kPrimaryColor,
-                  height: 34.h,
+                  height: 30.h,
                 ),
                 Text('All Jobs')
               ],
@@ -73,9 +73,9 @@ class CustomNavBar extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SvgPicture.asset(
-                  CustomIcons.job,
+                  CustomIcons.training,
                   color: kPrimaryColor,
-                  height: 34.h,
+                  height: 30.h,
                 ),
                 const Text('All Trainings')
               ],
@@ -91,7 +91,7 @@ class CustomNavBar extends StatelessWidget {
                 SvgPicture.asset(
                   CustomIcons.profile,
                   color: kPrimaryColor,
-                  height: 34.h,
+                  height: 30.h,
                 ),
                 Text('Profile')
               ],

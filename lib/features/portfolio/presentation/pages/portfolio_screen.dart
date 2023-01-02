@@ -146,7 +146,7 @@ class _PersonalInformationScreenState extends State<PortfolioScreen> {
                           labelText: "Whatsapp",
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           suffixIcon: CustomSuffixIcon(
-                              svgIcon: "assets/icons/instagram.svg"),
+                              svgIcon: "assets/icons/whatsapp.svg"),
                         ),
                       ),
                       SizedBox(
@@ -244,7 +244,7 @@ class _PersonalInformationScreenState extends State<PortfolioScreen> {
                           labelText: "Github",
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           suffixIcon: CustomSuffixIcon(
-                              svgIcon: "assets/icons/linkedin.svg"),
+                              svgIcon: "assets/icons/github.svg"),
                         ),
                       ),
                     ],

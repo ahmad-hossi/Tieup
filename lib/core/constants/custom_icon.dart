@@ -1,7 +1,8 @@
 class CustomIcons{
   static String profile = 'assets/icons/profile.svg';
-  static String home = 'assets/icons/home (2).svg';
+  static String home = 'assets/icons/home.svg';
   static String job = 'assets/icons/jobs.svg';
+  static String training = 'assets/icons/training.svg';
   static String settings = 'assets/icons/settings.svg';
   static String mail = 'assets/icons/Mail.svg';
   static String save = 'assets/icons/save.svg';
