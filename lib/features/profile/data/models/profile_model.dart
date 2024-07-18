@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tieup/features/course/data/models/course_model.dart';
+import 'package:tieup/features/education/data/models/education_model.dart';
+import 'package:tieup/features/education/domain/entities/education.dart';
 import 'package:tieup/features/experience/data/models/experience_model.dart';
 import 'package:tieup/features/languages/data/models/language_model.dart';
 import 'package:tieup/features/portfolio/data/models/portfolio_model.dart';
@@ -41,6 +43,8 @@ class ProfileModel extends Profile {
   final List<SkillModel> skills;
   @JsonKey(name: 'Courses')
   final List<CourseModel> courses;
+  @JsonKey(name: 'EducationCertificates')
+  final List<EducationModel> educations;
   ProfileModel(
       {required this.id,
       required this.fullName,
@@ -56,6 +60,7 @@ class ProfileModel extends Profile {
       this.cityName,
       this.imageUrl,
       this.coverImageUrl,
+      required this.educations,
       required this.languages,
       required this.portfolios,
       required this.experiences,
@@ -79,7 +84,8 @@ class ProfileModel extends Profile {
             courses: courses,
             experiences: experiences,
             languages: languages,
-            email : email,
+            email: email,
+            educations: educations,
             portfolios: portfolios);
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>

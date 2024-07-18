@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:tieup/constants.dart';
 import 'package:tieup/core/constants/custom_icon.dart';
 import 'package:tieup/core/constants/enums.dart';
+import 'package:tieup/features/home/presentation/pages/home_screen.dart';
 import 'package:tieup/features/job/presentation/pages/job_screen.dart';
 import 'package:tieup/features/profile/presentation/pages/profile_screen.dart';
 import 'package:tieup/features/training/presentation/pages/training_screen.dart';
@@ -27,16 +28,21 @@ class CustomNavBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SvgPicture.asset(
-                CustomIcons.home,
-                color: kPrimaryColor,
-                height: 30.h,
-              ),
-              Text('Home')
-            ],
+          InkWell(
+            onTap: (){
+              Navigator.pushNamed(context, HomeScreen.routeName);
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  CustomIcons.home,
+                  color: kPrimaryColor,
+                  height: 30.h,
+                ),
+                Text('Home')
+              ],
+            ),
           ),
           InkWell(
             onTap: (){

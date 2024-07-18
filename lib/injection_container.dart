@@ -19,6 +19,7 @@ import 'package:tieup/features/favorite/domain/use_cases/add_to_fav.dart';
 import 'package:tieup/features/favorite/presentation/manager/favorite_bloc.dart';
 import 'package:tieup/features/job/domain/use_cases/get_applied_jobs.dart';
 import 'package:tieup/features/job/domain/use_cases/get_company_jobs.dart';
+import 'package:tieup/features/job/domain/use_cases/get_suggest_jobs.dart';
 import 'package:tieup/features/profile/data/data_sources/profile_remote_data_source.dart';
 import 'package:tieup/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:tieup/features/profile/domain/repositories/profile_repository.dart';
@@ -102,6 +103,7 @@ import 'package:tieup/features/training/domain/repositories/training_repository.
 import 'package:tieup/features/training/domain/use_cases/get_applied_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_company_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_fav_trainings.dart';
+import 'package:tieup/features/training/domain/use_cases/get_suggest_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_trainings.dart';
 import 'package:tieup/features/training/presentation/bloc/training_bloc.dart';
 import 'package:tieup/features/training_detail/data/data_sources/training_detail_remote_data_source.dart';
@@ -135,12 +137,14 @@ Future init() async {
       WorkExperienceBloc(addWorkExperience: sl(), getWorkExperience: sl()));
   sl.registerFactory(() => CourseBloc(getCourses: sl(), addCourse: sl()));
   sl.registerFactory(() => JobBloc(
+      getSuggestJobs: sl(),
       getJobs: sl(),
       getFavJobs: sl(),
       getCompanyJobs: sl(),
       getAppliedJobs: sl()));
   sl.registerFactory(() => JobDetailBloc(getJobDetail: sl()));
   sl.registerFactory(() => TrainingBloc(
+    getSuggestTrainings: sl(),
       getTrainings: sl(),
       getFavTrainings: sl(),
       getCompanyTrainings: sl(),
@@ -197,6 +201,8 @@ Future init() async {
   sl.registerLazySingleton(() => UpdateUserImage(sl()));
   sl.registerLazySingleton(() => AddUserSkills(sl()));
   sl.registerLazySingleton(() => GetSuggestedSkills(sl()));
+  sl.registerLazySingleton(() => GetSuggestJobs(sl()));
+  sl.registerLazySingleton(() => GetSuggestTrainings(sl()));
 
   // Data sources
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(

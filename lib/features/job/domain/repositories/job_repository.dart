@@ -7,4 +7,5 @@ abstract class JobRepository{
   Future<Either<Failure,List<Job>>> getCompanyJobs(int companyId);
   Future<Either<Failure,List<Job>>> getFavJobs();
   Future<Either<Failure,List<Job>>> getAppliedJobs();
+  Future<Either<Failure,List<Job>>> getSuggestJobs();
 }

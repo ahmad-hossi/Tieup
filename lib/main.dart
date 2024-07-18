@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tieup/constants.dart';
 import 'package:tieup/features/application/presentation/manager/apply_bloc.dart';
 import 'package:tieup/features/company/presentation/bloc/company_bloc.dart';
@@ -28,14 +29,20 @@ import 'package:tieup/injection_container.dart';
 import 'package:tieup/routes.dart';
 import 'injection_container.dart' as di;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   unawaited(di.init());
-  runApp(const MyApp());
+  final prefs = await SharedPreferences.getInstance();
+  final token = prefs.getString('token');
+  runApp(MyApp(
+    openHome: token == null ? false : true,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({this.openHome = false, Key? key}) : super(key: key);
 
+  final bool openHome;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -61,8 +68,8 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (_) => sl<ProfileBloc>()),
             BlocProvider(create: (_) => sl<CompanyBloc>()),
             BlocProvider(create: (_) => sl<EducationBloc>()),
-              BlocProvider(create: (_) => sl<FavoriteBloc>()),
-              BlocProvider(create: (_) => sl<ApplyBloc>()),
+            BlocProvider(create: (_) => sl<FavoriteBloc>()),
+            BlocProvider(create: (_) => sl<ApplyBloc>()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -71,7 +78,8 @@ class MyApp extends StatelessWidget {
               appBarTheme: const AppBarTheme(
                 color: Color(0xFFF8F8F8),
                 elevation: 0,
-                titleTextStyle: TextStyle(color: Color(0xFF364965),
+                titleTextStyle: TextStyle(
+                  color: Color(0xFF364965),
                   fontSize: 24,
                 ),
               ),
@@ -85,9 +93,10 @@ class MyApp extends StatelessWidget {
               //useMaterial3: true,
               // fontFamily: 'Gilroy'
             ),
-            //home: HomeScreen(),
-            routes: routes,
-            initialRoute: LoginScreen.routeName,
+            home: LoginScreen(),
+            // routes: routes,
+            // initialRoute:
+            //     openHome ? HomeScreen.routeName : LoginScreen.routeName,
           ),
         );
       },

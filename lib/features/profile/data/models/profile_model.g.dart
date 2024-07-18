@@ -22,6 +22,9 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) {
     cityName: json['city'] as String?,
     imageUrl: json['image'] as String?,
     coverImageUrl: json['cover_image'] as String?,
+    educations: (json['EducationCertificates'] as List<dynamic>)
+        .map((e) => EducationModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
     languages: (json['Languages'] as List<dynamic>)
         .map((e) => LanguageModel.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -61,4 +64,5 @@ Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
       'Experiances': instance.experiences,
       'Skills': instance.skills,
       'Courses': instance.courses,
+      'EducationCertificates': instance.educations,
     };

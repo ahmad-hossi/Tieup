@@ -26,7 +26,7 @@ class JobModel extends Job {
   @JsonKey(name: 'company_profile_image')
   final String companyImgUrl;
   @JsonKey(name: 'posted')
-  final String postedDate;
+   final String? postedDate;
   @JsonKey(name: 'application_date')
   final String? applicationDate;
   final String? status;
@@ -42,9 +42,10 @@ class JobModel extends Job {
       required this.companyId,
       required this.companyName,
       required this.companyImgUrl,
-      required this.postedDate,
+        this.postedDate,
       this.status,
-      this.applicationDate})
+      this.applicationDate
+      })
       : super(
             id: id,
             jobTitle: jobTitle,
@@ -59,7 +60,8 @@ class JobModel extends Job {
             minYearsRequirement: minYearsRequirement,
             postedDate: postedDate,
             status: status,
-            applicationDate: applicationDate);
+            applicationDate: applicationDate
+          );
 
   factory JobModel.fromJson(Map<String, dynamic> json) =>
       _$JobModelFromJson(json);

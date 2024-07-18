@@ -205,7 +205,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                                           context: context,
                                           initialDate: DateTime.now(),
                                           firstDate: DateTime(1960),
-                                          lastDate: DateTime(2050))
+                                          lastDate: DateTime(2010))
                                       .then((value) => setState(() {
                                             birthday = DateFormat('yyyy/MM/dd')
                                                 .format(value!);
@@ -331,10 +331,16 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                   ),
                 ),
                 Padding(
+
+
                   padding: const EdgeInsets.all(8.0),
                   child: DefaultButton(
                       text: 'Save',
                       press: () {
+                        if(selectedCityId == null){
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('select city')));
+                          return;
+                        }
                         // print(nameController.text);
                         // print(phoneController.text);
                         // print(birthday);

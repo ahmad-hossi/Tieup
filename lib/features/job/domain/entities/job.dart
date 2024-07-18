@@ -11,7 +11,7 @@ class Job{
   final int companyId;
   final String companyName;
   final String companyImgUrl;
-  final String postedDate;
+  final String? postedDate;
   final String?  applicationDate;
   final String? status;
 
@@ -28,7 +28,7 @@ class Job{
      required this.companyName,
      required this.companyImgUrl,
      required this.postedDate,
-      this.applicationDate,
+     this.applicationDate,
     this.status
   });
 }

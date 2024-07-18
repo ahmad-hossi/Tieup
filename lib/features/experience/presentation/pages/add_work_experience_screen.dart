@@ -28,17 +28,26 @@ class _AddWorkExperienceScreenState extends State<AddWorkExperienceScreen> {
   String startDate = '';
   String endDate = '';
 
+  DateTime? start;
+  DateTime? end;
+  List<String> errors = [];
+
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add work experience'),elevation: 1,
+      appBar: AppBar(
+        title: const Text('Add work experience'),
+        elevation: 1,
         leading: Padding(
           padding: const EdgeInsets.all(14.0),
           child: SvgPicture.asset(
             'assets/icons/back.svg',
             color: Colors.black54,
           ),
-        ),),
+        ),
+      ),
       body: BlocListener<WorkExperienceBloc, WorkExperienceState>(
         listener: (context, state) {
           if (state is WorkExperienceAddedSuccessfully) {
@@ -54,7 +63,7 @@ class _AddWorkExperienceScreenState extends State<AddWorkExperienceScreen> {
                 content: Text("Added Successfully"),
               ));
             });
-            //context.read<WorkExperienceBloc>().add(GetWorkExperienceEvent());
+            context.read<WorkExperienceBloc>().add(GetWorkExperienceEvent());
           } else if (state is WorkExperienceLoading) {
             buildLoadingDialog(context);
           }
@@ -62,132 +71,186 @@ class _AddWorkExperienceScreenState extends State<AddWorkExperienceScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: jobTitleController,
-                  keyboardType: TextInputType.name,
-                  //initialValue: state.personalInformation.fullName,
-                  //validator: (value) {},
-                  decoration: const InputDecoration(
-                    labelText: "Job title",
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
-                  ),
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                TextFormField(
-                  autofocus: false,
-                  controller: companyNameController,
-                  keyboardType: TextInputType.name,
-                  //initialValue: state.personalInformation.fullName,
-                  //validator: (value) {},
-                  decoration: const InputDecoration(
-                    labelText: "Company",
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    //suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Mail.svg"),
-                  ),
-                ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                TextButton(
-                    autofocus: false,
-                    onPressed: () {
-                      context.read<SkillBloc>().add(GetDomainsEvent());
-                      showDialog(
-                        // barrierDismissible: false,
-                        context: context,
-                        builder: (_) {
-                          return AddSkillsDialog();
-                        },
-                      ).then((value) {
-                        setState(() {
-                          selectedSubDomain = value;
-                        });
-                      });
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: jobTitleController,
+                    keyboardType: TextInputType.name,
+                    //initialValue: state.personalInformation.fullName,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'this field is required';
+                      }
+                      return null;
                     },
-                    child: Text('add job role')),
-                Text(selectedSubDomain.name),
-                TextFormField(
-                  autofocus: false,
-                  minLines: 3,
-                  maxLines: 5,
-                  controller: descriptionController,
-                  keyboardType: TextInputType.name,
-                  //initialValue: state.personalInformation.fullName,
-                  //validator: (value) {},
-                  decoration: const InputDecoration(
-                    labelText: "Description",
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    //suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Mail.svg"),
+                    decoration: const InputDecoration(
+                      labelText: "Job title",
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+                    ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('start Date'),
-                    Text(startDate),
-                    OutlinedButton(
-                      onPressed: () {
-                        showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2001),
-                                lastDate: DateTime(2050))
-                            .then((value) => setState(() {
-                                  startDate =
-                                      DateFormat('yyyy/MM/dd').format(value!);
-                                }));
-                      },
-                      child: const Text('Select date'),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  TextFormField(
+                    autofocus: false,
+                    controller: companyNameController,
+                    keyboardType: TextInputType.name,
+                    //initialValue: state.personalInformation.fullName,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'this field is required';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: "Company",
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      //suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Mail.svg"),
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('End Date'),
-                    Text(endDate),
-                    OutlinedButton(
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  TextButton(
+                      autofocus: false,
                       onPressed: () {
-                        showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2001),
-                                lastDate: DateTime(2050))
-                            .then((value) => setState(() {
-                                  endDate =
-                                      DateFormat('yyyy/MM/dd').format(value!);
-                                }));
+                        context.read<SkillBloc>().add(GetDomainsEvent());
+                        showDialog(
+                          // barrierDismissible: false,
+                          context: context,
+                          builder: (_) {
+                            return AddSkillsDialog();
+                          },
+                        ).then((value) {
+                          setState(() {
+                            selectedSubDomain = value;
+                          });
+                        });
                       },
-                      child: const Text('Select date'),
+                      child: Text('add job role')),
+                  Text(selectedSubDomain.name),
+                  TextFormField(
+                    autofocus: false,
+                    minLines: 3,
+                    maxLines: 5,
+                    controller: descriptionController,
+                    keyboardType: TextInputType.name,
+                    //initialValue: state.personalInformation.fullName,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'this field is required';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: "Description",
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      //suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Mail.svg"),
                     ),
-                  ],
-                ),
-                DefaultButton(
-                  press: () {
-                    context.read<WorkExperienceBloc>().add(
-                        AddWorkExperienceEvent(
-                            params: WorkExperienceParams(
-                                jobTitle: jobTitleController.text,
-                                description: descriptionController.text,
-                                companyName: companyNameController.text,
-                                subDomainId: selectedSubDomain.id.toString(),
-                                startDate: startDate,
-                                endDate: endDate)));
-                  },
-                  text: 'Add',
-                )
-              ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('start Date'),
+                      Text(startDate),
+                      OutlinedButton(
+                        onPressed: () {
+                          showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1950),
+                                  lastDate:  DateTime.now())
+                              .then((value) => setState(() {
+                                    start = value;
+                                    startDate =
+                                        DateFormat('yyyy/MM/dd').format(value!);
+                                  }));
+                        },
+                        child: const Text('Select date'),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('End Date'),
+                      Text(endDate),
+                      OutlinedButton(
+                        onPressed: () {
+                          showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1950),
+                                  lastDate: DateTime.now(),)
+                              .then((value) => setState(() {
+                                    end = value;
+                                    endDate =
+                                        DateFormat('yyyy/MM/dd').format(value!);
+                                  }));
+                        },
+                        child: const Text('Select date'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 32,
+                  ),
+                  SizedBox(
+                    height: 64,
+                    child: ListView.builder(
+                      itemBuilder: (_, index) => Text(
+                        errors[index],
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      itemCount: errors.length,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 32,
+                  ),
+                  DefaultButton(
+                    press: () {
+                      errors.clear();
+                      if (selectedSubDomain.id == -1 ) {
+                        errors.add("please select job role");
+                      }
+                      if (start == null) {
+                        errors.add("start date can't be empty");
+                      }
+                      if (start != null &&
+                          end != null &&
+                          (start?.difference(end!))! >
+                              const Duration(days: 1)) {
+                        errors.add("start can't be before end");
+                      }
+                      setState(() {});
+                      if (errors.isNotEmpty) {
+                        return;
+                      }
+                      if (_formKey.currentState!.validate()) {
+                        context.read<WorkExperienceBloc>().add(
+                            AddWorkExperienceEvent(
+                                params: WorkExperienceParams(
+                                    jobTitle: jobTitleController.text,
+                                    description: descriptionController.text,
+                                    companyName: companyNameController.text,
+                                    subDomainId:
+                                        selectedSubDomain.id.toString(),
+                                    startDate: startDate,
+                                    endDate: endDate)));
+                      }
+                    },
+                    text: 'Add',
+                  )
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
-
-
 }

@@ -123,27 +123,38 @@ class _AddSkillsDialogState extends State<AddSkillsDialog> {
                 const SizedBox(
                   height: 4,
                 ),
-                Wrap(
-                  spacing: 4.w,
-                  runSpacing: 4.w,
-                  direction: Axis.horizontal,
-                  children: List.generate(
-                    skills.length,
-                    (index) {
-                      return InkWell(
-                        onTap: () {
-                          setState(() {
-                            skillsStatus[index] = !skillsStatus[index];
-                            selectedSkills.add(skills[index]);
-                          });
-                        },
-                        child: SkillContainer(
-                            selectedSkills: selectedSkills,
-                            skill: skills[index]),
-                      );
-                    },
+                SizedBox(
+                  height: 200,
+                  child: ListView.builder(itemBuilder: (_,index)=>
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              skillsStatus[index] = !skillsStatus[index];
+                              selectedSkills.add(skills[index]);
+                            });
+                          },
+                          child: SkillContainer(
+                              selectedSkills: selectedSkills,
+                              skill: skills[index]),
+                        ),
+                      ),
+                    itemCount: skills.length,
                   ),
-                ),
+                )
+                ,
+                // Wrap(
+                //   spacing: 4.w,
+                //     runSpacing: 4.w,
+                //     direction: Axis.horizontal,
+                //     children: List.generate(
+                //       skills.length,
+                //           (index) {
+                //         return
+                //       },
+                //     ),
+                //   ),
               },
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

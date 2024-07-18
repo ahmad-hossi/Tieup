@@ -1,4 +1,5 @@
 import 'package:tieup/features/course/domain/entities/course.dart';
+import 'package:tieup/features/education/domain/entities/education.dart';
 import 'package:tieup/features/experience/domain/entities/experience.dart';
 import 'package:tieup/features/languages/domain/entities/language.dart';
 import 'package:tieup/features/portfolio/domain/entities/portfolio.dart';
@@ -24,6 +25,7 @@ class Profile {
   List<Experience> experiences;
   List<Skill> skills;
   List<Course> courses;
+  final List<Education> educations;
 
   Profile(
       { required this.id,
@@ -40,6 +42,7 @@ class Profile {
         this.cityId,
         this.imageUrl,
         this.coverImageUrl,
+        required this.educations,
       required this.languages,
       required this.portfolios,
       required this.experiences,

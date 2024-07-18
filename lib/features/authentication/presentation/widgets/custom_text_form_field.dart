@@ -26,9 +26,16 @@ class CustomTextFormField extends StatelessWidget {
   bool obscureText = false;
   late TextEditingController textEditingController;
 
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'this field is required';
+        }
+        return null;
+      },
       controller: textEditingController,
       keyboardType: textInputType,
       obscureText: obscureText,

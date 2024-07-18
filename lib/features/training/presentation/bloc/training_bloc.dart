@@ -9,6 +9,7 @@ import 'package:tieup/features/training/domain/entities/training.dart';
 import 'package:tieup/features/training/domain/use_cases/get_applied_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_company_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_fav_trainings.dart';
+import 'package:tieup/features/training/domain/use_cases/get_suggest_trainings.dart';
 import 'package:tieup/features/training/domain/use_cases/get_trainings.dart';
 
 part 'training_event.dart';
@@ -19,9 +20,14 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
   GetFavTrainings getFavTrainings;
   GetCompanyTrainings getCompanyTrainings;
   GetAppliedTrainings getAppliedTrainings;
+  GetSuggestTrainings getSuggestTrainings;
 
-  TrainingBloc({required this.getTrainings,required this.getAppliedTrainings,
-    required this.getCompanyTrainings,required this.getFavTrainings})
+  TrainingBloc(
+      {required this.getTrainings,
+      required this.getSuggestTrainings,
+      required this.getAppliedTrainings,
+      required this.getCompanyTrainings,
+      required this.getFavTrainings})
       : super(TrainingInitial()) {
     on<GetALlTrainingsEvent>((event, emit) async {
       emit(TrainingLoading());
@@ -33,10 +39,11 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
 
     on<GetCompanyTrainingsEvent>((event, emit) async {
       emit(TrainingLoading());
-      final eitherResponse = await getCompanyTrainings(Params(id: event.companyId));
+      final eitherResponse =
+          await getCompanyTrainings(Params(id: event.companyId));
       emit(eitherResponse.fold(
-              (failure) => TrainingFailed(errorMessage: 'errorMessage'),
-              (trainings) => TrainingLoaded(trainings: trainings)));
+          (failure) => TrainingFailed(errorMessage: 'errorMessage'),
+          (trainings) => TrainingLoaded(trainings: trainings)));
     });
 
     on<GetFavTrainingsEvent>((event, emit) async {
@@ -50,6 +57,14 @@ class TrainingBloc extends Bloc<TrainingEvent, TrainingState> {
     on<GetAppliedTrainingsEvent>((event, emit) async {
       emit(TrainingLoading());
       final eitherResponse = await getAppliedTrainings(NoParams());
+      emit(eitherResponse.fold(
+          (failure) => TrainingFailed(errorMessage: 'errorMessage'),
+          (trainings) => TrainingLoaded(trainings: trainings)));
+    });
+
+    on<GetSuggestTrainingsEvent>((event, emit) async {
+      emit(TrainingLoading());
+      final eitherResponse = await getSuggestTrainings(NoParams());
       emit(eitherResponse.fold(
               (failure) => TrainingFailed(errorMessage: 'errorMessage'),
               (trainings) => TrainingLoaded(trainings: trainings)));

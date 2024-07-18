@@ -22,6 +22,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:tieup/features/course/domain/entities/course.dart';
+import 'package:tieup/features/education/domain/entities/education.dart';
 import 'package:tieup/features/experience/domain/entities/experience.dart';
 import 'package:tieup/features/languages/domain/entities/language.dart';
 import 'package:tieup/features/portfolio/domain/entities/portfolio.dart';
@@ -38,18 +39,16 @@ Future<Uint8List> generateResume2(
 
 
   final fullName = userProfile.fullName;
+  final email = userProfile.email;
   final summary = userProfile.summary ?? '';
-  print(userProfile.cityName);
   final cityName = userProfile.cityName ?? '';
   final phone = userProfile.phone;
   final List<Skill> skills = userProfile.skills;
   final List<Language> languages = userProfile.languages;
-  final List<Portfolio> portfolios = [
-    Portfolio(type: 'Telegram', url: '@Ahmad_Hossi'),
-    Portfolio(type: 'Facebook', url: 'fb.com/ahmad.hessi.96'),
-  ];
-  final List<Experience> experience =[];//d userProfile.experiences;
+  final List<Portfolio> portfolios = userProfile.portfolios.sublist(0,2);
+  final List<Experience> experience = userProfile.experiences;
   final List<Course> courses = userProfile.courses;
+  final List<Education> educations = userProfile.educations;
 
   final profileImage = pw.MemoryImage(
     (await rootBundle.load('assets/images/profile_image.jpg'))
@@ -138,7 +137,7 @@ Future<Uint8List> generateResume2(
                             crossAxisAlignment: pw.CrossAxisAlignment.start,
                             children: [
                               pw.Text('Mail',style: pw.TextStyle(color: PdfColors.white,fontWeight: pw.FontWeight.bold)),
-                              pw.Text('Ahmad.hessi.96@gmail.com',style: pw.TextStyle(color: PdfColors.white),),
+                              pw.Text(email,style: pw.TextStyle(color: PdfColors.white),),
                             ])
                       ]),
                       pw.SizedBox(height: 10),
@@ -269,12 +268,19 @@ Future<Uint8List> generateResume2(
                         },
                         pw.SizedBox(height: 12),
                         _Category(title: 'Education'),
-                        _Block(
-                            title: 'Information Technology Engineering',
-                            description: 'Lorem ipsum dolor sit amet,'
-                                ' consectetur adipiscing elit. Praesent at viverra dui,'
-                                ' sed aliquet nisl. Nam eu imperdiet orci, vitae.',
-                            year: 'Aug - 2022'),
+                        for (var e in educations) ...{
+                          _Block(
+                              title: e.educationType,
+                              description: e.fieldOfStudy,
+                              year:
+                              '${e.startDate.substring(0, 4)} - ${e.endDate == null ? 'present' : e.endDate!.substring(0, 4)}'),
+                        },
+                        // _Block(
+                        //     title: 'Information Technology Engineering',
+                        //     description: 'Lorem ipsum dolor sit amet,'
+                        //         ' consectetur adipiscing elit. Praesent at viverra dui,'
+                        //         ' sed aliquet nisl. Nam eu imperdiet orci, vitae.',
+                        //     year: 'Aug - 2022'),
                         pw.SizedBox(height: 12),
                         _Category(title: 'CERTIFICATES'),
                         for (var e in courses) ...{
